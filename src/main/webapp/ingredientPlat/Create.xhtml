@@ -12,8 +12,7 @@
             <h:form id="IngredientPlatCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{ingredientPlatController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateIngredientPlatLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{ingredientPlatController.selected.id}" title="#{bundle.CreateIngredientPlatTitle_id}" />
+                      
                         <p:outputLabel value="#{bundle.CreateIngredientPlatLabel_prix}" for="prix" />
                         <p:inputText id="prix" value="#{ingredientPlatController.selected.prix}" title="#{bundle.CreateIngredientPlatTitle_prix}" />
                         <p:outputLabel value="#{bundle.CreateIngredientPlatLabel_plat}" for="plat" />

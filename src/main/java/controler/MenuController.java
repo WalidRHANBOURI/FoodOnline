@@ -140,20 +140,20 @@ public class MenuController implements Serializable {
             return key;
         }
 
-        String getStringKey(java.lang.String value) {
+        String getStringKey(java.lang.Long value) {
             StringBuilder sb = new StringBuilder();
             sb.append(value);
             return sb.toString();
         }
 
         @Override
-        public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
+         public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
             if (object == null) {
                 return null;
             }
             if (object instanceof Menu) {
                 Menu o = (Menu) object;
-                return getStringKey(o.getIdMenu());
+                return getStringKey(o.getId());
             } else {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Menu.class.getName()});
                 return null;

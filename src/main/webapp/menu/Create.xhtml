@@ -12,8 +12,7 @@
             <h:form id="MenuCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{menuController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateMenuLabel_idMenu}" for="idMenu" />
-                        <p:inputText id="idMenu" value="#{menuController.selected.idMenu}" title="#{bundle.CreateMenuTitle_idMenu}" />
+                      
                         <p:outputLabel value="#{bundle.CreateMenuLabel_restaurant}" for="restaurant" />
                         <p:selectOneMenu id="restaurant" value="#{menuController.selected.restaurant}" >
                             <f:selectItems value="#{restaurantController.itemsAvailableSelectOne}"

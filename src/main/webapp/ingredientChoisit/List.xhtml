@@ -39,12 +39,7 @@
                             </f:facet>
                             <h:outputText value="#{item.ingredientPlat}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListIngredientChoisitTitle_cmdItem}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.cmdItem}"/>
-                        </p:column>
+                  
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{ingredientChoisitController.prepareCreate}" update=":IngredientChoisitCreateForm" oncomplete="PF('IngredientChoisitCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":IngredientChoisitViewForm" oncomplete="PF('IngredientChoisitViewDialog').show()" disabled="#{empty ingredientChoisitController.selected}"/>

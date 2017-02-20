@@ -25,8 +25,6 @@ public class IngredientChoisit implements Serializable {
     private Long id;
     @ManyToOne
     private IngredientPlat ingredientPlat;
-    @ManyToOne
-    private CmdItem cmdItem;
 
     public Long getId() {
         return id;
@@ -49,14 +47,6 @@ public class IngredientChoisit implements Serializable {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
         return hash;
-    }
-
-    public CmdItem getCmdItem() {
-        return cmdItem;
-    }
-
-    public void setCmdItem(CmdItem cmdItem) {
-        this.cmdItem = cmdItem;
     }
 
     @Override

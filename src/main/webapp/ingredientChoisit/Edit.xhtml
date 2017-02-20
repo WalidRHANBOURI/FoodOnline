@@ -21,13 +21,7 @@
                                            var="ingredientPlatItem"
                                            itemValue="#{ingredientPlatItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditIngredientChoisitLabel_cmdItem}" for="cmdItem" />
-                        <p:selectOneMenu id="cmdItem" value="#{ingredientChoisitController.selected.cmdItem}" >
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{cmdItemController.itemsAvailableSelectOne}"
-                                           var="cmdItemItem"
-                                           itemValue="#{cmdItemItem}"/>
-                        </p:selectOneMenu>
+             
                     </p:panelGrid>
                     <p:commandButton actionListener="#{ingredientChoisitController.update}" value="#{bundle.Save}" update="display,:IngredientChoisitListForm:datalist,:growl" oncomplete="handleSubmit(args, 'IngredientChoisitEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="IngredientChoisitEditDialog.hide()"/>

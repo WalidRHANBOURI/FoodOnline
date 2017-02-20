@@ -19,7 +19,7 @@
                     <p:dataTable id="datalist" value="#{menuController.items}" var="item"
                                  selectionMode="single" selection="#{menuController.selected}"
                                  paginator="true"
-                                 rowKey="#{item.idMenu}"
+                                 rowKey="#{item.id}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
@@ -29,9 +29,9 @@
 
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMenuTitle_idMenu}"/>
+                                <h:outputText value="#{bundle.ListMenuTitle_id}"/>
                             </f:facet>
-                            <h:outputText value="#{item.idMenu}"/>
+                            <h:outputText value="#{item.id}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">

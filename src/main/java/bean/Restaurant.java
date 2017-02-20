@@ -22,21 +22,20 @@ public class Restaurant implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  
+    private String id;
     private String num;
     private String adresse;
     private int nbrEtoile;
     @ManyToOne
     private Quartier quartier;
-    @OneToOne(mappedBy = "restaurant")
-    private Menu menu;
+  
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -72,13 +71,9 @@ public class Restaurant implements Serializable {
         this.quartier = quartier;
     }
 
-    public Menu getMenu() {
-        return menu;
-    }
+  
 
-    public void setMenu(Menu menu) {
-        this.menu = menu;
-    }
+
 
     @Override
     public int hashCode() {

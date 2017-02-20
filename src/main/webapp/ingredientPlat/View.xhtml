@@ -12,8 +12,7 @@
             <h:form id="IngredientPlatViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{ingredientPlatController.selected != null}">
-                        <h:outputText value="#{bundle.ViewIngredientPlatLabel_id}"/>
-                        <h:outputText value="#{ingredientPlatController.selected.id}" title="#{bundle.ViewIngredientPlatTitle_id}"/>
+                    
                         <h:outputText value="#{bundle.ViewIngredientPlatLabel_prix}"/>
                         <h:outputText value="#{ingredientPlatController.selected.prix}" title="#{bundle.ViewIngredientPlatTitle_prix}"/>
                         <h:outputText value="#{bundle.ViewIngredientPlatLabel_plat}"/>

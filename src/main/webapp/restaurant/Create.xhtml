@@ -26,12 +26,7 @@
                                            var="quartierItem"
                                            itemValue="#{quartierItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateRestaurantLabel_menu}" for="menu" />
-                        <p:selectOneMenu id="menu" value="#{restaurantController.selected.menu}" >
-                            <f:selectItems value="#{menuController.itemsAvailableSelectOne}"
-                                           var="menuItem"
-                                           itemValue="#{menuItem}"/>
-                        </p:selectOneMenu>
+                  
                     </p:panelGrid>
                     <p:commandButton actionListener="#{restaurantController.create}" value="#{bundle.Save}" update="display,:RestaurantListForm:datalist,:growl" oncomplete="handleSubmit(args,'RestaurantCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="RestaurantCreateDialog.hide()"/>

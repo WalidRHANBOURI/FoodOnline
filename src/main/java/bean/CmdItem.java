@@ -27,7 +27,7 @@ public class CmdItem implements Serializable {
     private Long id;
     private int quantite;
     private Double prix;
-    @OneToMany(mappedBy = "cmdItem")
+    @OneToMany
     private List<IngredientChoisit> ingredientChoisits;
     @ManyToOne
     private Cmd cmd;

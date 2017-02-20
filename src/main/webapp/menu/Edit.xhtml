@@ -12,8 +12,8 @@
             <h:form id="MenuEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{menuController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditMenuLabel_idMenu}" for="idMenu" />
-                        <p:inputText id="idMenu" value="#{menuController.selected.idMenu}" title="#{bundle.EditMenuTitle_idMenu}" />
+                        <p:outputLabel value="#{bundle.EditMenuLabel_id}" for="idMenu" />
+                        <p:inputText id="idMenu" value="#{menuController.selected.id}" title="#{bundle.EditMenuTitle_id}" />
                         <p:outputLabel value="#{bundle.EditMenuLabel_restaurant}" for="restaurant" />
                         <p:selectOneMenu id="restaurant" value="#{menuController.selected.restaurant}" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>

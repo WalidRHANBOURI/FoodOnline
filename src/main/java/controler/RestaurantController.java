@@ -109,7 +109,7 @@ public class RestaurantController implements Serializable {
         }
     }
 
-    public Restaurant getRestaurant(java.lang.Long id) {
+    public Restaurant getRestaurant(java.lang.String id) {
         return getFacade().find(id);
     }
 
@@ -134,9 +134,9 @@ public class RestaurantController implements Serializable {
             return controller.getRestaurant(getKey(value));
         }
 
-        java.lang.Long getKey(String value) {
-            java.lang.Long key;
-            key = Long.valueOf(value);
+        java.lang.String getKey(String value) {
+            java.lang.String key;
+            key = value;
             return key;
         }
 
@@ -153,7 +153,7 @@ public class RestaurantController implements Serializable {
             }
             if (object instanceof Restaurant) {
                 Restaurant o = (Restaurant) object;
-                return getStringKey(o.getId());
+                return o.getId();
             } else {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Restaurant.class.getName()});
                 return null;
