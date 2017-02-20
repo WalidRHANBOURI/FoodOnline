@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RestaurantViewDlg" widgetVar="RestaurantViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewRestaurantTitle}">
+            <h:form id="RestaurantViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{restaurantController.selected != null}">
+                        <h:outputText value="#{bundle.ViewRestaurantLabel_id}"/>
+                        <h:outputText value="#{restaurantController.selected.id}" title="#{bundle.ViewRestaurantTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewRestaurantLabel_num}"/>
+                        <h:outputText value="#{restaurantController.selected.num}" title="#{bundle.ViewRestaurantTitle_num}"/>
+                        <h:outputText value="#{bundle.ViewRestaurantLabel_adresse}"/>
+                        <h:outputText value="#{restaurantController.selected.adresse}" title="#{bundle.ViewRestaurantTitle_adresse}"/>
+                        <h:outputText value="#{bundle.ViewRestaurantLabel_nbrEtoile}"/>
+                        <h:outputText value="#{restaurantController.selected.nbrEtoile}" title="#{bundle.ViewRestaurantTitle_nbrEtoile}"/>
+                        <h:outputText value="#{bundle.ViewRestaurantLabel_quartier}"/>
+                        <h:outputText value="#{restaurantController.selected.quartier}" title="#{bundle.ViewRestaurantTitle_quartier}"/>
+                        <h:outputText value="#{bundle.ViewRestaurantLabel_menu}"/>
+                        <h:outputText value="#{restaurantController.selected.menu}" title="#{bundle.ViewRestaurantTitle_menu}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="RestaurantViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RestaurantCreateDlg" widgetVar="RestaurantCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateRestaurantTitle}">
+            <h:form id="RestaurantCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{restaurantController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateRestaurantLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{restaurantController.selected.id}" title="#{bundle.CreateRestaurantTitle_id}" />
+                        <p:outputLabel value="#{bundle.CreateRestaurantLabel_num}" for="num" />
+                        <p:inputText id="num" value="#{restaurantController.selected.num}" title="#{bundle.CreateRestaurantTitle_num}" />
+                        <p:outputLabel value="#{bundle.CreateRestaurantLabel_adresse}" for="adresse" />
+                        <p:inputText id="adresse" value="#{restaurantController.selected.adresse}" title="#{bundle.CreateRestaurantTitle_adresse}" />
+                        <p:outputLabel value="#{bundle.CreateRestaurantLabel_nbrEtoile}" for="nbrEtoile" />
+                        <p:inputText id="nbrEtoile" value="#{restaurantController.selected.nbrEtoile}" title="#{bundle.CreateRestaurantTitle_nbrEtoile}" />
+                        <p:outputLabel value="#{bundle.CreateRestaurantLabel_quartier}" for="quartier" />
+                        <p:selectOneMenu id="quartier" value="#{restaurantController.selected.quartier}" >
+                            <f:selectItems value="#{quartierController.itemsAvailableSelectOne}"
+                                           var="quartierItem"
+                                           itemValue="#{quartierItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateRestaurantLabel_menu}" for="menu" />
+                        <p:selectOneMenu id="menu" value="#{restaurantController.selected.menu}" >
+                            <f:selectItems value="#{menuController.itemsAvailableSelectOne}"
+                                           var="menuItem"
+                                           itemValue="#{menuItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{restaurantController.create}" value="#{bundle.Save}" update="display,:RestaurantListForm:datalist,:growl" oncomplete="handleSubmit(args,'RestaurantCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="RestaurantCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

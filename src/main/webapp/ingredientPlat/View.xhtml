@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="IngredientPlatViewDlg" widgetVar="IngredientPlatViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewIngredientPlatTitle}">
+            <h:form id="IngredientPlatViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{ingredientPlatController.selected != null}">
+                        <h:outputText value="#{bundle.ViewIngredientPlatLabel_id}"/>
+                        <h:outputText value="#{ingredientPlatController.selected.id}" title="#{bundle.ViewIngredientPlatTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewIngredientPlatLabel_prix}"/>
+                        <h:outputText value="#{ingredientPlatController.selected.prix}" title="#{bundle.ViewIngredientPlatTitle_prix}"/>
+                        <h:outputText value="#{bundle.ViewIngredientPlatLabel_plat}"/>
+                        <h:outputText value="#{ingredientPlatController.selected.plat}" title="#{bundle.ViewIngredientPlatTitle_plat}"/>
+                        <h:outputText value="#{bundle.ViewIngredientPlatLabel_ingredient}"/>
+                        <h:outputText value="#{ingredientPlatController.selected.ingredient}" title="#{bundle.ViewIngredientPlatTitle_ingredient}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="IngredientPlatViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

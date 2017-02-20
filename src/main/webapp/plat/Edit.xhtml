@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PlatEditDlg" widgetVar="PlatEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPlatTitle}">
+            <h:form id="PlatEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{platController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditPlatLabel_idPlat}" for="idPlat" />
+                        <p:inputText id="idPlat" value="#{platController.selected.idPlat}" title="#{bundle.EditPlatTitle_idPlat}" />
+                        <p:outputLabel value="#{bundle.EditPlatLabel_type}" for="type" />
+                        <p:inputText id="type" value="#{platController.selected.type}" title="#{bundle.EditPlatTitle_type}" />
+                        <p:outputLabel value="#{bundle.EditPlatLabel_prix}" for="prix" />
+                        <p:inputText id="prix" value="#{platController.selected.prix}" title="#{bundle.EditPlatTitle_prix}" />
+                        <p:outputLabel value="#{bundle.EditPlatLabel_cuisine}" for="cuisine" />
+                        <p:selectOneMenu id="cuisine" value="#{platController.selected.cuisine}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{cuisineController.itemsAvailableSelectOne}"
+                                           var="cuisineItem"
+                                           itemValue="#{cuisineItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{platController.update}" value="#{bundle.Save}" update="display,:PlatListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PlatEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PlatEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

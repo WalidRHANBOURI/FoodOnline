@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="IngredientChoisitEditDlg" widgetVar="IngredientChoisitEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditIngredientChoisitTitle}">
+            <h:form id="IngredientChoisitEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{ingredientChoisitController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditIngredientChoisitLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{ingredientChoisitController.selected.id}" title="#{bundle.EditIngredientChoisitTitle_id}" />
+                        <p:outputLabel value="#{bundle.EditIngredientChoisitLabel_ingredientPlat}" for="ingredientPlat" />
+                        <p:selectOneMenu id="ingredientPlat" value="#{ingredientChoisitController.selected.ingredientPlat}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{ingredientPlatController.itemsAvailableSelectOne}"
+                                           var="ingredientPlatItem"
+                                           itemValue="#{ingredientPlatItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditIngredientChoisitLabel_cmdItem}" for="cmdItem" />
+                        <p:selectOneMenu id="cmdItem" value="#{ingredientChoisitController.selected.cmdItem}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{cmdItemController.itemsAvailableSelectOne}"
+                                           var="cmdItemItem"
+                                           itemValue="#{cmdItemItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ingredientChoisitController.update}" value="#{bundle.Save}" update="display,:IngredientChoisitListForm:datalist,:growl" oncomplete="handleSubmit(args, 'IngredientChoisitEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="IngredientChoisitEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
