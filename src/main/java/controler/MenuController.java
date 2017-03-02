@@ -1,5 +1,6 @@
 package controler;
 
+import bean.Cuisine;
 import bean.Menu;
 import controler.util.JsfUtil;
 import controler.util.JsfUtil.PersistAction;
@@ -25,12 +26,48 @@ public class MenuController implements Serializable {
 
     @EJB
     private service.MenuFacade ejbFacade;
+    
     private List<Menu> items = null;
     private Menu selected;
-
+    private List<Cuisine> cuisines;
+    private Cuisine cuisine;
+    
+    
+//      public void findByCuisine(){
+//        System.out.println(cuisine);
+//       items =  ejbFacade.findRestauByCuisine(cuisine);
+//    } 
+    public void createCuisineMenu(){
+        ejbFacade.remplirListCuisine(selected, cuisines);
+    }
     public MenuController() {
     }
 
+    public Cuisine getCuisine() {
+        return cuisine;
+    }
+
+    public void setCuisine(Cuisine cuisine) {
+        this.cuisine = cuisine;
+    }
+    
+
+    public MenuFacade getEjbFacade() {
+        return ejbFacade;
+    }
+
+    public void setEjbFacade(MenuFacade ejbFacade) {
+        this.ejbFacade = ejbFacade;
+    }
+
+    public List<Cuisine> getCuisines() {
+        return cuisines;
+    }
+
+    public void setCuisines(List<Cuisine> cuisines) {
+        this.cuisines = cuisines;
+    }
+    
     public Menu getSelected() {
         return selected;
     }

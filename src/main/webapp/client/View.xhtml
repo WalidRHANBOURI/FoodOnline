@@ -12,8 +12,7 @@
             <h:form id="ClientViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{clientController.selected != null}">
-                        <h:outputText value="#{bundle.ViewClientLabel_idClient}"/>
-                        <h:outputText value="#{clientController.selected.idClient}" title="#{bundle.ViewClientTitle_idClient}"/>
+                  
                         <h:outputText value="#{bundle.ViewClientLabel_email}"/>
                         <h:outputText value="#{clientController.selected.email}" title="#{bundle.ViewClientTitle_email}"/>
                         <h:outputText value="#{bundle.ViewClientLabel_motDePasse}"/>

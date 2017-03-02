@@ -13,7 +13,7 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{quartierController.selected != null}">
                         <h:outputText value="#{bundle.ViewQuartierLabel_idQuartier}"/>
-                        <h:outputText value="#{quartierController.selected.idQuartier}" title="#{bundle.ViewQuartierTitle_idQuartier}"/>
+                        <h:outputText value="#{quartierController.selected.id}" title="#{bundle.ViewQuartierTitle_idQuartier}"/>
                         <h:outputText value="#{bundle.ViewQuartierLabel_ville}"/>
                         <h:outputText value="#{quartierController.selected.ville}" title="#{bundle.ViewQuartierTitle_ville}"/>
                     </p:panelGrid>

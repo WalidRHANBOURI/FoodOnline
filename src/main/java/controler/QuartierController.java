@@ -27,11 +27,15 @@ public class QuartierController implements Serializable {
     private service.QuartierFacade ejbFacade;
     private List<Quartier> items = null;
     private Quartier selected;
-
+    
+  
     public QuartierController() {
     }
 
     public Quartier getSelected() {
+        if(selected==null){
+            selected=new Quartier();
+        }
         return selected;
     }
 
@@ -121,7 +125,7 @@ public class QuartierController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Quartier.class)
+    @FacesConverter("quartierControllerConverter")
     public static class QuartierControllerConverter implements Converter {
 
         @Override
@@ -153,7 +157,7 @@ public class QuartierController implements Serializable {
             }
             if (object instanceof Quartier) {
                 Quartier o = (Quartier) object;
-                return getStringKey(o.getIdQuartier());
+                return getStringKey(o.getId());
             } else {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Quartier.class.getName()});
                 return null;

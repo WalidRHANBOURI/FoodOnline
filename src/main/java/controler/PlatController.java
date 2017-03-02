@@ -153,7 +153,7 @@ public class PlatController implements Serializable {
             }
             if (object instanceof Plat) {
                 Plat o = (Plat) object;
-                return getStringKey(o.getIdPlat());
+                return getStringKey(o.getId());
             } else {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Plat.class.getName()});
                 return null;

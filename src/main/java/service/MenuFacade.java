@@ -5,7 +5,10 @@
  */
 package service;
 
+import bean.Cuisine;
 import bean.Menu;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -24,9 +27,17 @@ public class MenuFacade extends AbstractFacade<Menu> {
     protected EntityManager getEntityManager() {
         return em;
     }
-
+    public void remplirListCuisine(Menu menu,List<Cuisine> cuisines){
+        System.out.println(cuisines);
+        for (Cuisine cuisine : cuisines) {
+          menu.getCuisines().add(cuisine);
+            System.out.println(menu.getCuisines());
+        }
+        edit(menu);
+    }
     public MenuFacade() {
         super(Menu.class);
     }
+
     
 }

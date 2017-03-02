@@ -14,6 +14,8 @@
         </ui:define>
 
         <ui:define name="body">
+
+          
             <h:form id="RestaurantListForm">
                 <p:panel header="#{bundle.ListRestaurantTitle}">
                     <p:dataTable id="datalist" value="#{restaurantController.items}" var="item"
@@ -57,7 +59,7 @@
                             </f:facet>
                             <h:outputText value="#{item.quartier}"/>
                         </p:column>
-                 
+
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{restaurantController.prepareCreate}" update=":RestaurantCreateForm" oncomplete="PF('RestaurantCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":RestaurantViewForm" oncomplete="PF('RestaurantViewDialog').show()" disabled="#{empty restaurantController.selected}"/>

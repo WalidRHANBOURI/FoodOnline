@@ -25,7 +25,19 @@ public class IngredientChoisit implements Serializable {
     private Long id;
     @ManyToOne
     private IngredientPlat ingredientPlat;
+    @ManyToOne
+    private CmdItem cmdItem;
 
+    public CmdItem getCmdItem() {
+        return cmdItem;
+    }
+
+    public void setCmdItem(CmdItem cmdItem) {
+        this.cmdItem = cmdItem;
+    }
+
+    
+    
     public Long getId() {
         return id;
     }

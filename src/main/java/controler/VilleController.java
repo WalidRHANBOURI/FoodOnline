@@ -1,5 +1,6 @@
 package controler;
 
+
 import bean.Ville;
 import controler.util.JsfUtil;
 import controler.util.JsfUtil.PersistAction;
@@ -18,6 +19,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import service.QuartierFacade;
 
 @Named("villeController")
 @SessionScoped
@@ -27,11 +29,42 @@ public class VilleController implements Serializable {
     private service.VilleFacade ejbFacade;
     private List<Ville> items = null;
     private Ville selected;
+    @EJB
+    private service.QuartierFacade quartierFacade;
+  
+    
+    public void findByVille(){
+        selected.setQuartiers(quartierFacade.findQuartierByVille(selected));
+        System.out.println(selected);
+    }
 
+  
+
+    
+    public VilleFacade getEjbFacade() {
+        return ejbFacade;
+    }
+
+    public void setEjbFacade(VilleFacade ejbFacade) {
+        this.ejbFacade = ejbFacade;
+    }
+
+    public QuartierFacade getQuartierFacade() {
+        return quartierFacade;
+    }
+
+    public void setQuartierFacade(QuartierFacade quartierFacade) {
+        this.quartierFacade = quartierFacade;
+    }
+    
+    
     public VilleController() {
     }
 
     public Ville getSelected() {
+        if(selected==null){
+            selected =new Ville();
+        }
         return selected;
     }
 
@@ -153,7 +186,7 @@ public class VilleController implements Serializable {
             }
             if (object instanceof Ville) {
                 Ville o = (Ville) object;
-                return getStringKey(o.getIdVille());
+                return getStringKey(o.getId());
             } else {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Ville.class.getName()});
                 return null;

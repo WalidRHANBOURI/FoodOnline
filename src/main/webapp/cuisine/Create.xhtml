@@ -13,7 +13,7 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{cuisineController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateCuisineLabel_idCuisine}" for="idCuisine" />
-                        <p:inputText id="idCuisine" value="#{cuisineController.selected.idCuisine}" title="#{bundle.CreateCuisineTitle_idCuisine}" />
+                        <p:inputText id="idCuisine" value="#{cuisineController.selected.id}" title="#{bundle.CreateCuisineTitle_idCuisine}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{cuisineController.create}" value="#{bundle.Save}" update="display,:CuisineListForm:datalist,:growl" oncomplete="handleSubmit(args,'CuisineCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="CuisineCreateDialog.hide()"/>

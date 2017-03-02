@@ -12,8 +12,7 @@
             <h:form id="ClientCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{clientController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateClientLabel_idClient}" for="idClient" />
-                        <p:inputText id="idClient" value="#{clientController.selected.idClient}" title="#{bundle.CreateClientTitle_idClient}" />
+                        
                         <p:outputLabel value="#{bundle.CreateClientLabel_email}" for="email" />
                         <p:inputText id="email" value="#{clientController.selected.email}" title="#{bundle.CreateClientTitle_email}" />
                         <p:outputLabel value="#{bundle.CreateClientLabel_motDePasse}" for="motDePasse" />

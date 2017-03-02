@@ -8,8 +8,6 @@ package bean;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
@@ -22,22 +20,12 @@ public class Client implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String idClient;
     private String email;
     private String motDePasse;
     private String adresse;
     private String numTelephone;
     @OneToMany(mappedBy = "client")
     private List<Cmd> cmds;
-
-    public String getIdClient() {
-        return idClient;
-    }
-
-    public void setIdClient(String idClient) {
-        this.idClient = idClient;
-    }
 
     public String getEmail() {
         return email;
@@ -46,6 +34,7 @@ public class Client implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
+
 
     public String getMotDePasse() {
         return motDePasse;
@@ -82,18 +71,18 @@ public class Client implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idClient != null ? idClient.hashCode() : 0);
+        hash += (email != null ? email.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the idClient fields are not set
+        // TODO: Warning - this method won't work in the case the email fields are not set
         if (!(object instanceof Client)) {
             return false;
         }
         Client other = (Client) object;
-        if ((this.idClient == null && other.idClient != null) || (this.idClient != null && !this.idClient.equals(other.idClient))) {
+        if ((this.email == null && other.email != null) || (this.email != null && !this.email.equals(other.email))) {
             return false;
         }
         return true;
@@ -101,7 +90,7 @@ public class Client implements Serializable {
 
     @Override
     public String toString() {
-        return "bean.Client[ id=" + idClient + " ]";
+        return "bean.Client[ id=" + email + " ]";
     }
 
 }

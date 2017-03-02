@@ -20,43 +20,47 @@ import javax.persistence.OneToMany;
 @Entity
 public class Ville implements Serializable {
 
+    
+
     private static final long serialVersionUID = 1L;
     @Id
-    private String idVille;
-    @OneToMany
-    private List<Quartier> quartier;
+    private String id;
+    @OneToMany(mappedBy = "ville")
+    private List<Quartier> quartiers;
 
-    public String getIdVille() {
-        return idVille;
+    public String getId() {
+        return id;
     }
 
-    public void setIdVille(String idVille) {
-        this.idVille = idVille;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public List<Quartier> getQuartier() {
-        return quartier;
+    public List<Quartier> getQuartiers() {
+        return quartiers;
     }
 
-    public void setQuartier(List<Quartier> quartier) {
-        this.quartier = quartier;
+    public void setQuartiers(List<Quartier> quartiers) {
+        this.quartiers = quartiers;
     }
+
+    
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idVille != null ? idVille.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the idVille fields are not set
+        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Ville)) {
             return false;
         }
         Ville other = (Ville) object;
-        if ((this.idVille == null && other.idVille != null) || (this.idVille != null && !this.idVille.equals(other.idVille))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -64,7 +68,7 @@ public class Ville implements Serializable {
 
     @Override
     public String toString() {
-        return "bean.Ville[ id=" + idVille + " ]";
+        return  id ;
     }
 
 }

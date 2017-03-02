@@ -13,7 +13,7 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{villeController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateVilleLabel_idVille}" for="idVille" />
-                        <p:inputText id="idVille" value="#{villeController.selected.idVille}" title="#{bundle.CreateVilleTitle_idVille}" />
+                        <p:inputText id="idVille" value="#{villeController.selected.id}" title="#{bundle.CreateVilleTitle_idVille}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{villeController.create}" value="#{bundle.Save}" update="display,:VilleListForm:datalist,:growl" oncomplete="handleSubmit(args,'VilleCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="VilleCreateDialog.hide()"/>

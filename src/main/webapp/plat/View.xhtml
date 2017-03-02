@@ -13,7 +13,7 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{platController.selected != null}">
                         <h:outputText value="#{bundle.ViewPlatLabel_idPlat}"/>
-                        <h:outputText value="#{platController.selected.idPlat}" title="#{bundle.ViewPlatTitle_idPlat}"/>
+                        <h:outputText value="#{platController.selected.id}" title="#{bundle.ViewPlatTitle_idPlat}"/>
                         <h:outputText value="#{bundle.ViewPlatLabel_type}"/>
                         <h:outputText value="#{platController.selected.type}" title="#{bundle.ViewPlatTitle_type}"/>
                         <h:outputText value="#{bundle.ViewPlatLabel_prix}"/>

@@ -1,0 +1,160 @@
+/* Custom Stylesheet */
+
+body,html {
+  height: 100%;
+  margin: 0;
+  font : 400 15px/1.8 "lato", sans-serif;
+  color: #777;
+}
+ /* GetStarted Button */
+ .btn {
+  color: #fff;
+  background-color: transparent;
+  border-color: #fff;
+  margin-left: 20px;
+  border-radius: 7px;
+  font-size: 18px;
+ }
+.btn:hover {
+  color: #f7cfac;
+  background-color: transparent;
+  border-color: #fff;
+  margin-left: 20px;
+  border-radius: 7px;
+  font-size: 18px;
+}
+
+ #outil > h5 {
+   font: 25px "monotype corsiva", sans-serif;
+   margin-top: -10px;
+   text-align: center;
+   color: #808080;
+ }
+ #outil > h2 {
+   margin-top: 40px;
+   font: 45px "monotype corsiva", sans-serif;
+   text-align: center;
+   color: #0F0F0F;
+ }
+
+/* Images My Abilities */
+.img1 {
+   width: 100px;
+   height: 100px;
+   margin-left: 8px;
+   margin-top: 25px;
+ }
+
+.img2 {
+   width: 100px;
+   height: 100px;
+   margin-left: 8px;
+   margin-top: 45px;
+ }
+ #bottom {
+   height: 50px;
+ }
+
+ #pics > #Code, #Porto {
+   display: inline-block;
+   float: left;
+   width: 50%;
+   color: #fff;
+ }
+ #pics > #Code {
+   background: url('../images/Code.jpg') ;
+   background-size: cover;
+   background-position: center bottom;
+   height: 450px;
+ }
+ #pics > #Porto {
+   background: url('../images/Portfolio.jpg');
+   background-size: cover;
+   background-position: center bottom;
+   height: 450px;
+ }
+
+ #pics .over {
+   height: 100%;
+   width: 100%;
+   background: rgba(0,0,0,0.5);
+   align-items: center;
+   text-align: center;
+ }
+ .over > h2 {
+   color: #fff;
+   padding-top: 60px;
+ }
+ .bt{
+   margin-top: 60px;
+   color: #fff;
+   background-color: #20E9D2;
+   border-color: #20E9D2;
+   border-radius: 9px;
+   font-size: 22px;
+ }
+ .bt:hover {
+   margin-top: 60px;
+   color: #f7cfac;
+   background-color: #20E9D2;
+   border-color: #20E9D2;
+   border-radius: 9px;
+   font-size: 22px;
+ }
+
+.space1, .space2, .space3{
+  position: relative;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+}
+
+.space1 {
+    background-image: url("../images/8.jpg");
+    min-height: 100%
+}
+
+.space2 {
+  background-image: url("../images/2.jpg");
+  min-height: 400px;
+}
+
+.space3 {
+  background-image: url("../images/3.jpeg");
+  min-height: 400px;
+}
+
+.caption {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  text-align: center;
+  color: #000;
+}
+.caption span.style {
+  background-color: #111;
+  color: #fff;
+  padding: 18px;
+  font-size: 25px;
+  letter-spacing: 10px;
+  border-radius: 8px;
+}
+
+h3 {
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  font: 20px "Lato", sans-serif;
+  color: #111;
+}
+.text-center {
+  text-align: center;
+  font-family:"monotype corsiva", serif;
+  color: #0F0F0F;
+}
+@media only screen and (max-device-width: 1024px) {
+    .space1, .spcae2, .space3 {
+        background-attachment: scroll;
+    }
+}
+

@@ -6,6 +6,7 @@
 package service;
 
 import bean.Cuisine;
+import bean.Restaurant;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -24,7 +25,9 @@ public class CuisineFacade extends AbstractFacade<Cuisine> {
     protected EntityManager getEntityManager() {
         return em;
     }
-
+    public void findCuisineByRestaurant(Restaurant restaurant){
+        em.createQuery("select csn from Cuisine csn where csn.menus.restaurant.id='"+restaurant.getId()+"'").getResultList();
+    }
     public CuisineFacade() {
         super(Cuisine.class);
     }

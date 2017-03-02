@@ -12,8 +12,7 @@
             <h:form id="ClientEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{clientController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditClientLabel_idClient}" for="idClient" />
-                        <p:inputText id="idClient" value="#{clientController.selected.idClient}" title="#{bundle.EditClientTitle_idClient}" />
+                        
                         <p:outputLabel value="#{bundle.EditClientLabel_email}" for="email" />
                         <p:inputText id="email" value="#{clientController.selected.email}" title="#{bundle.EditClientTitle_email}" />
                         <p:outputLabel value="#{bundle.EditClientLabel_motDePasse}" for="motDePasse" />

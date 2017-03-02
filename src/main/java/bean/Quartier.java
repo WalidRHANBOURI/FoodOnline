@@ -19,31 +19,38 @@ import javax.persistence.OneToMany;
 @Entity
 public class Quartier implements Serializable {
 
+  
+
     private static final long serialVersionUID = 1L;
     @Id
-    private String idQuartier;
+    private String id;
     @ManyToOne
     private Ville ville;
-    @OneToMany
-    private List<Restaurant> restaurant;
+      @OneToMany(mappedBy = "quartier")
+    private List<Restaurant> restaurants;
 
-    public String getIdQuartier() {
-        return idQuartier;
+    public String getId() {
+        return id;
     }
 
-    public void setIdQuartier(String idQuartier) {
-        this.idQuartier = idQuartier;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public List<Restaurant> getRestaurant() {
-        return restaurant;
+    public List<Restaurant> getRestaurants() {
+        return restaurants;
     }
 
-    public void setRestaurant(List<Restaurant> restaurant) {
-        this.restaurant = restaurant;
+    public void setRestaurants(List<Restaurant> restaurants) {
+        this.restaurants = restaurants;
     }
+
+    
 
     public Ville getVille() {
+        if(ville == null){
+            ville = new Ville();
+        }
         return ville;
     }
 
@@ -54,18 +61,18 @@ public class Quartier implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idQuartier != null ? idQuartier.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the idQuartier fields are not set
+        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Quartier)) {
             return false;
         }
         Quartier other = (Quartier) object;
-        if ((this.idQuartier == null && other.idQuartier != null) || (this.idQuartier != null && !this.idQuartier.equals(other.idQuartier))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -73,7 +80,7 @@ public class Quartier implements Serializable {
 
     @Override
     public String toString() {
-        return "bean.Quartier[ id=" + idQuartier + " ]";
+        return  id ;
     }
 
 }

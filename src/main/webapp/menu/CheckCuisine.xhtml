@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+         <ui:composition>
+
+        <p:dialog id="CheckCuisines" widgetVar="CheckCuisinesDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateMenuTitle}">
+            <h:form id="CheckCuisineForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="4" rendered="#{menuController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateMenuLabel_idMenu}" for="idMenu" />
+                        <p:inputText id="idMenu" value="#{menuController.selected.id}" title="#{bundle.CreateMenuTitle_idMenu}" />
+                      
+                        <p:selectManyCheckbox id="listCuisine" value="#{menuController.cuisines}" converter="cuisineControllerConverter">
+                            <f:selectItems value="#{cuisineController.itemsAvailableSelectMany}"  var="cusineItem" 
+                                            itemValue="#{cuisineItem}"/>                           
+                        </p:selectManyCheckbox>
+
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{menuController.createCuisineMenu()}" value="#{bundle.Save}" update="display,:MenuListForm:datalist,:growl" />
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MenuCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+    </h:body>
+</html>
+

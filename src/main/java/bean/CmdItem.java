@@ -21,14 +21,18 @@ import javax.persistence.OneToMany;
 @Entity
 public class CmdItem implements Serializable {
 
+  
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private int quantite;
     private Double prix;
-    @OneToMany
+    
+      @OneToMany(mappedBy = "cmdItem")
     private List<IngredientChoisit> ingredientChoisits;
+    
     @ManyToOne
     private Cmd cmd;
 

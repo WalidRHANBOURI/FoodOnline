@@ -19,7 +19,7 @@
                     <p:dataTable id="datalist" value="#{villeController.items}" var="item"
                                  selectionMode="single" selection="#{villeController.selected}"
                                  paginator="true"
-                                 rowKey="#{item.idVille}"
+                                 rowKey="#{item.id}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
@@ -31,7 +31,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListVilleTitle_idVille}"/>
                             </f:facet>
-                            <h:outputText value="#{item.idVille}"/>
+                            <h:outputText value="#{item.id}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{villeController.prepareCreate}" update=":VilleCreateForm" oncomplete="PF('VilleCreateDialog').show()"/>

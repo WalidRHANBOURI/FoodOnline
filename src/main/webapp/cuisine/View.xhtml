@@ -13,7 +13,7 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{cuisineController.selected != null}">
                         <h:outputText value="#{bundle.ViewCuisineLabel_idCuisine}"/>
-                        <h:outputText value="#{cuisineController.selected.idCuisine}" title="#{bundle.ViewCuisineTitle_idCuisine}"/>
+                        <h:outputText value="#{cuisineController.selected.id}" title="#{bundle.ViewCuisineTitle_idCuisine}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="CuisineViewDialog.hide()"/>
                 </h:panelGroup>

@@ -13,7 +13,7 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{quartierController.selected != null}">
                         <p:outputLabel value="#{bundle.EditQuartierLabel_idQuartier}" for="idQuartier" />
-                        <p:inputText id="idQuartier" value="#{quartierController.selected.idQuartier}" title="#{bundle.EditQuartierTitle_idQuartier}" />
+                        <p:inputText id="idQuartier" value="#{quartierController.selected.id}" title="#{bundle.EditQuartierTitle_idQuartier}" />
                         <p:outputLabel value="#{bundle.EditQuartierLabel_ville}" for="ville" />
                         <p:selectOneMenu id="ville" value="#{quartierController.selected.ville}" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>

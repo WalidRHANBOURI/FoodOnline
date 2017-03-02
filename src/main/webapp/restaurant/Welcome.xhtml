@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <style>
+            #formdiv {
+                position:absolute;
+                top: 10%;
+                left: 30%;
+                width:30em;
+                height:18em;
+            }
+        </style>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    </h:head>
+    <h:body>
+        <h:form id="formdiv">
+            <p:panelGrid columns="2" >
+                <p:outputLabel value="Select villes" for="villes" />
+
+                <p:selectOneMenu  id="villes" value="#{villeController.selected}" required="true" style="width: 150px;" >               
+                    <f:selectItem itemLabel="--SELECT--" itemValue="#{null}"/>
+                    <f:selectItems value="#{villeController.items}" />
+                    <p:ajax process="villes" listener="#{villeController.findByVille}" update="quartier"/>
+                </p:selectOneMenu>
+
+                <p:outputLabel value="Select quartiers" for="quartier" />
+                <p:selectOneMenu  id="quartier" value="#{restaurantController.quartier}" style="width: 150px;" converter="quartierControllerConverter">
+                <f:selectItem itemLabel="--SELECT--" itemValue="#{null}"/>
+                <f:selectItems value="#{villeController.selected.quartiers}" var="quartierItem" itemValue="#{quartierItem}"/>
+                </p:selectOneMenu>
+                
+                <p:outputLabel value="Select cuisine" for="cuisines" />
+                <p:selectOneMenu  id="cuisines" value="#{restaurantController.cuisine}" converter="cuisineControllerConverter"  style="width: 150px;">
+                <f:selectItem itemLabel="--SELECT--" itemValue="#{null}"/>
+                <f:selectItems value="#{cuisineController.items}" var="cuisineItem" itemValue="#{cuisineItem}" />
+                </p:selectOneMenu>
+                
+                <p:commandButton actionListener="#{restaurantController.search()}" action="List.xhtml" value="find restaurants"  />
+            </p:panelGrid>
+        </h:form>
+    </h:body>
+</html>

@@ -21,7 +21,7 @@ public class Plat implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    private String idPlat;
+    private String id;
     private String type;
     private Double prix;
     @ManyToOne
@@ -29,12 +29,12 @@ public class Plat implements Serializable {
     @OneToMany(mappedBy = "plat")
     private List<IngredientPlat> ingredientPlats;
 
-    public String getIdPlat() {
-        return idPlat;
+    public String getId() {
+        return id;
     }
 
-    public void setIdPlat(String idPlat) {
-        this.idPlat = idPlat;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getType() {
@@ -72,18 +72,18 @@ public class Plat implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idPlat != null ? idPlat.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the idPlat fields are not set
+        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Plat)) {
             return false;
         }
         Plat other = (Plat) object;
-        if ((this.idPlat == null && other.idPlat != null) || (this.idPlat != null && !this.idPlat.equals(other.idPlat))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -91,7 +91,7 @@ public class Plat implements Serializable {
 
     @Override
     public String toString() {
-        return "bean.Plat[ id=" + idPlat + " ]";
+        return "bean.Plat[ id=" + id + " ]";
     }
 
 }

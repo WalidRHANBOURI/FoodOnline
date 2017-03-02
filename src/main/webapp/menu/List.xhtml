@@ -39,6 +39,12 @@
                             </f:facet>
                             <h:outputText value="#{item.restaurant}"/>
                         </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="add Cuisine"/>
+                            </f:facet>
+                            <p:commandButton id="ajouterCuisine" icon="ui-icon-plus" update=":CheckCuisineForm" value="Ajouter Cuisine" oncomplete="PF('CheckCuisinesDialog').show()"/>
+                        </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{menuController.prepareCreate}" update=":MenuCreateForm" oncomplete="PF('MenuCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":MenuViewForm" oncomplete="PF('MenuViewDialog').show()" disabled="#{empty menuController.selected}"/>
@@ -48,7 +54,7 @@
                     </p:dataTable>
                 </p:panel>
             </h:form>
-
+            <ui:include src="CheckCuisine.xhtml"/>
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>

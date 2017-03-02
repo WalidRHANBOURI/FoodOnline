@@ -1,6 +1,9 @@
 package controler;
 
+import bean.Cuisine;
+import bean.Quartier;
 import bean.Restaurant;
+import bean.Ville;
 import controler.util.JsfUtil;
 import controler.util.JsfUtil.PersistAction;
 import service.RestaurantFacade;
@@ -27,7 +30,68 @@ public class RestaurantController implements Serializable {
     private service.RestaurantFacade ejbFacade;
     private List<Restaurant> items = null;
     private Restaurant selected;
+    private Ville ville;
+    private Quartier quartier;
+    private Cuisine cuisine;
+    
+    
 
+    public RestaurantFacade getEjbFacade() {
+        return ejbFacade;
+    }
+
+    public void setEjbFacade(RestaurantFacade ejbFacade) {
+        this.ejbFacade = ejbFacade;
+    }
+
+  
+
+    
+    public Ville getVille() {
+        if(ville == null){
+            ville = new Ville();
+        }
+        return ville;
+    }
+
+    public void setVille(Ville ville) {
+        this.ville = ville;
+    }
+
+    public Quartier getQuartier() {
+        if(quartier == null){
+            quartier = new Quartier();
+        }
+        return quartier;
+    }
+
+    public void setQuartier(Quartier quartier) {
+        this.quartier = quartier;
+    }
+
+    public Cuisine getCuisine() {
+        if(cuisine == null){
+            cuisine = new Cuisine();
+        }
+        return cuisine;
+    }
+
+    public void setCuisine(Cuisine cuisine) {
+        this.cuisine = cuisine;
+    }
+
+    public void findByQuartier(){
+         System.out.println(quartier);
+       items= ejbFacade.findRestauByQuartier(quartier);
+        System.out.println(items);
+    }
+    public void findRestauByCuisine(){
+        items=ejbFacade.findRestauByCuisine(cuisine);
+    }
+    public void search(){
+       items= ejbFacade.search(ville, quartier, cuisine);
+        System.out.println(items);
+    }
     public RestaurantController() {
     }
 
