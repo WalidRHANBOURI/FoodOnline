@@ -32,4 +32,14 @@ public class CuisineFacade extends AbstractFacade<Cuisine> {
         super(Cuisine.class);
     }
     
+    private void clone(Cuisine cuisineSource, Cuisine cuisineDestiantion){
+        cuisineDestiantion.setId(cuisineSource.getId());
+    }
+    
+    public Cuisine clone(Cuisine cuisine){
+        Cuisine cloned = new Cuisine();
+        clone(cuisine, cloned);
+        return cloned;
+    }
+    
 }

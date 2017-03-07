@@ -29,4 +29,15 @@ public class PlatFacade extends AbstractFacade<Plat> {
         super(Plat.class);
     }
     
+    private void clone(Plat platSource, Plat platDestination){
+        platDestination.setId(platSource.getId());
+        platDestination.setPrix(platSource.getPrix());
+        platDestination.setType(platSource.getType());
+    }
+
+    public Plat clone(Plat plat){
+        Plat cloned = new Plat();
+        clone(plat, cloned);
+        return cloned;
+    }
 }

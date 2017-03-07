@@ -1,6 +1,5 @@
 package controler;
 
-
 import bean.Ville;
 import controler.util.JsfUtil;
 import controler.util.JsfUtil.PersistAction;
@@ -31,16 +30,12 @@ public class VilleController implements Serializable {
     private Ville selected;
     @EJB
     private service.QuartierFacade quartierFacade;
-  
-    
-    public void findByVille(){
+
+    public void findByVille() {
         selected.setQuartiers(quartierFacade.findQuartierByVille(selected));
         System.out.println(selected);
     }
 
-  
-
-    
     public VilleFacade getEjbFacade() {
         return ejbFacade;
     }
@@ -56,14 +51,13 @@ public class VilleController implements Serializable {
     public void setQuartierFacade(QuartierFacade quartierFacade) {
         this.quartierFacade = quartierFacade;
     }
-    
-    
+
     public VilleController() {
     }
 
     public Ville getSelected() {
-        if(selected==null){
-            selected =new Ville();
+        if (selected == null) {
+            selected = new Ville();
         }
         return selected;
     }
@@ -91,7 +85,7 @@ public class VilleController implements Serializable {
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("VilleCreated"));
         if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
+            getItems().add(ejbFacade.clone(selected));   // Invalidate list of items to trigger re-query.
         }
     }
 
@@ -112,6 +106,10 @@ public class VilleController implements Serializable {
             items = getFacade().findAll();
         }
         return items;
+    }
+
+    public void setItems(List<Ville> items) {
+        this.items = items;
     }
 
     private void persist(PersistAction persistAction, String successMessage) {

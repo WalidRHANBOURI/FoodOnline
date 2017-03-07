@@ -6,42 +6,138 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
+             <!--Required meta tags always come first--> 
+        <meta charset="utf-8"></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"></meta>
+        <meta http-equiv="x-ua-compatible" content="ie=edge"></meta>
+            <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous"></link>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></link>    
+           <!-- Custom Stylesheet -->
+        <link rel="stylesheet" href="../resources/css/styleW.css"/>
         <style>
             #formdiv {
                 position:absolute;
-                top: 10%;
-                left: 30%;
-                width:30em;
-                height:18em;
+                top: 25%;
+                left: 18%;
+                width:40cm;
+                height:10cm;
             }
         </style>
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
     </h:head>
     <h:body>
+        
+        <div class="space1">  
+            
+                <ul class="nav1">
+                 <li>FoodOnline</li>
+                </ul>
+                <ul class="nav2">
+                 <li><a href="../Formulaire.xhtml">S'inscrire</a></li>
+                 <li><a href="../Connexion.xhtml"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a></li>
+                 <li><a href="#"><i class="fa fa-phone" aria-hidden="true"></i> +212 649784109</a></li>
+                 <li><a href="#"><img src="../resources/images/maroc.ico" width="24" height="24" alt="Mar"/> </a></li>
+                 <li><a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
+                </ul>
+            
         <h:form id="formdiv">
-            <p:panelGrid columns="2" >
-                <p:outputLabel value="Select villes" for="villes" />
-
-                <p:selectOneMenu  id="villes" value="#{villeController.selected}" required="true" style="width: 150px;" >               
-                    <f:selectItem itemLabel="--SELECT--" itemValue="#{null}"/>
-                    <f:selectItems value="#{villeController.items}" />
-                    <p:ajax process="villes" listener="#{villeController.findByVille}" update="quartier"/>
-                </p:selectOneMenu>
-
-                <p:outputLabel value="Select quartiers" for="quartier" />
-                <p:selectOneMenu  id="quartier" value="#{restaurantController.quartier}" style="width: 150px;" converter="quartierControllerConverter">
-                <f:selectItem itemLabel="--SELECT--" itemValue="#{null}"/>
-                <f:selectItems value="#{villeController.selected.quartiers}" var="quartierItem" itemValue="#{quartierItem}"/>
-                </p:selectOneMenu>
+            <h:panelGrid columns="8" style="margin-bottom:10px" cellpadding="5">
                 
-                <p:outputLabel value="Select cuisine" for="cuisines" />
-                <p:selectOneMenu  id="cuisines" value="#{restaurantController.cuisine}" converter="cuisineControllerConverter"  style="width: 150px;">
-                <f:selectItem itemLabel="--SELECT--" itemValue="#{null}"/>
+               <p:selectOneMenu id="villes" value="#{villeController.selected}" effect="fold" required="true" style="width: 200px;">
+                 <f:selectItem itemLabel="Select Your City" itemValue="#{null}" />
+                 <f:selectItems value="#{villeController.items}" />
+                 <p:ajax process="villes" listener="#{villeController.findByVille()}" update="quartier"/>
+               </p:selectOneMenu>
+                
+               <p:selectOneMenu  id="quartier" value="#{restaurantController.quartier}" effect="fold" required="true" style="width: 200px;" converter="quartierControllerConverter">
+                 <f:selectItem itemLabel="Select Your Area" itemValue="#{null}"/>
+                 <f:selectItems value="#{villeController.selected.quartiers}" var="quartierItem" itemValue="#{quartierItem}"/>
+               </p:selectOneMenu>
+                
+
+                <p:selectOneMenu  id="cuisines" value="#{restaurantController.cuisine}" effect="fold" converter="cuisineControllerConverter"  style="width: 200px;">
+                <f:selectItem itemLabel="Choose Cuisine" itemValue="#{null}"/>
                 <f:selectItems value="#{cuisineController.items}" var="cuisineItem" itemValue="#{cuisineItem}" />
                 </p:selectOneMenu>
                 
-                <p:commandButton actionListener="#{restaurantController.search()}" action="List.xhtml" value="find restaurants"  />
-            </p:panelGrid>
-        </h:form>
+                <p:commandButton class="btn btn-primary btn-sm active" actionListener="#{restaurantController.search()}" action="List.xhtml" value="Find Restaurants" update="formdiv" />
+            
+            </h:panelGrid>
+            
+        </h:form>  
+        </div>    
+        
+        <div id="middle" style=" color: #777; background-color:white; text-align:center; padding:50px 80px; text-align: justify;">
+      <h3 style="text-align:center;"> Parallax Demo </h3>
+       <p>Parallax scrolling is a web site trend where the background content is moved at a different speed than the foreground content while
+         scrolling. Nascetur per nec posuere turpis, lectus nec libero turpis nunc at, sed posuere mollis ullamcorper libero ante lectus,
+          blandit pellentesque a, magna turpis est sapien duis blandit dignissim. Viverra interdum mi magna mi, morbi sociis. Condimentum dui
+          ipsum consequat morbi, curabitur aliquam pede, nullam vitae eu placerat eget et vehicula. Varius quisque non molestie dolor, nunc
+          nisl dapibus vestibulum at, sodales tincidunt mauris ullamcorper, dapibus pulvinar, in in neque risus odio. Accumsan fringilla
+          vulputate at quibusdam sociis eleifend, aenean maecenas vulputate, non id vehicula lorem mattis, ratione interdum sociis ornare.
+           Suscipit proin magna cras vel, non sit platea sit, maecenas ante augue etiam maecenas, porta porttitor placerat leo.</p>
+    </div>
+
+        <div class="space2">
+     <div class="caption">
+      <span class="style" style="background-color:transparent; font-size:25px; color: #f7f7f7; ">LESS HEIGHT</span>
+     </div>
+   </div>
+        
+        <div style="position:relative;">
+   <div id="outil">
+      <h2>My Abilities</h2>
+      <h5>These are my current strongsuits.</h5>
+    </div>
+    </div>
+        
+        <div class="container">
+     <div class="row text-center">
+       <div class="col-sm-4">
+         <img class="img1" src="../resources/images/html.png"/>
+         <h2> HTML </h2>
+       </div>
+       <div class="col-sm-4">
+         <img class="img1" src="../resources/images/css.png"/>
+         <h2> CSS </h2>
+       </div>
+       <div class="col-sm-4">
+         <img class="img1" src="../resources/images/javascript.png"/>
+         <h2> JAVASCRIPT </h2>
+       </div>
+      </div>
+      <div class="row text-center">
+        <div class="col-md-4">
+          <img class="img2" src="../resources/images/php.png"/>
+          <h2> PHP </h2>
+        </div>
+        <div class="col-md-4">
+          <img class="img2" src="../resources/images/PS.jpg"/>
+          <h2> PHOTOSHOP  </h2>
+        </div>
+      </div>
+      </div>
+        
+        <div>
+    <div id="bottom"></div>
+   </div>
+        
+        <div id="pics">
+      <div id="Code">
+        <div class="over">
+         <h2> View Source <br/> Code </h2>
+         <h6> See my coding style by checking my HTML,CSS and Jquery for this site </h6>
+         <button class="bt" type="button">See Code</button>
+        </div>
+      </div>
+      <div id="Porto">
+        <div class="over">
+         <h2> See My <br/> Portfolio</h2>
+         <h6> Check out some  samples of work i have performed </h6>
+         <a href="#" target="_blank"><button class="bt" type="button" >Portfolio</button></a>
+        </div>
+      </div>
+   </div>
+        
     </h:body>
 </html>

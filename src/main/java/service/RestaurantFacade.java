@@ -55,59 +55,68 @@ public class RestaurantFacade extends AbstractFacade<Restaurant> {
         super(Restaurant.class);
     }
 
+    public List<Restaurant> findRestauByQuartier(Quartier quartier) {
+        String requette = "";
+        if (quartier != null) {
+            requette += "select resto from Restaurant resto where resto.quartier.id='" + quartier.getId() + "'";
+        }
+        return em.createQuery(requette).getResultList();
+    }
 
-     public List<Restaurant> findRestauByQuartier(Quartier quartier){
-         String requette ="";
-         if(quartier!=null){
-             requette += "select resto from Restaurant resto where resto.quartier.id='"+quartier.getId()+"'";
-         }
-         return em.createQuery(requette).getResultList();
-     }
     private List<Menu> findMenuByCuisine(Cuisine cuisine) {
         List<Menu> menus = new ArrayList<>();
         if (cuisine != null) {
-            String requette = "select mc.Menu_ID from menu_cuisine mc where mc.cuisines_ID ='"+cuisine.getId()+"'";
+            String requette = "select mc.Menu_ID from menu_cuisine mc where mc.cuisines_ID ='" + cuisine.getId() + "'";
             List<Long> listes = em.createNativeQuery(requette).getResultList();
             for (Long liste : listes) {
                 Menu menu = menuFacade.find(liste);
                 menus.add(menu);
-
             }
         }
 
         return menus;
     }
 
-    public List<Restaurant> findRestauByCuisine(Cuisine cuisine){
+    public List<Restaurant> findRestauByCuisine(Cuisine cuisine) {
         List<Menu> resMenus = findMenuByCuisine(cuisine);
         List<Restaurant> res = new ArrayList<>();
-       for (Menu resMenu : resMenus) {
+        for (Menu resMenu : resMenus) {
             res.add(resMenu.getRestaurant());
         }
-       return res;
+        return res;
     }
-    public List<Restaurant> search(Ville ville,Quartier quartier,Cuisine cuisine){
-        List<Restaurant> resByCuisineAndVille = new ArrayList<>();
+
+    public List<Restaurant> search(Ville ville, Quartier quartier, Cuisine cuisine) {
         String requette = "select resto from Restaurant resto where 1=1";
-        if(ville != null){
-        requette += SearchUtil.addConstraint("resto", "quartier.ville.id", "=", ville.getId());}
-        if(quartier != null){
-        requette += SearchUtil.addConstraint("resto", "quartier.id", "=", quartier.getId());}
+        if (ville != null) {
+            requette += SearchUtil.addConstraint("resto", "quartier.ville.id", "=", ville.getId());
+        }
+        if (quartier != null) {
+            requette += SearchUtil.addConstraint("resto", "quartier.id", "=", quartier.getId());
+        }
         List<Restaurant> res = em.createQuery(requette).getResultList();
-        if(cuisine != null){
+        if (cuisine != null) {
             List<Restaurant> resByCuisine = findRestauByCuisine(cuisine);
             for (Restaurant restaurant : resByCuisine) {
-                      if(restaurant.getQuartier().equals(quartier)&& !res.contains(restaurant)){
-                      
-                     res.add(restaurant);
-                    }
-            
+                if (restaurant.getQuartier().equals(quartier) && !res.contains(restaurant)) {
+                    res.add(restaurant);
                 }
-       
-             
-                }
-         return res;
+            }
+        }
+        return res;
     }
     
-   
+    private void clone(Restaurant restaurantSource, Restaurant restaurantDestination){
+        restaurantDestination.setId(restaurantSource.getId());
+        restaurantDestination.setAdresse(restaurantSource.getAdresse());
+        restaurantDestination.setNum(restaurantSource.getNum());
+        restaurantDestination.setNbrEtoile(restaurantSource.getNbrEtoile());    
+    }
+    
+    public Restaurant clone(Restaurant restaurant){
+        Restaurant cloned = new Restaurant();
+        clone(restaurant, cloned);
+        return cloned;
+    }
+    
 }

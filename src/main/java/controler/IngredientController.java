@@ -58,7 +58,7 @@ public class IngredientController implements Serializable {
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("IngredientCreated"));
         if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
+            getItems().add(ejbFacade.clone(selected));   // Invalidate list of items to trigger re-query.
         }
     }
 

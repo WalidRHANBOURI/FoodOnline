@@ -29,4 +29,15 @@ public class IngredientPlatFacade extends AbstractFacade<IngredientPlat> {
         super(IngredientPlat.class);
     }
     
+    private void clone(IngredientPlat ingredientPlatSource, IngredientPlat ingredientPlatDestination){
+        ingredientPlatDestination.setId(ingredientPlatSource.getId());
+        ingredientPlatDestination.setPrix(ingredientPlatSource.getPrix());
+    }
+    
+    public IngredientPlat clone(IngredientPlat ingredientPlat){
+        IngredientPlat cloned = new IngredientPlat();
+        clone(ingredientPlat, cloned);
+        return cloned;
+    }
+    
 }

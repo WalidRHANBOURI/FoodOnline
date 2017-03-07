@@ -27,14 +27,13 @@ public class QuartierController implements Serializable {
     private service.QuartierFacade ejbFacade;
     private List<Quartier> items = null;
     private Quartier selected;
-    
-  
+
     public QuartierController() {
     }
 
     public Quartier getSelected() {
-        if(selected==null){
-            selected=new Quartier();
+        if (selected == null) {
+            selected = new Quartier();
         }
         return selected;
     }
@@ -62,7 +61,7 @@ public class QuartierController implements Serializable {
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("QuartierCreated"));
         if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
+            getItems().add(ejbFacade.clone(selected));   // Invalidate list of items to trigger re-query.
         }
     }
 
@@ -83,6 +82,18 @@ public class QuartierController implements Serializable {
             items = getFacade().findAll();
         }
         return items;
+    }
+
+    public void setItems(List<Quartier> items) {
+        this.items = items;
+    }
+
+    public QuartierFacade getEjbFacade() {
+        return ejbFacade;
+    }
+
+    public void setEjbFacade(QuartierFacade ejbFacade) {
+        this.ejbFacade = ejbFacade;
     }
 
     private void persist(PersistAction persistAction, String successMessage) {

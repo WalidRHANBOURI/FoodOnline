@@ -11,8 +11,7 @@
         <p:dialog id="MenuCreateDlg" widgetVar="MenuCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateMenuTitle}">
             <h:form id="MenuCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{menuController.selected != null}">
-                      
+                    <p:panelGrid columns="2" rendered="#{menuController.selected != null}">                     
                         <p:outputLabel value="#{bundle.CreateMenuLabel_restaurant}" for="restaurant" />
                         <p:selectOneMenu id="restaurant" value="#{menuController.selected.restaurant}" >
                             <f:selectItems value="#{restaurantController.itemsAvailableSelectOne}"

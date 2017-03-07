@@ -29,4 +29,14 @@ public class VilleFacade extends AbstractFacade<Ville> {
         super(Ville.class);
     }
     
+    private void clone(Ville villeSource, Ville villeDestination){
+        villeDestination.setId(villeSource.getId());
+    }
+    
+    public Ville clone(Ville ville){
+        Ville cloned = new Ville();
+        clone(ville, cloned);
+        return cloned;
+    }
+    
 }

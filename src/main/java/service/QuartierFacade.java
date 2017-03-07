@@ -21,12 +21,11 @@ public class QuartierFacade extends AbstractFacade<Quartier> {
 
     @PersistenceContext(unitName = "com.mycompany_FoodOnline_war_1.0-SNAPSHOTPU")
     private EntityManager em;
-    
-    public List<Quartier> findQuartierByVille(Ville ville){
-       return em.createQuery("select q from Quartier q where q.ville.id='"+ville.getId()+"'").getResultList();
-    
-       
-                }
+
+    public List<Quartier> findQuartierByVille(Ville ville) {
+        return em.createQuery("select q from Quartier q where q.ville.id='" + ville.getId() + "'").getResultList();
+
+    }
 
     @Override
     protected EntityManager getEntityManager() {
@@ -37,4 +36,14 @@ public class QuartierFacade extends AbstractFacade<Quartier> {
         super(Quartier.class);
     }
     
+    private void clone(Quartier quartierSource, Quartier quartierDestination){
+        quartierDestination.setId(quartierSource.getId());
+    }
+    
+    public Quartier clone(Quartier quartier){
+        Quartier cloned = new Quartier();
+        clone(quartier, cloned);
+        return cloned;
+    }
+
 }

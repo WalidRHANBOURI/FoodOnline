@@ -21,7 +21,8 @@
                         <p:outputLabel value="#{bundle.CreateRestaurantLabel_nbrEtoile}" for="nbrEtoile" />
                         <p:inputText id="nbrEtoile" value="#{restaurantController.selected.nbrEtoile}" title="#{bundle.CreateRestaurantTitle_nbrEtoile}" />
                         <p:outputLabel value="#{bundle.CreateRestaurantLabel_quartier}" for="quartier" />
-                        <p:selectOneMenu id="quartier" value="#{restaurantController.selected.quartier}" >
+                        <p:selectOneMenu id="quartier" value="#{restaurantController.selected.quartier}" converter="quartierControllerConverter" >
+                            <f:selectItem itemLabel="--SELECT--" itemValue="#{null}"/>
                             <f:selectItems value="#{quartierController.itemsAvailableSelectOne}"
                                            var="quartierItem"
                                            itemValue="#{quartierItem}"/>

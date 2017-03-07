@@ -29,4 +29,16 @@ public class CmdFacade extends AbstractFacade<Cmd> {
         super(Cmd.class);
     }
     
+    private void clone(Cmd cmdSource, Cmd cmdDestination){
+        cmdDestination.setId(cmdSource.getId());
+        cmdDestination.setDateCmd(cmdSource.getDateCmd());
+        cmdDestination.setTotal(cmdSource.getTotal());
+    }
+    
+    public Cmd clone(Cmd cmd){
+        Cmd cloned = new Cmd();
+        clone(cmd, cloned);
+        return cloned;
+    }
+    
 }

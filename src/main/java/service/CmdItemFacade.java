@@ -29,4 +29,16 @@ public class CmdItemFacade extends AbstractFacade<CmdItem> {
         super(CmdItem.class);
     }
     
+    private void clone(CmdItem cmdItemSource, CmdItem cmdItemDestination){
+        cmdItemDestination.setId(cmdItemSource.getId());
+        cmdItemDestination.setPrix(cmdItemSource.getPrix());
+        cmdItemDestination.setQuantite(cmdItemSource.getQuantite());
+    }
+    
+    public CmdItem clone(CmdItem cmdItem){
+        CmdItem cloned = new CmdItem();
+        clone(cmdItem, cloned);
+        return cloned;
+    }
+    
 }

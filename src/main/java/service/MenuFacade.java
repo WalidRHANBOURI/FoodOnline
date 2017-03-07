@@ -29,15 +29,27 @@ public class MenuFacade extends AbstractFacade<Menu> {
     }
     public void remplirListCuisine(Menu menu,List<Cuisine> cuisines){
         System.out.println(cuisines);
+        if(cuisines != null){
         for (Cuisine cuisine : cuisines) {
           menu.getCuisines().add(cuisine);
             System.out.println(menu.getCuisines());
         }
         edit(menu);
+        }
     }
     public MenuFacade() {
         super(Menu.class);
     }
 
+    private void clone(Menu menuSource, Menu menuDestination){
+        menuDestination.setId(menuSource.getId());
+    }
+    
+    public Menu clone(Menu menu){
+        Menu cloned = new Menu();
+        clone(menu, cloned);
+        return cloned;
+    }
+    
     
 }
