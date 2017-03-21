@@ -9,6 +9,7 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -19,14 +20,15 @@ public class Restaurant implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-  
+
     private String id;
     private String num;
     private String adresse;
     private int nbrEtoile;
     @ManyToOne
     private Quartier quartier;
-  
+    @OneToOne(mappedBy = "restaurant")
+    private Menu menu;
 
     public String getId() {
         return id;
@@ -42,6 +44,14 @@ public class Restaurant implements Serializable {
 
     public void setNum(String num) {
         this.num = num;
+    }
+
+    public Menu getMenu() {
+        return menu;
+    }
+
+    public void setMenu(Menu menu) {
+        this.menu = menu;
     }
 
     public String getAdresse() {
@@ -68,10 +78,6 @@ public class Restaurant implements Serializable {
         this.quartier = quartier;
     }
 
-  
-
-
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -94,7 +100,7 @@ public class Restaurant implements Serializable {
 
     @Override
     public String toString() {
-        return "bean.Restaurant[ id=" + id + " ]";
+        return   id ;
     }
 
 }

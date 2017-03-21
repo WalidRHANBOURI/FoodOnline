@@ -12,15 +12,14 @@
             <h:form id="ClientCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{clientController.selected != null}">
-                        
-                        <p:outputLabel value="#{bundle.CreateClientLabel_email}" for="email" />
-                        <p:inputText id="email" value="#{clientController.selected.email}" title="#{bundle.CreateClientTitle_email}" />
-                        <p:outputLabel value="#{bundle.CreateClientLabel_motDePasse}" for="motDePasse" />
-                        <p:inputText id="motDePasse" value="#{clientController.selected.motDePasse}" title="#{bundle.CreateClientTitle_motDePasse}" />
-                        <p:outputLabel value="#{bundle.CreateClientLabel_adresse}" for="adresse" />
-                        <p:inputText id="adresse" value="#{clientController.selected.adresse}" title="#{bundle.CreateClientTitle_adresse}" />
-                        <p:outputLabel value="#{bundle.CreateClientLabel_numTelephone}" for="numTelephone" />
-                        <p:inputText id="numTelephone" value="#{clientController.selected.numTelephone}" title="#{bundle.CreateClientTitle_numTelephone}" />
+                        <p:outputLabel value="#{bundle.CreateClientLabel_cin}" for="cin" />
+                        <p:inputText id="cin" value="#{clientController.selected.cin}" title="#{bundle.CreateClientTitle_cin}" />
+                        <p:outputLabel value="#{bundle.CreateClientLabel_user}" for="user" />
+                        <p:selectOneMenu id="user" value="#{clientController.selected.user}" >
+                            <f:selectItems value="#{userController.itemsAvailableSelectOne}"
+                                           var="userItem"
+                                           itemValue="#{userItem}"/>
+                        </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{clientController.create}" value="#{bundle.Save}" update="display,:ClientListForm:datalist,:growl" oncomplete="handleSubmit(args,'ClientCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ClientCreateDialog.hide()"/>

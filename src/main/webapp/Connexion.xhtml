@@ -13,13 +13,13 @@
                 <img src="resources/images/icon.png"></img> 
                 <h:form>
                     <div class="fa fa-user">
-                        <input type="text" name="usernam" placeholder="Enter Username"></input>
+                        <p:inputText type="text" placeholder="Enter Username" value="#{userController.login}"/>
                     </div>
                     <div class="fa fa-lock">
-                        <input type="password" name="password" placeholder="Enter Password"></input>
+                        <p:password  placeholder="Enter Password" value="#{userController.passwd}"/>
                     </div>
                     <br/>
-                    <input type="submit" name="submit" value="LOGIN" class="btn-login"></input>
+                    <p:commandButton value="LOGIN"  class="btn-login" actionListener="#{userController.seConnecter()}" />
                 </h:form>
             </div>   
     </h:body>

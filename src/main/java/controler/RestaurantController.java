@@ -1,6 +1,7 @@
 package controler;
 
 import bean.Cuisine;
+import bean.Plat;
 import bean.Quartier;
 import bean.Restaurant;
 import bean.Ville;
@@ -9,6 +10,7 @@ import controler.util.JsfUtil.PersistAction;
 import service.RestaurantFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -21,6 +23,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import service.PlatMenuFacade;
 
 @Named("restaurantController")
 @SessionScoped
@@ -28,12 +31,36 @@ public class RestaurantController implements Serializable {
 
     @EJB
     private service.RestaurantFacade ejbFacade;
+    @EJB
+    private service.PlatMenuFacade ejbPlatMenuFacade;
     private List<Restaurant> items = null;
     private Restaurant selected;
     private Ville ville;
     private Quartier quartier;
     private Cuisine cuisine;
+    private List<Plat> itemsPlat;
     
+       public void findByQuartier() {
+        System.out.println(quartier);
+        items = ejbFacade.findRestauByQuartier(quartier);
+        System.out.println(items);
+    }
+
+    public void findRestauByCuisine() {
+        items = ejbFacade.findRestauByCuisine(cuisine);
+    }
+
+    public void search() {
+        items = ejbFacade.search(ville, quartier, cuisine);
+        System.out.println(items);
+    }
+
+    public void menuResto() {
+        System.out.println(selected);
+        itemsPlat = ejbPlatMenuFacade.findPlatByResto(selected);
+
+        System.out.println(itemsPlat);
+    }
     
 
     public RestaurantFacade getEjbFacade() {
@@ -44,11 +71,27 @@ public class RestaurantController implements Serializable {
         this.ejbFacade = ejbFacade;
     }
 
+    public PlatMenuFacade getEjbPlatMenuFacade() {
+        return ejbPlatMenuFacade;
+    }
   
+    public void setEjbPlatMenuFacade(PlatMenuFacade ejbPlatMenuFacade) {
+        this.ejbPlatMenuFacade = ejbPlatMenuFacade;
+    }
 
-    
+    public List<Plat> getItemsPlat() {
+        if(itemsPlat == null){
+            itemsPlat = new ArrayList<>();
+        }
+        return itemsPlat;
+    }
+
+    public void setItemsPlat(List<Plat> itemsPlat) {
+        this.itemsPlat = itemsPlat;
+    }
+
     public Ville getVille() {
-        if(ville == null){
+        if (ville == null) {
             ville = new Ville();
         }
         return ville;
@@ -59,7 +102,7 @@ public class RestaurantController implements Serializable {
     }
 
     public Quartier getQuartier() {
-        if(quartier == null){
+        if (quartier == null) {
             quartier = new Quartier();
         }
         return quartier;
@@ -70,7 +113,7 @@ public class RestaurantController implements Serializable {
     }
 
     public Cuisine getCuisine() {
-        if(cuisine == null){
+        if (cuisine == null) {
             cuisine = new Cuisine();
         }
         return cuisine;
@@ -80,22 +123,15 @@ public class RestaurantController implements Serializable {
         this.cuisine = cuisine;
     }
 
-    public void findByQuartier(){
-         System.out.println(quartier);
-       items= ejbFacade.findRestauByQuartier(quartier);
-        System.out.println(items);
-    }
-    public void findRestauByCuisine(){
-        items=ejbFacade.findRestauByCuisine(cuisine);
-    }
-    public void search(){
-       items= ejbFacade.search(ville, quartier, cuisine);
-        System.out.println(items);
-    }
+ 
+
     public RestaurantController() {
     }
 
     public Restaurant getSelected() {
+        if(selected ==null){
+            selected= new Restaurant();
+        }
         return selected;
     }
 

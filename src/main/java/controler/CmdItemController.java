@@ -27,6 +27,7 @@ public class CmdItemController implements Serializable {
     private service.CmdItemFacade ejbFacade;
     private List<CmdItem> items = null;
     private CmdItem selected;
+    
 
     public CmdItemController() {
     }

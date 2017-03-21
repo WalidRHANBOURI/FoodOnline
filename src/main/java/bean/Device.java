@@ -14,28 +14,57 @@ import javax.persistence.ManyToOne;
 
 /**
  *
- * @author walid
+ * @author HP
  */
 @Entity
-public class IngredientChoisit implements Serializable {
+public class Device implements Serializable {
+
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String nom;
+    private String adresseIp;
+    private String adresseMac;
+    
     @ManyToOne
-    private IngredientPlat ingredientPlat;
-    @ManyToOne
-    private CmdItem cmdItem;
+    private User user;
+ 
 
-    public CmdItem getCmdItem() {
-        return cmdItem;
+    public String getNom() {
+        return nom;
     }
 
-    public void setCmdItem(CmdItem cmdItem) {
-        this.cmdItem = cmdItem;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
+    public String getAdresseIp() {
+        return adresseIp;
+    }
+
+    public void setAdresseIp(String adresseIp) {
+        this.adresseIp = adresseIp;
+    }
+    
+    public String getAdresseMac() {
+        return adresseMac;
+    }
+
+    public void setAdresseMac(String adresseMac) {
+        this.adresseMac = adresseMac;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+ 
     
     
     public Long getId() {
@@ -44,14 +73,6 @@ public class IngredientChoisit implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public IngredientPlat getIngredientPlat() {
-        return ingredientPlat;
-    }
-
-    public void setIngredientPlat(IngredientPlat ingredientPlat) {
-        this.ingredientPlat = ingredientPlat;
     }
 
     @Override
@@ -64,10 +85,10 @@ public class IngredientChoisit implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof IngredientChoisit)) {
+        if (!(object instanceof Device)) {
             return false;
         }
-        IngredientChoisit other = (IngredientChoisit) object;
+        Device other = (Device) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -76,7 +97,7 @@ public class IngredientChoisit implements Serializable {
 
     @Override
     public String toString() {
-        return "bean.IngredientChoisit[ id=" + id + " ]";
+        return "bean.Device[ id=" + id + " ]";
     }
-
+    
 }

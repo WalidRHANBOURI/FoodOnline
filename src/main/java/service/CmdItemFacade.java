@@ -6,6 +6,9 @@
 package service;
 
 import bean.CmdItem;
+import bean.IngredientPlat;
+import bean.Plat;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,7 +22,10 @@ public class CmdItemFacade extends AbstractFacade<CmdItem> {
 
     @PersistenceContext(unitName = "com.mycompany_FoodOnline_war_1.0-SNAPSHOTPU")
     private EntityManager em;
+    private service.IngredientPlatFacade ingredientPlatFacade;
 
+    
+ 
     @Override
     protected EntityManager getEntityManager() {
         return em;
@@ -33,6 +39,7 @@ public class CmdItemFacade extends AbstractFacade<CmdItem> {
         cmdItemDestination.setId(cmdItemSource.getId());
         cmdItemDestination.setPrix(cmdItemSource.getPrix());
         cmdItemDestination.setQuantite(cmdItemSource.getQuantite());
+        cmdItemDestination.setPlat(cmdItemSource.getPlat());
     }
     
     public CmdItem clone(CmdItem cmdItem){

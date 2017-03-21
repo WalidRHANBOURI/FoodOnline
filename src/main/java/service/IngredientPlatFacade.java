@@ -5,7 +5,12 @@
  */
 package service;
 
+
 import bean.IngredientPlat;
+import bean.Plat;
+
+import controler.util.SearchUtil;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,6 +24,34 @@ public class IngredientPlatFacade extends AbstractFacade<IngredientPlat> {
 
     @PersistenceContext(unitName = "com.mycompany_FoodOnline_war_1.0-SNAPSHOTPU")
     private EntityManager em;
+    
+    public List<IngredientPlat> findIngredientByPlat(Plat plat){
+        String requette= "select ip from IngredientPlat ip where 1=1";
+        requette += SearchUtil.addConstraint("ip","plat.id", "=", plat.getId());
+        return em.createQuery(requette).getResultList();
+    }
+    public Double prixIngredient(IngredientPlat ingredientPlat){
+        Double prixIng = 0.0;
+        prixIng = ingredientPlat.getPrix() + ingredientPlat.getIngredient().getPrix();
+        return prixIng;
+    }
+    public Double prixTotalIngredient(List<IngredientPlat> ingredientPlats){
+        Double price = 0.0;
+        for (IngredientPlat ingredientPlat : ingredientPlats) {
+            price += prixIngredient(ingredientPlat);
+            
+        }
+        return price; 
+    }
+    public Double total(Plat plat, List<IngredientPlat> ingChoisis){
+        Double prixIngr = prixTotalIngredient(ingChoisis);
+        Double prixPlat = plat.getPrix();
+        Double total = prixIngr + prixPlat ;
+        
+        return total;
+    }
+   
+
 
     @Override
     protected EntityManager getEntityManager() {

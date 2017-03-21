@@ -96,6 +96,7 @@ public class MenuController implements Serializable {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("MenuCreated"));
         if (!JsfUtil.isValidationFailed()) {
             getItems().add(ejbFacade.clone(selected));   // Invalidate list of items to trigger re-query.
+            System.out.println(items);
         }
     }
 
@@ -146,7 +147,7 @@ public class MenuController implements Serializable {
         }
     }
 
-    public Menu getMenu(java.lang.String id) {
+    public Menu getMenu(java.lang.Long id) {
         return getFacade().find(id);
     }
 
@@ -158,7 +159,7 @@ public class MenuController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Menu.class)
+    @FacesConverter("menuControllerConverter")
     public static class MenuControllerConverter implements Converter {
 
         @Override
@@ -171,9 +172,9 @@ public class MenuController implements Serializable {
             return controller.getMenu(getKey(value));
         }
 
-        java.lang.String getKey(String value) {
-            java.lang.String key;
-            key = value;
+        java.lang.Long getKey(String value) {
+            java.lang.Long key;
+            key = Long.valueOf(value);
             return key;
         }
 

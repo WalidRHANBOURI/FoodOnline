@@ -10,56 +10,38 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
- * @author walid
+ * @author HP
  */
 @Entity
 public class Client implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    private String email;
-    private String motDePasse;
-    private String adresse;
-    private String numTelephone;
+    private String cin;
     @OneToMany(mappedBy = "client")
     private List<Cmd> cmds;
-
-    public String getEmail() {
-        return email;
+    @OneToOne
+    private User user;
+    public String getCin() {
+        return cin;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCin(String cin) {
+        this.cin = cin;
     }
 
-
-    public String getMotDePasse() {
-        return motDePasse;
+    public User getUser() {
+        return user;
     }
 
-    public void setMotDePasse(String motDePasse) {
-        this.motDePasse = motDePasse;
+    public void setUser(User user) {
+        this.user = user;
     }
-
-    public String getAdresse() {
-        return adresse;
-    }
-
-    public void setAdresse(String adresse) {
-        this.adresse = adresse;
-    }
-
-    public String getNumTelephone() {
-        return numTelephone;
-    }
-
-    public void setNumTelephone(String numTelephone) {
-        this.numTelephone = numTelephone;
-    }
-
+    
     public List<Cmd> getCmds() {
         return cmds;
     }
@@ -67,22 +49,22 @@ public class Client implements Serializable {
     public void setCmds(List<Cmd> cmds) {
         this.cmds = cmds;
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (email != null ? email.hashCode() : 0);
+        hash += (cin != null ? cin.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the email fields are not set
+        // TODO: Warning - this method won't work in the case the cin fields are not set
         if (!(object instanceof Client)) {
             return false;
         }
         Client other = (Client) object;
-        if ((this.email == null && other.email != null) || (this.email != null && !this.email.equals(other.email))) {
+        if ((this.cin == null && other.cin != null) || (this.cin != null && !this.cin.equals(other.cin))) {
             return false;
         }
         return true;
@@ -90,7 +72,7 @@ public class Client implements Serializable {
 
     @Override
     public String toString() {
-        return "bean.Client[ id=" + email + " ]";
+        return "bean.Client[ id=" + cin + " ]";
     }
-
+    
 }

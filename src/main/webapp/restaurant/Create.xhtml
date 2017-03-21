@@ -19,7 +19,7 @@
                         <p:outputLabel value="#{bundle.CreateRestaurantLabel_adresse}" for="adresse" />
                         <p:inputText id="adresse" value="#{restaurantController.selected.adresse}" title="#{bundle.CreateRestaurantTitle_adresse}" />
                         <p:outputLabel value="#{bundle.CreateRestaurantLabel_nbrEtoile}" for="nbrEtoile" />
-                        <p:inputText id="nbrEtoile" value="#{restaurantController.selected.nbrEtoile}" title="#{bundle.CreateRestaurantTitle_nbrEtoile}" />
+                        <p:spinner id="nbrEtoile" value="#{restaurantController.selected.nbrEtoile}" title="#{bundle.CreateRestaurantTitle_nbrEtoile}" />
                         <p:outputLabel value="#{bundle.CreateRestaurantLabel_quartier}" for="quartier" />
                         <p:selectOneMenu id="quartier" value="#{restaurantController.selected.quartier}" converter="quartierControllerConverter" >
                             <f:selectItem itemLabel="--SELECT--" itemValue="#{null}"/>

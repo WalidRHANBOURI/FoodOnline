@@ -1,9 +1,9 @@
 package controler;
 
-import bean.IngredientChoisit;
+import bean.User;
 import controler.util.JsfUtil;
 import controler.util.JsfUtil.PersistAction;
-import service.IngredientChoisitFacade;
+import service.UserFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,25 +19,46 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@Named("ingredientChoisitController")
+@Named("userController")
 @SessionScoped
-public class IngredientChoisitController implements Serializable {
+public class UserController implements Serializable {
 
     @EJB
-    private service.IngredientChoisitFacade ejbFacade;
-    private List<IngredientChoisit> items = null;
-    private IngredientChoisit selected;
+    private service.UserFacade ejbFacade;
+    private List<User> items = null;
+    private User selected;
 
-    public IngredientChoisitController() {
+    public void seConnecter() {
+        System.out.println(selected);
+        System.out.println("halloooooo :D");
+        ejbFacade.seConnnecter(selected);
     }
 
-    public IngredientChoisit getSelected() {
+    public UserController() {
+    }
+
+
+
+
+    public User getSelected() {
+        if(selected == null){
+            selected = new User();
+        }
         return selected;
     }
 
-    public void setSelected(IngredientChoisit selected) {
+    public void setSelected(User selected) {
         this.selected = selected;
     }
+
+    public UserFacade getEjbFacade() {
+        return ejbFacade;
+    }
+
+    public void setEjbFacade(UserFacade ejbFacade) {
+        this.ejbFacade = ejbFacade;
+    }
+
 
     protected void setEmbeddableKeys() {
     }
@@ -45,36 +66,36 @@ public class IngredientChoisitController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private IngredientChoisitFacade getFacade() {
+    private UserFacade getFacade() {
         return ejbFacade;
     }
 
-    public IngredientChoisit prepareCreate() {
-        selected = new IngredientChoisit();
+    public User prepareCreate() {
+        selected = new User();
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("IngredientChoisitCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("UserCreated"));
         if (!JsfUtil.isValidationFailed()) {
-            getItems().add(ejbFacade.clone(selected));    // Invalidate list of items to trigger re-query.
+            items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("IngredientChoisitUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("UserUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("IngredientChoisitDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("UserDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<IngredientChoisit> getItems() {
+    public List<User> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -109,38 +130,38 @@ public class IngredientChoisitController implements Serializable {
         }
     }
 
-    public IngredientChoisit getIngredientChoisit(java.lang.Long id) {
+    public User getUser(java.lang.String id) {
         return getFacade().find(id);
     }
 
-    public List<IngredientChoisit> getItemsAvailableSelectMany() {
+    public List<User> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<IngredientChoisit> getItemsAvailableSelectOne() {
+    public List<User> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = IngredientChoisit.class)
-    public static class IngredientChoisitControllerConverter implements Converter {
+    @FacesConverter(forClass = User.class)
+    public static class UserControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            IngredientChoisitController controller = (IngredientChoisitController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "ingredientChoisitController");
-            return controller.getIngredientChoisit(getKey(value));
+            UserController controller = (UserController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "userController");
+            return controller.getUser(getKey(value));
         }
 
-        java.lang.Long getKey(String value) {
-            java.lang.Long key;
-            key = Long.valueOf(value);
+        java.lang.String getKey(String value) {
+            java.lang.String key;
+            key = value;
             return key;
         }
 
-        String getStringKey(java.lang.Long value) {
+        String getStringKey(java.lang.String value) {
             StringBuilder sb = new StringBuilder();
             sb.append(value);
             return sb.toString();
@@ -151,11 +172,11 @@ public class IngredientChoisitController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof IngredientChoisit) {
-                IngredientChoisit o = (IngredientChoisit) object;
-                return getStringKey(o.getId());
+            if (object instanceof User) {
+                User o = (User) object;
+                return getStringKey(o.getLogin());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), IngredientChoisit.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), User.class.getName()});
                 return null;
             }
         }

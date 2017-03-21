@@ -27,6 +27,8 @@ public class IngredientPlatController implements Serializable {
     private service.IngredientPlatFacade ejbFacade;
     private List<IngredientPlat> items = null;
     private IngredientPlat selected;
+    
+  
 
     public IngredientPlatController() {
     }
@@ -121,7 +123,7 @@ public class IngredientPlatController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = IngredientPlat.class)
+    @FacesConverter("IngredientPlatConverter")
     public static class IngredientPlatControllerConverter implements Converter {
 
         @Override

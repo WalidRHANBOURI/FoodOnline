@@ -19,6 +19,8 @@
                         <p:outputLabel value="#{bundle.CreateCmdItemLabel_prix}" for="prix" />
                         <p:inputText id="prix" value="#{cmdItemController.selected.prix}" title="#{bundle.CreateCmdItemTitle_prix}" />
                         <p:outputLabel value="#{bundle.CreateCmdItemLabel_cmd}" for="cmd" />
+                        <p:inputText id="plat" value="#{cmdItemController.selected.plat}"  />
+                        <p:outputLabel value="creation des plats de cmdItem" for="plat" />
                         <p:selectOneMenu id="cmd" value="#{cmdItemController.selected.cmd}" >
                             <f:selectItems value="#{cmdController.itemsAvailableSelectOne}"
                                            var="cmdItem"

@@ -5,7 +5,9 @@
  */
 package service;
 
+import bean.Cuisine;
 import bean.Plat;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,6 +29,13 @@ public class PlatFacade extends AbstractFacade<Plat> {
 
     public PlatFacade() {
         super(Plat.class);
+    }
+     public List<Plat> findPlatByCuisine(Cuisine cuisine){
+        String requette="";
+        if(cuisine !=null){
+           requette +="select p from Plat p where p.cuisine.id='"+cuisine.getId()+"'";
+        }
+       return em.createQuery(requette).getResultList();
     }
     
     private void clone(Plat platSource, Plat platDestination){

@@ -12,15 +12,10 @@
             <h:form id="ClientViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{clientController.selected != null}">
-                  
-                        <h:outputText value="#{bundle.ViewClientLabel_email}"/>
-                        <h:outputText value="#{clientController.selected.email}" title="#{bundle.ViewClientTitle_email}"/>
-                        <h:outputText value="#{bundle.ViewClientLabel_motDePasse}"/>
-                        <h:outputText value="#{clientController.selected.motDePasse}" title="#{bundle.ViewClientTitle_motDePasse}"/>
-                        <h:outputText value="#{bundle.ViewClientLabel_adresse}"/>
-                        <h:outputText value="#{clientController.selected.adresse}" title="#{bundle.ViewClientTitle_adresse}"/>
-                        <h:outputText value="#{bundle.ViewClientLabel_numTelephone}"/>
-                        <h:outputText value="#{clientController.selected.numTelephone}" title="#{bundle.ViewClientTitle_numTelephone}"/>
+                        <h:outputText value="#{bundle.ViewClientLabel_cin}"/>
+                        <h:outputText value="#{clientController.selected.cin}" title="#{bundle.ViewClientTitle_cin}"/>
+                        <h:outputText value="#{bundle.ViewClientLabel_user}"/>
+                        <h:outputText value="#{clientController.selected.user}" title="#{bundle.ViewClientTitle_user}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="ClientViewDialog.hide()"/>
                 </h:panelGroup>

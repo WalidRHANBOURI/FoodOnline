@@ -91,7 +91,7 @@ public class Plat implements Serializable {
 
     @Override
     public String toString() {
-        return "bean.Plat[ id=" + id + " ]";
+        return  id ;
     }
 
 }

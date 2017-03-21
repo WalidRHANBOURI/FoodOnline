@@ -14,22 +14,21 @@ import javax.persistence.ManyToOne;
 
 /**
  *
- * @author walid
+ * @author HP
  */
 @Entity
-public class IngredientPlat implements Serializable {
-
+public class PlatMenu implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Double prix;
+    @ManyToOne
+    private Menu menu;
+    @ManyToOne
+    private Cuisine cuisine;
     @ManyToOne
     private Plat plat;
-    @ManyToOne
-    private Ingredient ingredient;
-
     public Long getId() {
         return id;
     }
@@ -38,30 +37,33 @@ public class IngredientPlat implements Serializable {
         this.id = id;
     }
 
-    public Double getPrix() {
-        return prix;
+    public Menu getMenu() {
+        return menu;
     }
 
-    public void setPrix(Double prix) {
-        this.prix = prix;
+    public void setMenu(Menu menu) {
+        this.menu = menu;
+    }
+
+    public Cuisine getCuisine() {
+        return cuisine;
+    }
+
+    public void setCuisine(Cuisine cuisine) {
+        this.cuisine = cuisine;
     }
 
     public Plat getPlat() {
+        if(plat == null){
+            plat = new Plat();
+        }
         return plat;
     }
 
     public void setPlat(Plat plat) {
         this.plat = plat;
     }
-
-    public Ingredient getIngredient() {
-        return ingredient;
-    }
-
-    public void setIngredient(Ingredient ingredient) {
-        this.ingredient = ingredient;
-    }
-
+     
     @Override
     public int hashCode() {
         int hash = 0;
@@ -72,10 +74,10 @@ public class IngredientPlat implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof IngredientPlat)) {
+        if (!(object instanceof PlatMenu)) {
             return false;
         }
-        IngredientPlat other = (IngredientPlat) object;
+        PlatMenu other = (PlatMenu) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -84,13 +86,7 @@ public class IngredientPlat implements Serializable {
 
     @Override
     public String toString() {
-        return "'" + ingredient + "'";
+        return "bean.PlatMenu[ id=" + id + " ]";
     }
-
     
-
-  
-
- 
-
 }

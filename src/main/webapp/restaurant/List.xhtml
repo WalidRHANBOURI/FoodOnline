@@ -59,7 +59,12 @@
                             </f:facet>
                             <h:outputText value="#{item.quartier}"/>
                         </p:column>
-
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Liste des plats "/>
+                            </f:facet>
+                            <p:commandButton id="listCuisinechoisi"  actionListener="#{restaurantController.menuResto()}"  action="/plat/List.xhtml"  icon="ui-icon-search" value="menu"  />
+                        </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{restaurantController.prepareCreate}" update=":RestaurantCreateForm" oncomplete="PF('RestaurantCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":RestaurantViewForm" oncomplete="PF('RestaurantViewDialog').show()" disabled="#{empty restaurantController.selected}"/>
@@ -73,6 +78,7 @@
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
+           
         </ui:define>
     </ui:composition>
 

@@ -9,6 +9,8 @@
         <title><ui:insert name="title">Default Title</ui:insert></title>
         <h:outputStylesheet library="css" name="jsfcrud.css"/>
         <h:outputScript library="js" name="jsfcrud.js"/>
+        <link rel="stylesheet" href="http://maxcdnbootstrap.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></link>  
         <link rel="stylesheet" href="../resources/css/styleW.css"/>
     </h:head>
@@ -20,18 +22,18 @@
 
         <p:layout fullPage="true">
             <p:layoutUnit position="north" size="70" > 
-                    <ul class="nav1">
-                        <li><a href="../restaurant/Welcome.xhtml"> FoodOnline</a></li>
-                    </ul>
-                    <ul class="nav2">
-                        <li><a href="../Formulaire.xhtml">S'inscrire</a></li>
-                        <li><a href="../Connexion.xhtml"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a></li>
-                        <li><a href="#"><i class="fa fa-phone" aria-hidden="true"></i> +212 649784109</a></li>
-                        <li><a href="#"><img src="../resources/images/maroc.ico" width="24" height="24" alt="Mar"/> </a></li>
-                        <li><a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
-                    </ul>
-                    <br/><br/>
-                
+                <ul class="nav1">
+                    <li><a href="../restaurant/Welcome.xhtml"> FoodOnline</a></li>
+                </ul>
+                <ul class="nav2">
+                    <li><a href="../Formulaire.xhtml">S'inscrire</a></li>
+                    <li><a href="../Connexion.xhtml"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a></li>
+                    <li><a href="#"><i class="fa fa-phone" aria-hidden="true"></i> +212 649784109</a></li>
+                    <li><a href="#"><img src="../resources/images/maroc.ico" width="24" height="24" alt="Mar"/> </a></li>
+                    <li><a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
+                </ul>
+                <br/><br/>
+
             </p:layoutUnit>
             <p:layoutUnit position="south" size="60">
                 <ui:insert name="footer"/>

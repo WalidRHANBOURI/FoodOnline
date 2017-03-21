@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PlatMenuViewDlg" widgetVar="PlatMenuViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPlatMenuTitle}">
+            <h:form id="PlatMenuViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{platMenuController.selected != null}">
+                        <h:outputText value="#{bundle.ViewPlatMenuLabel_id}"/>
+                        <h:outputText value="#{platMenuController.selected.id}" title="#{bundle.ViewPlatMenuTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewPlatMenuLabel_menu}"/>
+                        <h:outputText value="#{platMenuController.selected.menu}" title="#{bundle.ViewPlatMenuTitle_menu}"/>
+                        <h:outputText value="#{bundle.ViewPlatMenuLabel_cuisine}"/>
+                        <h:outputText value="#{platMenuController.selected.cuisine}" title="#{bundle.ViewPlatMenuTitle_cuisine}"/>
+                        <h:outputText value="#{bundle.ViewPlatMenuLabel_plat}"/>
+                        <h:outputText value="#{platMenuController.selected.plat}" title="#{bundle.ViewPlatMenuTitle_plat}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PlatMenuViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

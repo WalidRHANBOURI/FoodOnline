@@ -16,7 +16,7 @@
                         <p:outputLabel value="#{bundle.CreateIngredientPlatLabel_prix}" for="prix" />
                         <p:inputText id="prix" value="#{ingredientPlatController.selected.prix}" title="#{bundle.CreateIngredientPlatTitle_prix}" />
                         <p:outputLabel value="#{bundle.CreateIngredientPlatLabel_plat}" for="plat" />
-                        <p:selectOneMenu id="plat" value="#{ingredientPlatController.selected.plat}" >
+                        <p:selectOneMenu id="plat" value="#{ingredientPlatController.selected.plat}" converter="platControllerConverter">
                             <f:selectItems value="#{platController.itemsAvailableSelectOne}"
                                            var="platItem"
                                            itemValue="#{platItem}"/>

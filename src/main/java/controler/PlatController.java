@@ -1,5 +1,7 @@
 package controler;
 
+import bean.CmdItem;
+import bean.IngredientPlat;
 import bean.Plat;
 import controler.util.JsfUtil;
 import controler.util.JsfUtil.PersistAction;
@@ -18,6 +20,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import service.IngredientPlatFacade;
 
 @Named("platController")
 @SessionScoped
@@ -25,13 +28,105 @@ public class PlatController implements Serializable {
 
     @EJB
     private service.PlatFacade ejbFacade;
+    @EJB
+    private service.IngredientPlatFacade ingredientPlatFacade;
     private List<Plat> items = null;
     private Plat selected;
+    private CmdItem cmdItem;
+    private Double prix;
+    private Double total;
+    private List<IngredientPlat> ingredientPlats;
+    private List<IngredientPlat> ingredientChoisis;
+    private List<CmdItem> panier;
+    
+    
+    
+      public void findIngredientByPlat(){
+          System.out.println(selected);
+          ingredientPlats = ingredientPlatFacade.findIngredientByPlat(selected);
+    }
+    public void prixTotalIngredient(){
+        System.out.println(ingredientChoisis);
+        prix = ingredientPlatFacade.prixTotalIngredient(ingredientChoisis);
+      
+    }
+    public void total(){
+        total = ingredientPlatFacade.total(selected, ingredientChoisis);
 
+    }
+
+    public CmdItem getCmdItem() {
+        return cmdItem;
+    }
+
+    public void setCmdItem(CmdItem cmdItem) {
+        this.cmdItem = cmdItem;
+    }
+
+    public List<CmdItem> getPanier() {
+        return panier;
+    }
+
+    public void setPanier(List<CmdItem> panier) {
+        this.panier = panier;
+    }
+    
+
+    public List<IngredientPlat> getIngredientChoisis() {
+        return ingredientChoisis;
+    }
+
+    public void setIngredientChoisis(List<IngredientPlat> ingredientChoisis) {
+        this.ingredientChoisis = ingredientChoisis;
+    }
+    
+    public PlatFacade getEjbFacade() {
+        return ejbFacade;
+    }
+
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
+    }
+    
+    public Double getPrix() {
+        return prix;
+    }
+
+    public void setPrix(Double prix) {
+        this.prix = prix;
+    }
+    
+    public void setEjbFacade(PlatFacade ejbFacade) {
+        this.ejbFacade = ejbFacade;
+    }
+
+    public IngredientPlatFacade getIngredientPlatFacade() {
+        return ingredientPlatFacade;
+    }
+
+    public void setIngredientPlatFacade(IngredientPlatFacade ingredientPlatFacade) {
+        this.ingredientPlatFacade = ingredientPlatFacade;
+    }
+
+    public List<IngredientPlat> getIngredientPlats() {
+        return ingredientPlats;
+    }
+
+    public void setIngredientPlats(List<IngredientPlat> ingredientPlats) {
+        this.ingredientPlats = ingredientPlats;
+    }
+    
     public PlatController() {
     }
 
     public Plat getSelected() {
+        if(selected == null){
+            selected = new Plat();
+        }
         return selected;
     }
 
@@ -121,7 +216,7 @@ public class PlatController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Plat.class)
+    @FacesConverter("platControllerConverter")
     public static class PlatControllerConverter implements Converter {
 
         @Override

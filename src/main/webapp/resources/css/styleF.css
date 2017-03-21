@@ -10,7 +10,6 @@ input:focus:invalid{
 }
 input:focus:valid {
     border-color:#56c93f;
-    box-shadow
 }
 input:valid{
     background-image:none;

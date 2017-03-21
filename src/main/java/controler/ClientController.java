@@ -153,7 +153,7 @@ public class ClientController implements Serializable {
             }
             if (object instanceof Client) {
                 Client o = (Client) object;
-                return getStringKey(o.getEmail());
+                return getStringKey(o.getCin());
             } else {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Client.class.getName()});
                 return null;

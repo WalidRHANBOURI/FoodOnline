@@ -21,13 +21,10 @@ import javax.persistence.OneToOne;
 @Entity
 public class Menu implements Serializable {
 
-   
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-   
     @OneToOne
     private Restaurant restaurant;
     @ManyToMany
@@ -48,8 +45,6 @@ public class Menu implements Serializable {
     public void setCuisines(List<Cuisine> cuisines) {
         this.cuisines = cuisines;
     }
-
-    
 
     public Restaurant getRestaurant() {
         return restaurant;
@@ -81,7 +76,9 @@ public class Menu implements Serializable {
 
     @Override
     public String toString() {
-        return "bean.Menu[ id=" + id + " ]";
+        return "Menu de " + restaurant ;
     }
+
+  
 
 }

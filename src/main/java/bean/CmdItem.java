@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -29,9 +30,11 @@ public class CmdItem implements Serializable {
     private Long id;
     private int quantite;
     private Double prix;
+    @OneToOne
+    private Plat plat;
     
-      @OneToMany(mappedBy = "cmdItem")
-    private List<IngredientChoisit> ingredientChoisits;
+    @OneToMany
+    private List<IngredientPlat> ingredientChoisits;
     
     @ManyToOne
     private Cmd cmd;
@@ -44,6 +47,14 @@ public class CmdItem implements Serializable {
         this.id = id;
     }
 
+    public Plat getPlat() {
+        return plat;
+    }
+
+    public void setPlat(Plat plat) {
+        this.plat = plat;
+    }
+   
     public int getQuantite() {
         return quantite;
     }
@@ -75,13 +86,15 @@ public class CmdItem implements Serializable {
         return hash;
     }
 
-    public List<IngredientChoisit> getIngredientChoisits() {
+    public List<IngredientPlat> getIngredientChoisits() {
         return ingredientChoisits;
     }
 
-    public void setIngredientChoisits(List<IngredientChoisit> ingredientChoisits) {
+    public void setIngredientChoisits(List<IngredientPlat> ingredientChoisits) {
         this.ingredientChoisits = ingredientChoisits;
     }
+
+  
 
     @Override
     public boolean equals(Object object) {

@@ -60,7 +60,7 @@ public class Ingredient implements Serializable {
 
     @Override
     public String toString() {
-        return "bean.Ingrediant[ id=" + id + " ]";
+        return  id ;
     }
 
 }

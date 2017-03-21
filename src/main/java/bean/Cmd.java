@@ -23,6 +23,7 @@ import javax.persistence.Temporal;
 @Entity
 public class Cmd implements Serializable {
 
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -67,13 +68,6 @@ public class Cmd implements Serializable {
         this.cmdItems = cmdItems;
     }
 
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
 
     @Override
     public int hashCode() {

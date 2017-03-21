@@ -43,6 +43,7 @@ public class MenuFacade extends AbstractFacade<Menu> {
 
     private void clone(Menu menuSource, Menu menuDestination){
         menuDestination.setId(menuSource.getId());
+        menuDestination.setRestaurant(menuSource.getRestaurant());
     }
     
     public Menu clone(Menu menu){

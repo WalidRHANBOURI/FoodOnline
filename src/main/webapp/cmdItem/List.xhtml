@@ -51,6 +51,12 @@
                             </f:facet>
                             <h:outputText value="#{item.cmd}"/>
                         </p:column>
+                         <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="plat"/>
+                            </f:facet>
+                             <h:outputText value="#{item.plat}"/>
+                        </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{cmdItemController.prepareCreate}" update=":CmdItemCreateForm" oncomplete="PF('CmdItemCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":CmdItemViewForm" oncomplete="PF('CmdItemViewDialog').show()" disabled="#{empty cmdItemController.selected}"/>
