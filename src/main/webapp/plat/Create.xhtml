@@ -15,7 +15,10 @@
                         <p:outputLabel value="#{bundle.CreatePlatLabel_idPlat}" for="idPlat" />
                         <p:inputText id="idPlat" value="#{platController.selected.id}" title="#{bundle.CreatePlatTitle_idPlat}" />
                         <p:outputLabel value="#{bundle.CreatePlatLabel_type}" for="type" />
-                        <p:inputText id="type" value="#{platController.selected.type}" title="#{bundle.CreatePlatTitle_type}" />
+                        <p:selectOneMenu id="type" value="#{platController.selected.type}" >
+                            <f:selectItem itemLabel="normal" itemValue="normal"/>
+                            <f:selectItem itemLabel="personnalise" itemValue="personnalise"/>
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreatePlatLabel_prix}" for="prix" />
                         <p:inputText id="prix" value="#{platController.selected.prix}" title="#{bundle.CreatePlatTitle_prix}" />
                         <p:outputLabel value="#{bundle.CreatePlatLabel_cuisine}" for="cuisine" />

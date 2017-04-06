@@ -7,6 +7,7 @@ import bean.Restaurant;
 import bean.Ville;
 import controler.util.JsfUtil;
 import controler.util.JsfUtil.PersistAction;
+import controler.util.SessionUtil;
 import service.RestaurantFacade;
 
 import java.io.Serializable;
@@ -33,12 +34,15 @@ public class RestaurantController implements Serializable {
     private service.RestaurantFacade ejbFacade;
     @EJB
     private service.PlatMenuFacade ejbPlatMenuFacade;
+    @EJB
+    private service.CuisineFacade cuisineFacade;
     private List<Restaurant> items = null;
     private Restaurant selected;
     private Ville ville;
     private Quartier quartier;
     private Cuisine cuisine;
     private List<Plat> itemsPlat;
+    private List<Cuisine> cuisines;
     
        public void findByQuartier() {
         System.out.println(quartier);
@@ -56,13 +60,24 @@ public class RestaurantController implements Serializable {
     }
 
     public void menuResto() {
+        SessionUtil.setAttribute("anaResto", selected);
         System.out.println(selected);
+        
         itemsPlat = ejbPlatMenuFacade.findPlatByResto(selected);
+         cuisines =  cuisineFacade.cuisineByMenu(selected.getMenu());
 
         System.out.println(itemsPlat);
     }
-    
 
+    public List<Cuisine> getCuisines() {
+        return cuisines;
+    }
+
+    public void setCuisines(List<Cuisine> cuisines) {
+        this.cuisines = cuisines;
+    }
+    
+    
     public RestaurantFacade getEjbFacade() {
         return ejbFacade;
     }

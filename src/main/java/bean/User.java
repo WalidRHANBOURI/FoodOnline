@@ -10,7 +10,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+
 
 
 
@@ -37,9 +37,7 @@ public class User implements Serializable {
     private boolean mdpChanged;
     @OneToMany(mappedBy = "user")
     private List<Device> devices;
-    
-    @OneToOne(mappedBy = "user")
-    private Client client;
+
 
     public String getNom() {
         return nom;

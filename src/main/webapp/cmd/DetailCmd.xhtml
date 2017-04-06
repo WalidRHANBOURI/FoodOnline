@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListCmdTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+       
+                <h:panelGroup>
+            <p:fieldset legend='ma commande'>
+                <h:form>
+                    <p:dataTable>
+                        <c:forEach items="#{platController.panier}" var='cmdItem'>
+                            <p:column>
+                                <h:outputText value='#{cmdItem.plat}'/> 
+                                <h:outputText value='#{cmdItem.prix}'/>
+                                <h:outputText value='#{cmdItem.ingredientChoisits}'/>
+                                <h:outputText value='#{cmdItem.quantite}'/>
+                            </p:column>
+                        </c:forEach>
+                    </p:dataTable>
+                </h:form>
+            </p:fieldset>
+            <p:fieldset legend='mes coordonnées'>
+                <p> vous avez deja un compte ? </p>
+                <p:commandButton value='Se connecter'/>
+                <p> Ou vous pouvez créer votre compte afin de passer une commande </p>
+                <p:commandButton value="s'inscrire"/>
+            </p:fieldset>
+                     <h:form>
+            <p:fieldset legend="mon adresse de livraison" style="margin-bottom:20px">
+               
+                    <h:outputText value="quartier"/>
+                    <p:selectOneMenu id="quartier" converter="quartierControllerConverter">
+                        <f:selectItem itemLabel="--SELECT--" itemValue="#{null}"/>
+                        <f:selectItems value="#{platController.quartiers}" var="quartierItem" itemValue="#{quartierItem}"/>
+                    </p:selectOneMenu>
+                    <p> veuillez entrer votre Adresse de livraison : </p>
+                    <p:inputTextarea id="adr" rows='10' cols='50' value="#{platController.adresseLivraison}" />
+
+             
+            </p:fieldset>
+       
+                <p:commandButton value='confirmer' actionListener="#{platController.saveCmd()}" process="@form" ajax="true" />
+            <p:commandButton value='retour au restaurant'/>
+               </h:form>
+                </h:panelGroup>
+       
+        </ui:define>
+    </ui:composition>
+
+</html>
+

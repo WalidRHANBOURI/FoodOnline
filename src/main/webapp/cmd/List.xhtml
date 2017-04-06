@@ -47,11 +47,17 @@
                             </f:facet>
                             <h:outputText value="#{item.total}"/>
                         </p:column>
+                             <p:column style="width:32px;text-align: center">
+                            <f:facet name="header">
+                                <h:outputText value="details"/>
+                            </f:facet>
+                                 <p:commandButton icon="ui-icon-search"/>
+                        </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListCmdTitle_client}"/>
                             </f:facet>
-                            <h:outputText value="#{item.client}"/>
+                            <h:outputText value="#{item.user}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{cmdController.prepareCreate}" update=":CmdCreateForm" oncomplete="PF('CmdCreateDialog').show()"/>

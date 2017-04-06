@@ -1,13 +1,19 @@
 package controler;
 
 import bean.CmdItem;
+import bean.Cuisine;
 import bean.IngredientPlat;
+import static bean.Menu_.restaurant;
 import bean.Plat;
+import bean.Quartier;
+import bean.Restaurant;
 import controler.util.JsfUtil;
 import controler.util.JsfUtil.PersistAction;
+import controler.util.SessionUtil;
 import service.PlatFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -20,6 +26,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.primefaces.context.RequestContext;
+import service.CuisineFacade;
 import service.IngredientPlatFacade;
 
 @Named("platController")
@@ -30,6 +38,17 @@ public class PlatController implements Serializable {
     private service.PlatFacade ejbFacade;
     @EJB
     private service.IngredientPlatFacade ingredientPlatFacade;
+    @EJB
+    private service.CuisineFacade cuisineFacade;
+    @EJB
+    private service.PlatMenuFacade platMenuFacade;
+    @EJB
+    private service.CmdItemFacade cmdItemFacade;
+    @EJB
+    private service.CmdFacade cmdFacade;
+    @EJB
+    private service.QuartierFacade quartierFacade;
+    private controler.RestaurantController restaurantController;
     private List<Plat> items = null;
     private Plat selected;
     private CmdItem cmdItem;
@@ -38,24 +57,108 @@ public class PlatController implements Serializable {
     private List<IngredientPlat> ingredientPlats;
     private List<IngredientPlat> ingredientChoisis;
     private List<CmdItem> panier;
+    private List<Cuisine> cuisines;
+    private Cuisine cuisine ;
+    private CmdItem selectedCmdItem;
+    private Double prixTotal;
+    private int qte ; 
+    private String adresseLivraison;
+    private List<Quartier> quartiers;
+    private Restaurant restaurant =(Restaurant) SessionUtil.getAttribute("anaResto");
     
     
-    
+    public void findPlatByCuisine(){
+        if(cuisine == null){
+          
+            System.out.println(restaurant);
+            items= platMenuFacade.findPlatByResto(restaurant);
+        }
+        else{
+        System.out.println("ha l cuisine li bghit"+cuisine);
+       items = ejbFacade.findPlatByCuisine(cuisine);
+    }
+    }
+  
       public void findIngredientByPlat(){
           System.out.println(selected);
+          if(selected.getType().equalsIgnoreCase("personnalise")){
           ingredientPlats = ingredientPlatFacade.findIngredientByPlat(selected);
+              RequestContext.getCurrentInstance().update("choixSupp");
+              RequestContext.getCurrentInstance().execute("PF('ChoixSuppDialog').show()");
+          }
+          else{
+              remplirPanier();
+              RequestContext.getCurrentInstance().update("panier:cmdItemPanier");
+          }
+  
     }
+   
     public void prixTotalIngredient(){
         System.out.println(ingredientChoisis);
         prix = ingredientPlatFacade.prixTotalIngredient(ingredientChoisis);
       
     }
+    
     public void total(){
         total = ingredientPlatFacade.total(selected, ingredientChoisis);
 
     }
+    public void remplirPanier(){
+        System.out.println("hahwa resto li fih had l plat "+restaurant);
+      CmdItem cmdItem =  cmdItemFacade.remplirCmdItem(selected, ingredientChoisis,restaurant);
+        System.out.println(cmdItem);
+      panier.add(cmdItem);
+      prixTotal = cmdItemFacade.totalDesCmdItem(panier);
+    }
+    public void removeCmdItem(){
+        panier.remove(selectedCmdItem);
+        prixTotal = prixTotal - selectedCmdItem.getPrix();
+        System.out.println(panier);
+    }
+    public void updateQteAndPrice(CmdItem selectCmdItem){
+        System.out.println("hahia cmdItem selectionne "+selectCmdItem);
+        System.out.println(qte);
+        cmdItemFacade.updateQteAndPrice(selectCmdItem, qte);
+         prixTotal = cmdItemFacade.totalDesCmdItem(panier);
+         qte = 1;
+    }
+    public void saveCmd(){
+        System.out.println("hahwa total dial cmd"+prixTotal);
+        System.out.println(panier);
+        System.out.println("hahia adresse "+adresseLivraison);
+        cmdFacade.saveCmd(panier, prixTotal,adresseLivraison);
+    }
+    public void prepareCmd(){
+     quartiers = quartierFacade.findQuartierByVille(restaurant.getQuartier().getVille());
+    }
+    public Cuisine getCuisine() {
+        return cuisine;
+    }
 
+    public void setCuisine(Cuisine cuisine) {
+        this.cuisine = cuisine;
+    }
+    
+    public CuisineFacade getCuisineFacade() {
+        return cuisineFacade;
+    }
+
+    public void setCuisineFacade(CuisineFacade cuisineFacade) {
+        this.cuisineFacade = cuisineFacade;
+    }
+
+    public List<Cuisine> getCuisines() {
+        return cuisines;
+    }
+
+    public void setCuisines(List<Cuisine> cuisines) {
+        this.cuisines = cuisines;
+    }
+    
     public CmdItem getCmdItem() {
+        if(cmdItem == null){
+            cmdItem = new CmdItem();
+        }
         return cmdItem;
     }
 
@@ -63,13 +166,45 @@ public class PlatController implements Serializable {
         this.cmdItem = cmdItem;
     }
 
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
+   
     public List<CmdItem> getPanier() {
+        if(panier ==null){
+            panier = new ArrayList<>();
+        }
         return panier;
     }
 
     public void setPanier(List<CmdItem> panier) {
         this.panier = panier;
     }
+
+    public List<Quartier> getQuartiers() {
+        return quartiers;
+    }
+
+    public void setQuartiers(List<Quartier> quartiers) {
+        if(quartiers == null){
+            quartiers = new ArrayList<Quartier>();
+        }
+        this.quartiers = quartiers;
+    }
+    
+    public int getQte() {
+        return qte;
+    }
+
+    public void setQte(int qte) {
+        this.qte = qte;
+    }
+
+ 
     
 
     public List<IngredientPlat> getIngredientChoisis() {
@@ -98,6 +233,17 @@ public class PlatController implements Serializable {
 
     public void setPrix(Double prix) {
         this.prix = prix;
+    }
+
+    public CmdItem getSelectedCmdItem() {
+        if(selectedCmdItem == null){
+            selectedCmdItem = new CmdItem();
+        }
+        return selectedCmdItem;
+    }
+
+    public void setSelectedCmdItem(CmdItem selectedCmdItem) {
+        this.selectedCmdItem = selectedCmdItem;
     }
     
     public void setEjbFacade(PlatFacade ejbFacade) {
@@ -134,6 +280,23 @@ public class PlatController implements Serializable {
         this.selected = selected;
     }
 
+    public Double getPrixTotal() {
+
+        return prixTotal;
+    }
+
+    public void setPrixTotal(Double prixTotal) {
+        this.prixTotal = prixTotal;
+    }
+
+    public String getAdresseLivraison() {
+        return adresseLivraison;
+    }
+
+    public void setAdresseLivraison(String adresseLivraison) {
+        this.adresseLivraison = adresseLivraison;
+    }
+    
     protected void setEmbeddableKeys() {
     }
 

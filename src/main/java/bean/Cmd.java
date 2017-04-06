@@ -6,6 +6,7 @@
 package bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
@@ -31,14 +32,15 @@ public class Cmd implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateCmd;
     private Double total;
+    private String adresseLivraison;
     @OneToMany(mappedBy = "cmd")
     private List<CmdItem> cmdItems;
     @ManyToOne
-    private Client client;
+    private User user;
 
     public Long getId() {
         return id;
-    }
+    } 
 
     public void setId(Long id) {
         this.id = id;
@@ -60,7 +62,26 @@ public class Cmd implements Serializable {
         this.total = total;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getAdresseLivraison() {
+        return adresseLivraison;
+    }
+
+    public void setAdresseLivraison(String adresseLivraison) {
+        this.adresseLivraison = adresseLivraison;
+    }
+    
     public List<CmdItem> getCmdItems() {
+        if(cmdItems==null){
+            cmdItems = new ArrayList<CmdItem>();
+        }
         return cmdItems;
     }
 

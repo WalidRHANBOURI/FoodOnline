@@ -5,7 +5,9 @@
  */
 package bean;
 
+import com.sun.javafx.scene.control.skin.VirtualFlow;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,7 +34,8 @@ public class CmdItem implements Serializable {
     private Double prix;
     @OneToOne
     private Plat plat;
-    
+    @ManyToOne
+    private Restaurant restaurant;
     @OneToMany
     private List<IngredientPlat> ingredientChoisits;
     
@@ -79,6 +82,14 @@ public class CmdItem implements Serializable {
         this.cmd = cmd;
     }
 
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
+   
     @Override
     public int hashCode() {
         int hash = 0;
@@ -87,6 +98,9 @@ public class CmdItem implements Serializable {
     }
 
     public List<IngredientPlat> getIngredientChoisits() {
+        if(ingredientChoisits==null){
+            ingredientChoisits= new ArrayList<>();
+        }
         return ingredientChoisits;
     }
 
@@ -111,7 +125,8 @@ public class CmdItem implements Serializable {
 
     @Override
     public String toString() {
-        return "bean.CmdItem[ id=" + id + " ]";
+        return "CmdItem{" + "id=" + id + ", prix=" + prix + ", plat=" + plat + ", ingredientChoisits=" + ingredientChoisits + '}';
     }
 
+  
 }

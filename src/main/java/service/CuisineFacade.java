@@ -30,9 +30,9 @@ public class CuisineFacade extends AbstractFacade<Cuisine> {
         return em;
     }
     
-    public void findCuisineByRestaurant(Restaurant restaurant){
-        em.createQuery("select csn from Cuisine csn where csn.menus.restaurant.id='"+restaurant.getId()+"'").getResultList();
-    }
+//    public List<Cuisine> findCuisineByRestaurant(Restaurant restaurant){
+//      return   em.createQuery("select csn from Cuisine csn where csn.menu.restaurant.id='"+restaurant.getId()+"'").getResultList();
+//    }
        public List<Plat> platCuisine(Cuisine cuisine){
        String requette = "select p from Plat p where p.cuisine.id='"+cuisine.getId()+"'";
        return em.createQuery(requette).getResultList();

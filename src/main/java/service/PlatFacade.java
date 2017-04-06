@@ -7,6 +7,10 @@ package service;
 
 import bean.Cuisine;
 import bean.Plat;
+import bean.PlatMenu;
+import bean.Restaurant;
+import controler.util.SearchUtil;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -29,6 +33,19 @@ public class PlatFacade extends AbstractFacade<Plat> {
 
     public PlatFacade() {
         super(Plat.class);
+    }
+    public void triPlatAsc(List<Plat> plats){
+        List<Plat> tri = new ArrayList<>();
+        Plat min = plats.get(0);
+        
+        
+    }
+    public Restaurant findRestoByPlat(Plat plat){
+        String requette ="select p from PlatMenu p where 1=1";
+        requette += SearchUtil.addConstraint("p", "plat.id", "=", plat.getId());
+        List<PlatMenu> res = em.createQuery(requette).getResultList();
+        return res.get(0).getMenu().getRestaurant();
+        
     }
      public List<Plat> findPlatByCuisine(Cuisine cuisine){
         String requette="";

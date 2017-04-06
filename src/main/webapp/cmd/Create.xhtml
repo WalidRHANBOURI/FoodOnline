@@ -18,11 +18,11 @@
                         <p:calendar id="dateCmd" pattern="MM/dd/yyyy" value="#{cmdController.selected.dateCmd}" title="#{bundle.EditCmdTitle_dateCmd}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateCmdLabel_total}" for="total" />
                         <p:inputText id="total" value="#{cmdController.selected.total}" title="#{bundle.CreateCmdTitle_total}" />
-                        <p:outputLabel value="#{bundle.CreateCmdLabel_client}" for="client" />
-                        <p:selectOneMenu id="client" value="#{cmdController.selected.client}" >
-                            <f:selectItems value="#{clientController.itemsAvailableSelectOne}"
-                                           var="clientItem"
-                                           itemValue="#{clientItem}"/>
+                        <p:outputLabel value="#{bundle.CreateCmdLabel_client}" for="user" />
+                        <p:selectOneMenu id="client" value="#{cmdController.selected.user}" >
+                            <f:selectItems value="#{userController.itemsAvailableSelectOne}"
+                                           var="userItem"
+                                           itemValue="#{userItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{cmdController.create}" value="#{bundle.Save}" update="display,:CmdListForm:datalist,:growl" oncomplete="handleSubmit(args,'CmdCreateDialog');"/>

@@ -27,6 +27,10 @@ public class CmdController implements Serializable {
     private service.CmdFacade ejbFacade;
     private List<Cmd> items = null;
     private Cmd selected;
+    
+    public void findCmdItemByCmd(Cmd cmd){
+        ejbFacade.findCmdItemByCmd(cmd);
+    }
 
     public CmdController() {
     }

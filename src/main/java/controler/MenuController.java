@@ -38,6 +38,7 @@ public class MenuController implements Serializable {
 //       items =  ejbFacade.findRestauByCuisine(cuisine);
 //    } 
     public void createCuisineMenu(){
+        System.out.println(selected);
         ejbFacade.remplirListCuisine(selected, cuisines);
     }
     public MenuController() {

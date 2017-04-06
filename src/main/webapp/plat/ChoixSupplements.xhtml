@@ -17,7 +17,7 @@
                                        itemValue="#{suppItem}" itemLabel="#{suppItem}#{suppItem.ingredient.prix + suppItem.prix}"/>    
                       
                     </p:selectManyCheckbox> 
-                    <p:commandButton value="valider" actionListener="#{platController.total()}" update=":Panier:cmdItemPanier"/>
+                    <p:commandButton value="valider" actionListener="#{platController.remplirPanier()}" update=":panier:cmdItemPanier"/>
                       <p:commandButton value="#{bundle.Cancel}" onclick="ChoixSuppDialog.hide()"/>
                 </h:form> 
             </p:dialog>

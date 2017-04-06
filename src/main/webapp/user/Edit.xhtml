@@ -30,13 +30,7 @@
                         <p:inputText id="adresse" value="#{userController.selected.adresse}" title="#{bundle.EditUserTitle_adresse}" />
                         <p:outputLabel value="#{bundle.EditUserLabel_numTelephone}" for="numTelephone" />
                         <p:inputText id="numTelephone" value="#{userController.selected.numTelephone}" title="#{bundle.EditUserTitle_numTelephone}" />
-                        <p:outputLabel value="#{bundle.EditUserLabel_client}" for="client" />
-                        <p:selectOneMenu id="client" value="#{userController.selected.client}" >
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{clientController.itemsAvailableSelectOne}"
-                                           var="clientItem"
-                                           itemValue="#{clientItem}"/>
-                        </p:selectOneMenu>
+
                     </p:panelGrid>
                     <p:commandButton actionListener="#{userController.update}" value="#{bundle.Save}" update="display,:UserListForm:datalist,:growl" oncomplete="handleSubmit(args, 'UserEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="UserEditDialog.hide()"/>
