@@ -7,6 +7,7 @@ import static bean.Menu_.restaurant;
 import bean.Plat;
 import bean.Quartier;
 import bean.Restaurant;
+import bean.User;
 import controler.util.JsfUtil;
 import controler.util.JsfUtil.PersistAction;
 import controler.util.SessionUtil;
@@ -65,6 +66,10 @@ public class PlatController implements Serializable {
     private String adresseLivraison;
     private List<Quartier> quartiers;
     private Restaurant restaurant =(Restaurant) SessionUtil.getAttribute("anaResto");
+//    private User client = SessionUtil.getConnectedUser();
+    private User client = (User)SessionUtil.getAttribute("clt");
+    
+
     
     
     public void findPlatByCuisine(){
@@ -79,7 +84,8 @@ public class PlatController implements Serializable {
     }
     }
   
-      public void findIngredientByPlat(){
+      public void findIngredientByPlat(Plat item){
+          selected = item;
           System.out.println(selected);
           if(selected.getType().equalsIgnoreCase("personnalise")){
           ingredientPlats = ingredientPlatFacade.findIngredientByPlat(selected);
@@ -110,7 +116,8 @@ public class PlatController implements Serializable {
       panier.add(cmdItem);
       prixTotal = cmdItemFacade.totalDesCmdItem(panier);
     }
-    public void removeCmdItem(){
+    public void removeCmdItem(CmdItem cmdItem){
+        selectedCmdItem = cmdItem;
         panier.remove(selectedCmdItem);
         prixTotal = prixTotal - selectedCmdItem.getPrix();
         System.out.println(panier);
@@ -118,18 +125,30 @@ public class PlatController implements Serializable {
     public void updateQteAndPrice(CmdItem selectCmdItem){
         System.out.println("hahia cmdItem selectionne "+selectCmdItem);
         System.out.println(qte);
-        cmdItemFacade.updateQteAndPrice(selectCmdItem, qte);
+        cmdItemFacade.updateQteAndPrice(selectCmdItem, selectCmdItem.getQuantite());
          prixTotal = cmdItemFacade.totalDesCmdItem(panier);
          qte = 1;
     }
     public void saveCmd(){
+        if(client == null){
+            JsfUtil.addErrorMessage("Vous devez vous connecter pour passer la commande");
+        }
         System.out.println("hahwa total dial cmd"+prixTotal);
         System.out.println(panier);
         System.out.println("hahia adresse "+adresseLivraison);
-        cmdFacade.saveCmd(panier, prixTotal,adresseLivraison);
+        cmdFacade.saveCmd(panier, prixTotal,adresseLivraison,client);
     }
     public void prepareCmd(){
+        if(restaurant != null)
      quartiers = quartierFacade.findQuartierByVille(restaurant.getQuartier().getVille());
+    }
+    public void mince(CmdItem cmdItem){
+        cmdItem.setQuantite(cmdItem.getQuantite()-1);
+        updateQteAndPrice(cmdItem);
+    }
+    public void plus(CmdItem cmdItem){
+        cmdItem.setQuantite(cmdItem.getQuantite() + 1);
+        updateQteAndPrice(cmdItem);
     }
     public Cuisine getCuisine() {
         return cuisine;
@@ -137,6 +156,17 @@ public class PlatController implements Serializable {
 
     public void setCuisine(Cuisine cuisine) {
         this.cuisine = cuisine;
+    }
+
+    public User getClient() {
+        if(client == null){
+            client = new User();
+        }
+        return client;
+    }
+
+    public void setClient(User client) {
+        this.client = client;
     }
     
     public CuisineFacade getCuisineFacade() {
@@ -186,6 +216,9 @@ public class PlatController implements Serializable {
     }
 
     public List<Quartier> getQuartiers() {
+        if(quartiers == null){
+            quartiers = new ArrayList<>();
+        }
         return quartiers;
     }
 

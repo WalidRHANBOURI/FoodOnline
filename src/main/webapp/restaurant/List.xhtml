@@ -19,7 +19,7 @@
             <h:form id="RestaurantListForm">
                 <p:panel header="#{bundle.ListRestaurantTitle}">
                     <p:dataTable id="datalist" value="#{restaurantController.items}" var="item"
-                                 selectionMode="single" selection="#{restaurantController.selected}"
+                                  
                                  paginator="true"
                                  rowKey="#{item.id}"
                                  rows="10"
@@ -63,7 +63,13 @@
                             <f:facet name="header">
                                 <h:outputText value="Liste des plats "/>
                             </f:facet>
-                            <p:commandButton id="listCuisinechoisi"  actionListener="#{restaurantController.menuResto()}"  action="/plat/List.xhtml"  icon="ui-icon-search" value="menu"  />
+                            <p:commandButton id="listCuisinechoisi"  actionListener="#{restaurantController.menuResto(item)}"  action="/plat/List.xhtml"  icon="ui-icon-search" value="menu"  />
+                        </p:column>
+                            <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Commandes reçues"/>
+                            </f:facet>
+                                <p:commandButton id="CmdRecu"  actionListener="#{restaurantController.findCmdByRestaurant(item)}"  action="/cmd/List.xhtml"  icon="ui-icon-search" value="Commandes reçues"  />
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{restaurantController.prepareCreate}" update=":RestaurantCreateForm" oncomplete="PF('RestaurantCreateDialog').show()"/>

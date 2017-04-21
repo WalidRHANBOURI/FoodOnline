@@ -36,6 +36,8 @@ public class RestaurantController implements Serializable {
     private service.PlatMenuFacade ejbPlatMenuFacade;
     @EJB
     private service.CuisineFacade cuisineFacade;
+    @EJB
+    private service.CmdFacade cmdFacade;
     private List<Restaurant> items = null;
     private Restaurant selected;
     private Ville ville;
@@ -59,7 +61,8 @@ public class RestaurantController implements Serializable {
         System.out.println(items);
     }
 
-    public void menuResto() {
+    public void menuResto(Restaurant item) {
+        selected= item;
         SessionUtil.setAttribute("anaResto", selected);
         System.out.println(selected);
         
@@ -67,6 +70,9 @@ public class RestaurantController implements Serializable {
          cuisines =  cuisineFacade.cuisineByMenu(selected.getMenu());
 
         System.out.println(itemsPlat);
+    }
+    public void findCmdByRestaurant(Restaurant restaurant){
+        cmdFacade.findCmdByResto(restaurant);
     }
 
     public List<Cuisine> getCuisines() {

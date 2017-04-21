@@ -24,38 +24,18 @@ public class Device implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String nom;
-    private String adresseIp;
-    private String adresseMac;
+    private String deviceCategorie;
+    private String browser;
+    private String operatingSystem;
     
     @ManyToOne
     private User user;
  
 
-    public String getNom() {
-        return nom;
-    }
+  
 
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
 
-    public String getAdresseIp() {
-        return adresseIp;
-    }
-
-    public void setAdresseIp(String adresseIp) {
-        this.adresseIp = adresseIp;
-    }
-    
-    public String getAdresseMac() {
-        return adresseMac;
-    }
-
-    public void setAdresseMac(String adresseMac) {
-        this.adresseMac = adresseMac;
-    }
-
+ 
     public User getUser() {
         return user;
     }
@@ -64,7 +44,31 @@ public class Device implements Serializable {
         this.user = user;
     }
 
- 
+    public String getDeviceCategorie() {
+        return deviceCategorie;
+    }
+
+    public void setDeviceCategorie(String deviceCategorie) {
+        this.deviceCategorie = deviceCategorie;
+    }
+
+    public String getBrowser() {
+        return browser;
+    }
+
+    public void setBrowser(String browser) {
+        this.browser = browser;
+    }
+
+    public String getOperatingSystem() {
+        return operatingSystem;
+    }
+
+    public void setOperatingSystem(String operatingSystem) {
+        this.operatingSystem = operatingSystem;
+    }
+
+   
     
     
     public Long getId() {

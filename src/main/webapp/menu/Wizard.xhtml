@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListRestaurantTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form>  
+                <p:wizard widgetVar="wiz">      
+                    <p:tab id="Cuisine" title="Cuisines"> 
+                        <p:panel header="Cuisines Details">   
+                            <h:messages errorClass="error"/> 
+                            <p:panelGrid columns="2">
+                                <p:selectManyCheckbox id="listCuisine" value="#{menuController.selected.cuisines}" converter="cuisineControllerConverter">
+                                    <f:selectItems value="#{cuisineController.itemsAvailableSelectMany}"  var="cuisineItem" 
+                                                   itemValue="#{cuisineItem}"/>     
+                                    <p:ajax process="listCuisine" listener="#{menuController.findPlatsByCuisines()}" update="listPlat"/>
+                                </p:selectManyCheckbox>
+                            </p:panelGrid>
+                        </p:panel>       
+                    </p:tab>    
+                    <p:tab id="Plat" title="Plats">
+                        <p:panel header="Plats Details">
+                            <h:messages errorClass="error"/>
+                            <p:panelGrid columns="2">
+                                <p:selectManyCheckbox id="listPlat" value="#{menuController.platsChoisi}" converter="platControllerConverter">
+                                    <f:selectItems value="#{menuController.plats}"  var="platItem" 
+                                                   itemValue="#{platItem}"
+                                                   />                                      
+                                </p:selectManyCheckbox>
+
+                            </p:panelGrid>
+                        </p:panel>       
+                    </p:tab>   
+                    <p:tab id="liste" title="Menu">
+                        <p:panel header="Mon Menu">
+                            <p:dataList value="#{menuController.platsChoisi}" var="ItemPlat" >
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Cuisines"/>
+                                    </f:facet>
+                                    <h:outputText value="#{ItemPlat.cuisine} : #{ItemPlat.id}"/>
+                                </p:column>
+                              
+                            </p:dataList>
+
+                        </p:panel>
+                        <p:commandButton value="submit" actionListener="#{menuController.createMenu()}"/>
+                    </p:tab>
+                </p:wizard>
+
+
+
+            </h:form>
+
+
+        </ui:define>
+    </ui:composition>
+</html>
+

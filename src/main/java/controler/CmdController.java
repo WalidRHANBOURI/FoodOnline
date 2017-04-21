@@ -1,11 +1,17 @@
 package controler;
 
 import bean.Cmd;
+import bean.CmdItem;
+import bean.Ingredient;
+import bean.User;
+import com.sun.javafx.scene.control.skin.VirtualFlow;
 import controler.util.JsfUtil;
 import controler.util.JsfUtil.PersistAction;
 import service.CmdFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -27,11 +33,20 @@ public class CmdController implements Serializable {
     private service.CmdFacade ejbFacade;
     private List<Cmd> items = null;
     private Cmd selected;
+    private List<CmdItem> cmdItems;
+    private Date dateCmdDebut;
+    private Date dateCmdFin;
+    private Double totalMin;
+    private Double totalMax;
+
     
     public void findCmdItemByCmd(Cmd cmd){
-        ejbFacade.findCmdItemByCmd(cmd);
+       cmdItems =  ejbFacade.findCmdItemByCmd(cmd);
+       
     }
-
+    public void search(){
+        ejbFacade.search( totalMin, totalMax, dateCmdDebut, dateCmdFin);
+    }
     public CmdController() {
     }
 
@@ -43,6 +58,51 @@ public class CmdController implements Serializable {
         this.selected = selected;
     }
 
+    public List<CmdItem> getCmdItems() {
+        if(cmdItems == null){
+            cmdItems = new ArrayList<>();
+        }
+        return cmdItems;
+    }
+
+    public void setCmdItems(List<CmdItem> cmdItems) {
+        this.cmdItems = cmdItems;
+    }
+
+    public Date getDateCmdDebut() {
+        return dateCmdDebut;
+    }
+
+    public void setDateCmdDebut(Date dateCmdDebut) {
+        this.dateCmdDebut = dateCmdDebut;
+    }
+
+    public Date getDateCmdFin() {
+        return dateCmdFin;
+    }
+
+    public void setDateCmdFin(Date dateCmdFin) {
+        this.dateCmdFin = dateCmdFin;
+    }
+
+    public Double getTotalMin() {
+        return totalMin;
+    }
+
+    public void setTotalMin(Double totalMin) {
+        this.totalMin = totalMin;
+    }
+
+    public Double getTotalMax() {
+        return totalMax;
+    }
+
+    public void setTotalMax(Double totalMax) {
+        this.totalMax = totalMax;
+    }
+
+
+    
     protected void setEmbeddableKeys() {
     }
 

@@ -19,12 +19,7 @@
                         <p:outputLabel value="#{bundle.EditCmdLabel_total}" for="total" />
                         <p:inputText id="total" value="#{cmdController.selected.total}" title="#{bundle.EditCmdTitle_total}" />
                         <p:outputLabel value="#{bundle.EditCmdLabel_client}" for="user" />
-                        <p:selectOneMenu id="client" value="#{cmdController.selected.user}" >
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{userController.itemsAvailableSelectOne}"
-                                           var="userItem"
-                                           itemValue="#{userItem}"/>
-                        </p:selectOneMenu>
+                
                     </p:panelGrid>
                     <p:commandButton actionListener="#{cmdController.update}" value="#{bundle.Save}" update="display,:CmdListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CmdEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="CmdEditDialog.hide()"/>

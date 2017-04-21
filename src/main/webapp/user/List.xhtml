@@ -47,18 +47,6 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUserTitle_blocked}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.blocked}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUserTitle_nbrCnx}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.nbrCnx}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListUserTitle_login}"/>
                             </f:facet>
                             <h:outputText value="#{item.login}"/>
@@ -71,16 +59,11 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUserTitle_adresse}"/>
+                                <h:outputText value="type"/>
                             </f:facet>
-                            <h:outputText value="#{item.adresse}"/>
+                            <h:outputText value="#{item.type}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUserTitle_numTelephone}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.numTelephone}"/>
-                        </p:column>
+                      
 
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{userController.prepareCreate}" update=":UserCreateForm" oncomplete="PF('UserCreateDialog').show()"/>

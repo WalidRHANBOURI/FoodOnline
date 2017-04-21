@@ -1,8 +1,13 @@
 package controler;
 
+
 import bean.User;
+import controler.util.EmailUtil;
+import controler.util.HashageUtil;
 import controler.util.JsfUtil;
 import controler.util.JsfUtil.PersistAction;
+import controler.util.SessionUtil;
+import java.io.IOException;
 import service.UserFacade;
 
 import java.io.Serializable;
@@ -14,10 +19,13 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 
 @Named("userController")
 @SessionScoped
@@ -25,23 +33,90 @@ public class UserController implements Serializable {
 
     @EJB
     private service.UserFacade ejbFacade;
-    private List<User> items = null;
+    private List<User> items ;
     private User selected;
+    private String username;
+    private String password;
+   
 
-    public void seConnecter() {
-        System.out.println(selected);
-        System.out.println("halloooooo :D");
-        ejbFacade.seConnnecter(selected);
+    public void connect() throws IOException {
+        Object[] res = getFacade().connect(selected);
+        System.out.println("haanii");
+        int resEnt = (int) res[0];
+        if (resEnt == -1) {
+            System.out.println("hanii f resEnt " + resEnt);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "login incorrect"));
+
+        } else if (resEnt == -2) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "password incorrect"));
+
+        } else {
+            SessionUtil.registerUser(selected);
+//            SessionUtil.redirect("/FoodOnline/faces/restaurant/Welcome.xhtml");
+            System.out.println(SessionUtil.getConnectedUser());
+            SessionUtil.setAttribute("clt", selected);
+
+        }
+
+    }
+    public void deconnect(){
+        ejbFacade.seDeConnnecter();
+      
+    }
+
+    public void envoieMsgRenitialisation() throws MessagingException {
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        User user = ejbFacade.findUserByEmail(selected.getEmail());
+        if (user == null) {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "cet utilisateur n'existe pas ou bien vous n'avez pas saisi correctement votre adresse mail"));
+        } else {
+            System.out.println("haa session " + request.getSession());
+            request.getSession().setAttribute("mail", selected.getEmail());
+            System.out.println("haa session " + request.getSession().getAttribute("mail"));
+//             request.setAttribute(selected.getEmail(), "mail");
+//            SessionUtil.getSession().setAttribute("mail", selected.getEmail());
+            String to = selected.getEmail();
+            String msg = "We heard that you lost your foodOnligne password. Sorry about that! But don’t worry! You can use the following link to reset your password:";
+            msg += "<br/><a href=\"http://localhost:8080/generationTest/faces/changerMdp.xhtml\">clic here</a>";
+            if (EmailUtil.senMail("wijdane.boukaid@gmail.com", "wiji123.", msg, to, "[foodOnLigne] Please reset your password")) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Succes!", "check your mail"));
+                System.out.println("avec succés");
+            } else {
+                System.out.println("fail!!!");
+            }
+        }
+    }
+
+//    public UserFacade getEjbFacade() {
+//        return ejbFacade;
+//    }
+
+    public void setEjbFacade(UserFacade ejbFacade) {
+        this.ejbFacade = ejbFacade;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public UserController() {
     }
 
-
-
-
     public User getSelected() {
-        if(selected == null){
+        if (selected == null) {
             selected = new User();
         }
         return selected;
@@ -50,15 +125,6 @@ public class UserController implements Serializable {
     public void setSelected(User selected) {
         this.selected = selected;
     }
-
-    public UserFacade getEjbFacade() {
-        return ejbFacade;
-    }
-
-    public void setEjbFacade(UserFacade ejbFacade) {
-        this.ejbFacade = ejbFacade;
-    }
-
 
     protected void setEmbeddableKeys() {
     }
@@ -103,10 +169,19 @@ public class UserController implements Serializable {
     }
 
     private void persist(PersistAction persistAction, String successMessage) {
+        System.out.println("hanii");
         if (selected != null) {
             setEmbeddableKeys();
             try {
                 if (persistAction != PersistAction.DELETE) {
+                    
+                    SessionUtil.setAttribute("mdp", selected.getMotDePasse());
+                    selected.setMotDePasse(HashageUtil.sha256(selected.getMotDePasse()));
+                    System.out.println("avant send email");
+                    String msg = "voila votre login : " + selected.getLogin() + " et votre mot de passe est </br>" + (String) SessionUtil.getAttribute("mdp");
+                    msg += "<br/> <a href=\"http://localhost:8080/FoodOnline/faces/Connexion.xhtml\">clic sur ce lien pour vous connecter</a>";
+                    EmailUtil.senMail("wijdane.boukaid@gmail.com", "wiji123.", msg, selected.getEmail(), "[foodOnLigne] acceder a votre compte");
+                    System.out.println("ha howa mdp" + (String) SessionUtil.getAttribute("mdp"));
                     getFacade().edit(selected);
                 } else {
                     getFacade().remove(selected);

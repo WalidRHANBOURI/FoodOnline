@@ -1,12 +1,12 @@
 body,html{
     background: #e1dfde;
     height: 100%;
-    margin: 0 auto;    
+    margin: 0 auto;
 }
 
 input:focus:invalid{
     border-color:#FF0000;
-    background-image:none;   
+    background-image:none;
 }
 input:focus:valid {
     border-color:#56c93f;
@@ -19,9 +19,10 @@ input:valid{
     height: 590px;
 }
 .form_text{
-    width: 268px;
-    height: 15px;
-    font-size: 20px;
+    border: 1px solid #8a9ba8;
+    width: 282px;
+    height: 25px;
+    font-size: 18px;
     color:#4A5D77;
     padding: 6px;
     margin: 19px;
@@ -39,10 +40,12 @@ input:valid{
     color: #FF0052;
 }
 .sbmit_btn{
+    height: 40px;
+    width: 250px;
     margin-top: 10px;
     border-bottom-color: rgb(27, 133, 212);
     border-radius: 5px;
-    border:0px solid #dcdcdc;  
+    border:0px solid #dcdcdc;
     display: inline-block;
     cursor: pointer;
     color: white;
@@ -59,7 +62,7 @@ input:valid{
    font-size: 18px;
  }
 #head{
-    height: 35px;
+    height: 40px;
     background-color: black;
     margin-top: -15px;
     text-align: right;
@@ -74,11 +77,11 @@ h1{
 }
 #img{
     float: left;
-    background-position: 0px 0px; 
-    width: 660px; 
+    background-position: 0px 0px;
+    width: 660px;
     height: 655px;
-    background-repeat: no-repeat; 
-    background-size: 100% 80.69%; 
+    background-repeat: no-repeat;
+    background-size: 100% 80.69%;
 }
 #col_form{
     width: 670px;
@@ -97,10 +100,15 @@ h1{
     font-size: 14px;
     font-weight: 400;
 }
+#Welcome{
+    text-decoration: none;
+    color:white;
+}
 #lb2{
     font-family: "Open Sans",sans-serif;
     font-size: 14px;
     font-weight: 400;
+    text-decoration: none;
 }
 
 #lb{

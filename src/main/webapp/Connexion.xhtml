@@ -8,20 +8,29 @@
         <link rel="stylesheet" type="text/css" href="resources/css/styleC.css"></link>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></link>
     </h:head>
-    <h:body>
-            <div class="container">           
-                <img src="resources/images/icon.png"></img> 
+    <h:body>  
+        <div class="container">
+            <img src="resources/images/icon.png"/>
+                <h1> Connexion <br/>
+                    <span class="service"> Continuer vers Food Online </span>
+                </h1>
                 <h:form>
-                    <div class="fa fa-user">
-                        <p:inputText type="text" placeholder="Enter Username" value="#{userController.login}"/>
+                    <div>
+                        <p:inputText  placeholder="Login" required="true" value="#{userController.selected.login}"/>
                     </div>
-                    <div class="fa fa-lock">
-                        <p:password  placeholder="Enter Password" value="#{userController.passwd}"/>
+                    <div>
+                        <p:inputText type="password"  placeholder="Mot de passe" required="true" value="#{userController.selected.motDePasse}"/>
                     </div>
-                    <br/>
-                    <p:commandButton value="LOGIN"  class="btn-login" actionListener="#{userController.seConnecter()}" />
+                    <h:commandButton type="submit"  class="btn-login" value="Connexion" actionListener="#{userController.connect()}" action="/restaurant/Welcome.xhtml" />
                 </h:form>
-            </div>   
-    </h:body>
+                <div>
+                    <a href="#" id="linkMdp">Mot de passe oublié&nbsp;?</a>
+                    <a href="Formulaire.xhtml" id="linkCmp">Créer un compte</a>
+                </div>
+                <div class="extra">
+                    En continuant, vous acceptez les conditions <br/> d'utilisation et la politique de confidentialité des <br/> services en ligne de FoodOnline.
+                </div>
+        </div>
+ </h:body>
 </html>
 

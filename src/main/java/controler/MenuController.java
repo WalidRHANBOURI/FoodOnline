@@ -2,11 +2,15 @@ package controler;
 
 import bean.Cuisine;
 import bean.Menu;
+import bean.Plat;
+import bean.User;
 import controler.util.JsfUtil;
 import controler.util.JsfUtil.PersistAction;
+import controler.util.SessionUtil;
 import service.MenuFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -31,6 +35,8 @@ public class MenuController implements Serializable {
     private Menu selected;
     private List<Cuisine> cuisines;
     private Cuisine cuisine;
+    private List<Plat> plats = null;
+    private List<Plat> platsChoisi = null;
     
     
 //      public void findByCuisine(){
@@ -40,6 +46,20 @@ public class MenuController implements Serializable {
     public void createCuisineMenu(){
         System.out.println(selected);
         ejbFacade.remplirListCuisine(selected, cuisines);
+    }
+        public void findPlatsByCuisines() {
+        List<Plat> liste = new ArrayList<>();
+        System.out.println("hanii dkhalt la fct findPlatsByCuisines");
+        System.out.println("ha houma les couisines ");
+        System.out.println("ha houma les cuisines choisis" + selected.getCuisines());
+        System.out.println(ejbFacade.findAllPlatsByCuisine(selected.getCuisines()));
+        plats = ejbFacade.findAllPlatsByCuisine(selected.getCuisines());
+
+    }
+           public String createMenu() {
+        User user = (User) SessionUtil.getConnectedUser();
+        ejbFacade.creeMenu(user, selected, platsChoisi);
+        return "platMenu/List.xhtml";
     }
     public MenuController() {
     }
@@ -51,8 +71,24 @@ public class MenuController implements Serializable {
     public void setCuisine(Cuisine cuisine) {
         this.cuisine = cuisine;
     }
-    
 
+    public List<Plat> getPlats() {
+        return plats;
+    }
+
+    public void setPlats(List<Plat> plats) {
+        this.plats = plats;
+    }
+
+    public List<Plat> getPlatsChoisi() {
+        return platsChoisi;
+    }
+
+    public void setPlatsChoisi(List<Plat> platsChoisi) {
+        this.platsChoisi = platsChoisi;
+    }
+    
+  
     public MenuFacade getEjbFacade() {
         return ejbFacade;
     }

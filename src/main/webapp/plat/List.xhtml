@@ -18,8 +18,11 @@
             </ui:define>
 
             <ui:define name="body">
+               
                 <div class="ui-g">
                 <h:form id="PlatListForm">
+                    <div class="row"> 
+                         <div class="col-sm-6">
                     <p:panel header="#{bundle.ListPlatTitle}">
                         <p:dataTable id="datalist" value="#{platController.items}" var="item"
                                      selectionMode="single" selection="#{platController.selected}"
@@ -57,10 +60,8 @@
                                 <h:outputText value="#{item.cuisine}"/>
                             </p:column>
                             <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="personaliserPlat"/>
-                                </f:facet>
-                                <p:commandButton id="platPerso" icon="ui-icon-plus"  actionListener="#{platController.findIngredientByPlat()}"   />
+
+                                <p:commandButton id="platPerso" icon="ui-icon-plus"  actionListener="#{platController.findIngredientByPlat(item)}"   />
                             </p:column>
 
 
@@ -75,15 +76,22 @@
                                                    itemValue="#{cuisItem}" />  
                                     <f:selectItem  itemLabel="all"/>
 
-                                    <p:ajax event="change" process="listCuisine" listener="#{platController.findPlatByCuisine()}" update="datalist" />
+                                    <p:ajax  process="listCuisine" listener="#{platController.findPlatByCuisine()}" update="datalist" />
                                 </p:selectOneRadio> 
                                 
                             </f:facet>
+                         
+                            
                         </p:dataTable>
                     </p:panel>
+                                </div>
+                         </div>
                 </h:form>
-                </div>
+                         
+                   
+               
                 <div class="ui-g-4">
+                     <div class="col-sm-4"> 
                 <h:form id="panier">
                     <p:dataTable id="cmdItemPanier" value="#{platController.panier}" var="cmdItem"
                                  selectionMode="single" selection="#{platController.selectedCmdItem}"
@@ -105,20 +113,20 @@
                             <f:facet name="header">
                                 <h:outputText value="Supplements"/>
                             </f:facet>
-                            <h:outputText value="#{cmdItem.ingredientChoisits}"/> <br/>
+                            <h:outputText  value="#{cmdItem.ingredientChoisits}" /> <br/>
                         </p:column>
                           <p:column>
 
                             <f:facet name="header">
                                 <h:outputText value="quantite"/>
                             </f:facet>
-                              <p:spinner  id="qte" min="1" value="#{platController.qte}">
-                                    <p:ajax  event="keyup" process="qte" listener="#{platController.updateQteAndPrice(cmdItem)}" update="cmdItemPanier"/>
-        
-                              </p:spinner>
-                                   <h:outputText value="#{cmdItem.quantite}"/>
+                              <p:commandButton id="moins" value="-" actionListener="#{platController.mince(cmdItem)}" update="cmdItemPanier" />
+                              <h:outputText id="qteChange" value="#{cmdItem.quantite}"/>
+                                 <p:commandButton id="plus" actionListener="#{platController.plus(cmdItem)}" icon="ui-icon-plus" update="cmdItemPanier"/>
+                   
                                   <br/>
                         </p:column>
+                          
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText id="total" value="total"/>
@@ -129,19 +137,19 @@
                                 <f:facet name="header">
                                     <h:outputText value="Remove"/>
                                 </f:facet>
-                                   <p:commandButton id="removePlat"  icon="ui-icon-trash"  actionListener="#{platController.removeCmdItem()}" update="cmdItemPanier"  />
+                                   <p:commandButton id="removePlat"  icon="ui-icon-trash"  actionListener="#{platController.removeCmdItem(cmdItem)}" update="cmdItemPanier"  />
                             </p:column>
-                        <p:column>
+                         <f:facet name="footer">
                         <h:outputText value="total"/>
-                         <h:outputText value="#{platController.prixTotal}"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton value="envoyer la commande"  actionListener="#{platController.prepareCmd()}" action="/cmd/DetailCmd.xhtml"/>
+                        <h:outputText value="#{platController.prixTotal}"/> <br/>
+                            <p:commandButton value="envoyer la commande"  actionListener="#{platController.prepareCmd()}" action="/cmd/InfoCmd.xhtml"/>
                         </f:facet>
                      
                     </p:dataTable>
                    
                 </h:form>
+                     </div>
+                </div>
                 </div>
                 <ui:include src="Create.xhtml"/>
                 <ui:include src="Edit.xhtml"/>

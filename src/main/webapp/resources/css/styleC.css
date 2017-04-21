@@ -1,57 +1,84 @@
 body {
  margin: 0 auto;
- background-image: url("../images/NewYork.jpg");    
- background-repeat: no-repeat;    
- background-size: 100% ;    
+ background-image: url("../images/f6.jpg");
+ background-repeat: no-repeat;
+ background-size: 100% ;
 }
 .container {
-    width: 500px;
-    height: 400px;
+    width: 440px;
+    height: 500px;
     text-align: center;
-    background-color: rgba(52, 73, 94,0.65);
+    background-color: rgba(255, 255, 255, 1);
     border-radius: 18px;
     margin: 0 auto;
-    margin-top: 150px;
+    margin-top: 90px;
+}
+h1{
+  font-size: 22px;
+  margin: 0 0 16px;
+  color: #424f59;
+  font-weight: inherit;
 }
 .container img {
     width: 120px;
     height: 120px;
-    margin-top: -60px;
-    margin-bottom: 30px;
+    margin-top: -75px;
+    margin-bottom:5px;
+}
+.service{
+    font-size: 17px;
+    font-weight: inherit;
 }
 input[type="text"],input[type="password"]{
     width: 300px;
     height: 40px;
     font-size: 18px;
     margin-bottom: 25px;
-    padding-left: 35px;
-    background-color: #fff;
-}
-.fa-user::before{
-    content: "\f007";
-    position: absolute;
-    font-family: 'FontAwesome';
-    font-size: 30px;
-    padding-top: 10px;
-    padding-left: 10px;
-    font-size: 25px;
-    color: #2c3e50;
-}
-.fa-lock::before{
-    content: "\f023";
-    position: absolute;
-    font-family: 'FontAwesome';
-    font-size: 30px;
-    padding-top: 10px;
-    padding-left: 10px;
-    font-size: 25px;
-    color: #2c3e50;
+    padding-left: 25px;
+    border: 1px solid #8a9ba8;
+    border-color: #424f59;
+    opacity: .6;
 }
 .btn-login{
-    margin-top: 20px;
-    padding: 15px 25px;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    background-color: #3498db;
+  width: 330px;
+  padding: 15px 25px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  background: #fbfbfb;
+  border-color: #b1b1b1;
+  border: 1px solid #8a9ba8;
+  color: #999;
+  cursor: auto;
+}
+.btn-login:hover{
+  padding: 15px 25px;
+  color: white;
+  border-radius: 5px;
+  border: 1px solid #005bab;
+  background: #0670cc;
+  border-color: #005bab;
+}
+#linkMdp{
+  float: left;
+  clear: both;
+  overflow: auto;
+  margin-left: 60px;
+  margin-top: 20px;
+  text-decoration: none;
+}
+#linkCmp{
+  float: right;
+  overflow: auto;
+  margin-right: 60px;
+  margin-top: 20px;
+  text-decoration: none;
+}
+.extra{
+  clear: both;
+  margin-top: 60px;
+  text-align: inherit;
+  color: #8a9ba8;
+  font-size: 16px;
+  font-weight: inherit;
 }

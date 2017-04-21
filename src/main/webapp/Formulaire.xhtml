@@ -1,52 +1,59 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
         <link rel="stylesheet" type="text/css" href="resources/css/styleF.css"></link>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
         <script type="text/javascript" language="javascript" src="resources/js/jquery.js"></script>
-        <script type="text/javascript" language="javascript" src="resources/js/script.js"></script>  
+        <script type="text/javascript" language="javascript" src="resources/js/script.js"></script>
     </h:head>
     <h:body>
-
+        
         <div id="workarea">
 
-            <div id="head"><H1>Food Online</H1></div>   
+            <div id="head"><H1><a href="restaurant/Welcome.xhtml" id="Welcome">Food Online</a></H1></div>
 
-            <div id="col_img"> <img id="img" src="resources/images/food2.jpg"/> </div>       
+  <div id="col_img"> <img id="img" src="resources/images/food2.jpg"/> </div>
 
-            <div id="col_form">           
-                <form id="refistration_form">  
-                    <br/>
-                    <table>
-                        <th><td><label id="lb1">Vous avez deja un compte ?</label><a href="Connexion.xhtml" id="lb2"> Connexion </a></td><td></td>
-                        </th>
-                        <tr><td></td><td><input type="text" id="txt"/></td>
-                        </tr>
-                        <tr><td>&emsp;&emsp;&emsp;&emsp;<label id="lb">Creer un compte</label></td><td></td>
-                        </tr>
-                        <tr><td>&emsp;&emsp;&emsp;&emsp;<label class="cl">ID de connexion</label></td><td><input type="text" class="form_text" id="form_username" placeholder="login" required="true"/></td><td><span class="error_form" id="username_error_message"></span></td>
-                        </tr>
-                        <tr><td>&emsp;&emsp;&emsp;&emsp;<label class="cl">Email</label></td><td><input type="email" class="form_text" id="form_email" placeholder="user@contact.com" required="true"/></td><td><span class="error_form" id="email_error_message"></span></td>
-                        </tr>
-                        <tr><td>&emsp;&emsp;&emsp;&emsp;<label class="cl">Date de naissance</label>  </td><td><input type="date" class="form_text" id="form_date"/></td><td><span class="error_form" id="date_error_message"></span></td>
-                        </tr>
-                        <tr><td>&emsp;&emsp;&emsp;&emsp;<label class="cl">Sexe </label> </td><td>&emsp;<input type="radio" name="gender" checked="true"/> Femme &emsp;<input type="radio" name="gender"/>Homme </td><td><span class="error_form" id="gender_error_message"></span></td>
-                        </tr> 
-                        <tr><td>&emsp;&emsp;&emsp;&emsp;<label class="cl">Creer un mot de passe</label>  </td><td><input type="password" class="form_text" id="form_password" required="true"/></td><td><span class="error_form" id="password_error_message"></span></td>
-                        </tr>         
-                        <tr><td>&emsp;&emsp;&emsp;&emsp;<label class="cl">Confirmer le mot de passe</label>  </td><td><input type="password" class="form_text" id="form_retype_password" required="true"/></td><td><span class="error_form" id="retype_password_error_message"></span></td>
-                        </tr> 
-                        <tr><td></td><td>&emsp;&emsp;<input class="sbmit_btn" type="submit" value="Creer mon compte."/></td><td></td>         
-                        </tr>         
-                    </table>
+  <div id="col_form">
+    <form id="refistration_form">
+        <br/>
+       <table>
+         <th><td><label id="lb1">Vous avez déja un compte ?</label><a href="Connexion.xhtml" id="lb2"> Connexion </a></td><td></td>
+         </th>
+         <tr><td></td><td><input type="text" id="txt"/></td>
+         </tr>
+         <tr><td>&emsp;&emsp;&emsp;&emsp;<label id="lb">Créer un compte</label></td><td></td>
+         </tr>
+           <tr><td>&emsp;&emsp;&emsp;&emsp;<label class="cl">Nom</label></td><td> <p:inputText type="text" class="form_text" id="form_name" placeholder="Nom" value="#{userController.selected.nom}" required="true"/></td><td><span class="error_form" id="username_error_message"></span></td>
+           </tr>
+           <tr><td>&emsp;&emsp;&emsp;&emsp;<label class="cl">Prenom</label></td><td> <p:inputText type="text" class="form_text" id="form_prenom" placeholder="Prenom" value="#{userController.selected.prenom}" required="true"/></td><td><span class="error_form" id="username_error_message"></span></td>
+           </tr>
+           <tr><td>&emsp;&emsp;&emsp;&emsp;<label class="cl">Email</label></td><td> <p:inputText type="text" class="form_text" id="form_mail" placeholder="Email" value="#{userController.selected.email}" required="true"/></td><td><span class="error_form" id="username_error_message"></span></td>
+           </tr>
+           <tr><td>&emsp;&emsp;&emsp;&emsp;<label class="cl">Tel</label></td><td> <p:inputText type="text" class="form_text" id="form_tel" placeholder="Numero de telephone" value="#{userController.selected.numTelephone}" required="true"/></td><td><span class="error_form" id="username_error_message"></span></td>
+           </tr>
+           <tr><td>&emsp;&emsp;&emsp;&emsp;<label class="cl">ID de connexion</label></td><td> <p:inputText type="text" class="form_text" id="form_username" placeholder="Login" value="#{userController.selected.login}" required="true"/></td><td><span class="error_form" id="username_error_message"></span></td>
+        </tr>
+        <tr><td>&emsp;&emsp;&emsp;&emsp;<label class="cl">Date de naissance</label>  </td><td> <p:inputText type="date" class="form_text" id="form_date"/></td><td><span class="error_form" id="date_error_message"/></td>
+         </tr>
+        <tr><td>&emsp;&emsp;&emsp;&emsp;<label class="cl">Sexe </label> </td><td>&emsp; <input type="radio" name="gender" checked="true"/> Femme &emsp;<input type="radio" name="gender"/>Homme </td><td><span class="error_form" id="gender_error_message"></span></td>
+         </tr>
+           <tr><td>&emsp;&emsp;&emsp;&emsp;<label class="cl">Créer un mot de passe</label>  </td><td><p:inputText type="password" class="form_text" id="form_password" value="#{userController.selected.motDePasse}" required="true"/></td><td><span class="error_form" id="password_error_message"></span></td>
+         </tr>
+        <tr><td>&emsp;&emsp;&emsp;&emsp;<label class="cl">Confirmer le mot de passe</label>  </td><td><p:inputText type="password" class="form_text" id="form_retype_password" required="true"/></td><td><span class="error_form" id="retype_password_error_message"></span></td>
+         </tr>
+           <tr><td></td><td>&emsp;&emsp;<h:commandButton class="sbmit_btn" type="submit"actionListener="#{userController.create()}" value="Créer mon compte."/> </td><td></td>
+         </tr>
+       </table>
 
-                </form>
-            </div>
-
-        </div> 
+     </form>
+  </div>
+</div>
+        
     </h:body>
 </html>
 

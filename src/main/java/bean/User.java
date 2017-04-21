@@ -6,10 +6,13 @@
 package bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 
 
@@ -21,8 +24,6 @@ import javax.persistence.OneToMany;
 @Entity
 public class User implements Serializable {
 
-
-
     private static final long serialVersionUID = 1L;
     @Id
     private String login;
@@ -32,12 +33,15 @@ public class User implements Serializable {
     private String motDePasse;
     private String adresse;
     private String numTelephone;
-    private int blocked;
-    private int nbrCnx;
+
+
+    private int type ;//1 admin 2 client 3 proprietaire d'1 restaurant 
     private boolean mdpChanged;
     @OneToMany(mappedBy = "user")
     private List<Device> devices;
-
+ 
+    
+ 
 
     public String getNom() {
         return nom;
@@ -47,6 +51,14 @@ public class User implements Serializable {
         this.nom = nom;
     }
 
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+    
     public String getPrenom() {
         return prenom;
     }
@@ -62,22 +74,7 @@ public class User implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
-  
-    public int getBlocked() {
-        return blocked;
-    }
-
-    public void setBlocked(int blocked) {
-        this.blocked = blocked;
-    }
-
-    public int getNbrCnx() {
-        return nbrCnx;
-    }
-
-    public void setNbrCnx(int nbrCnx) {
-        this.nbrCnx = nbrCnx;
-    }
+ 
 
     public boolean isMdpChanged() {
         return mdpChanged;
@@ -88,6 +85,9 @@ public class User implements Serializable {
     }
 
     public List<Device> getDevices() {
+        if(devices == null){
+            devices = new ArrayList<>();
+        }
         return devices;
     }
 
@@ -153,9 +153,9 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" +  " login=" + login + ", nom=" + nom + ", prenom=" + prenom + ", email=" + email + ", motDePasse=" + motDePasse + ", adresse=" + adresse + ", numTelephone=" + numTelephone + ", blocked=" + blocked + ", nbrCnx=" + nbrCnx + ", mdpChanged=" + mdpChanged + ", devices=" + devices + '}';
+        return "User{" + "login=" + login + ", nom=" + nom + ", prenom=" + prenom + ", email=" + email + ", motDePasse=" + motDePasse + ", adresse=" + adresse + ", numTelephone=" + numTelephone + ", type=" + type + ", mdpChanged=" + mdpChanged + ", devices=" + devices + '}';
     }
 
- 
+  
 
 }

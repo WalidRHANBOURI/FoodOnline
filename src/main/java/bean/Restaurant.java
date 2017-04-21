@@ -25,10 +25,14 @@ public class Restaurant implements Serializable {
     private String num;
     private String adresse;
     private int nbrEtoile;
+    private Double lat;
+    private Double lng;
     @ManyToOne
     private Quartier quartier;
     @OneToOne(mappedBy = "restaurant")
     private Menu menu;
+    @OneToOne
+    private User responsableResto;
 
     public String getId() {
         return id;
@@ -38,6 +42,30 @@ public class Restaurant implements Serializable {
         this.id = id;
     }
 
+    public Double getLat() {
+        return lat;
+    }
+
+    public void setLat(Double lat) {
+        this.lat = lat;
+    }
+
+    public Double getLng() {
+        return lng;
+    }
+
+    public void setLng(Double lng) {
+        this.lng = lng;
+    }
+    
+    public User getResponsableResto() {
+        return responsableResto;
+    }
+
+    public void setResponsableResto(User responsableResto) {
+        this.responsableResto = responsableResto;
+    }
+    
     public String getNum() {
         return num;
     }
@@ -71,6 +99,7 @@ public class Restaurant implements Serializable {
     }
 
     public Quartier getQuartier() {
+        
         return quartier;
     }
 

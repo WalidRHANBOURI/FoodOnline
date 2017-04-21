@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Facelet Title</title>
              <!--Required meta tags always come first--> 
@@ -33,6 +34,10 @@
                  <li>FoodOnline</li>
                 </ul>
                 <ul class="nav2">
+                    <h:form id="maert">
+                    <p:commandLink id="openDialogLink" value="envoyer demande pour nous rejoindre"  action="#{demandeController.envoyerDemande()}"/>
+                    <p:commandLink id="deconnect" value="se deconnecter" action="#{userController.deconnect()}"/>
+            </h:form>
                  <li><a href="../Formulaire.xhtml">S'inscrire</a></li>
                  <li><a href="../Connexion.xhtml"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a></li>
                  <li><a href="#"><i class="fa fa-phone" aria-hidden="true"></i> +212 649784109</a></li>
@@ -102,6 +107,7 @@
         </div>
       </div>
    </div>
+        <ui:include src="/demande/FormulaireDemande.xhtml"/>
         
     </h:body>
 </html>

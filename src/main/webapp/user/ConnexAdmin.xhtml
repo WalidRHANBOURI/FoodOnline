@@ -5,19 +5,28 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
+        <link rel="stylesheet" type="text/css" href="resources/css/styleC.css"></link>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></link>
     </h:head>
+    <p:dialog id="connexDlg" widgetVar="ConnexDialog" modal="true" resizable="false" appendTo="@(body)" >
     <h:body>
-        <h:form id="connexAdmin">
-          
-            <p:outputLabel value="login" for="login"/>
-            <p:inputText value="#{userController.selected.login}" id="login"/>
-            <br/>
-            <p:outputLabel value="mdp" for="motDePasse"/>
-            <p:inputText value="#{userController.selected.motDePasse}" id="motDePasse"/>
-            <p:commandButton actionListener="#{userController.seConnecter()}" action="/index.xhtml"/>
+       <div class="container">
+            <img src="resources/images/icon.png"/>
+                <h1> Connexion <br/>
+                </h1>
+                <h:form>
+                    <div>
+                        <p:inputText  placeholder="Login" required="true" value="#{userController.selected.login}"/>
+                    </div>
+                    <div>
+                        <p:inputText type="password"  placeholder="Mot de passe" required="true" value="#{userController.selected.motDePasse}"/>
+                    </div>
+                    <p:commandButton type="submit"  class="btn-login" value="Connexion" actionListener="#{userController.connect()}" oncomplete="handleSubmit(args,'ConnexDialog');" />
+                </h:form>
 
-        </h:form>
+        </div>
     </h:body>
+    </p:dialog>
 </html>
 
  
