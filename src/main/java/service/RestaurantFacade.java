@@ -109,6 +109,8 @@ public class RestaurantFacade extends AbstractFacade<Restaurant> {
     private void clone(Restaurant restaurantSource, Restaurant restaurantDestination){
         restaurantDestination.setId(restaurantSource.getId());
         restaurantDestination.setAdresse(restaurantSource.getAdresse());
+        restaurantDestination.setLat(restaurantSource.getLat());
+        restaurantDestination.setLng(restaurantSource.getLng());
         restaurantDestination.setNum(restaurantSource.getNum());
         restaurantDestination.setNbrEtoile(restaurantSource.getNbrEtoile()); 
         restaurantDestination.setQuartier(restaurantSource.getQuartier());

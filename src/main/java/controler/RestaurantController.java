@@ -16,14 +16,22 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.primefaces.event.map.OverlaySelectEvent;
+import org.primefaces.event.map.ReverseGeocodeEvent;
+import org.primefaces.model.map.DefaultMapModel;
+import org.primefaces.model.map.LatLng;
+import org.primefaces.model.map.MapModel;
+import org.primefaces.model.map.Marker;
 import service.PlatMenuFacade;
 
 @Named("restaurantController")
@@ -38,15 +46,70 @@ public class RestaurantController implements Serializable {
     private service.CuisineFacade cuisineFacade;
     @EJB
     private service.CmdFacade cmdFacade;
-    private List<Restaurant> items = null;
+    private List<Restaurant> items;
     private Restaurant selected;
     private Ville ville;
     private Quartier quartier;
     private Cuisine cuisine;
     private List<Plat> itemsPlat;
     private List<Cuisine> cuisines;
-    
-       public void findByQuartier() {
+    private MapModel emptyModel;
+    private MapModel revGeoModel;
+    private Marker marker;
+    private String centerRevGeoMap = "33.53333, -7.58333";
+
+    @PostConstruct
+    public void init() {
+        emptyModel = new DefaultMapModel();
+        revGeoModel = new DefaultMapModel();
+        for (int i = 0; i < getItems().size(); i++) {
+            Restaurant restaurant = getItems().get(i);
+            LatLng coord = new LatLng(restaurant.getLat(), restaurant.getLng());
+            revGeoModel.addOverlay(new Marker(coord, restaurant.getId()));
+        }
+    }
+
+    public MapModel getEmptyModel() {
+        return emptyModel;
+    }
+
+    public void setEmptyModel(MapModel emptyModel) {
+        this.emptyModel = emptyModel;
+    }
+
+    public MapModel getRevGeoModel() {
+        if (revGeoModel == null) {
+            revGeoModel = new DefaultMapModel();
+        }
+        return revGeoModel;
+    }
+
+    public Marker getMarker() {
+        return marker;
+    }
+
+    public String getCenterRevGeoMap() {
+        return centerRevGeoMap;
+    }
+
+    public void onReverseGeocode(ReverseGeocodeEvent event) {
+        System.out.println("hada howa mochkil : " + selected);
+        ejbFacade.create(selected);
+        List<String> addresses = event.getAddresses();
+        LatLng coord = event.getLatlng();
+        if (addresses != null && !addresses.isEmpty()) {
+            centerRevGeoMap = coord.getLat() + "," + coord.getLng();
+            revGeoModel.addOverlay(new Marker(coord, addresses.get(0)));
+        }
+
+    }
+
+    public void onMarkerSelect(OverlaySelectEvent event) {
+        marker = (Marker) event.getOverlay();
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Restaurant : ", marker.getTitle()));
+    }
+
+    public void findByQuartier() {
         System.out.println(quartier);
         items = ejbFacade.findRestauByQuartier(quartier);
         System.out.println(items);
@@ -62,28 +125,32 @@ public class RestaurantController implements Serializable {
     }
 
     public void menuResto(Restaurant item) {
-        selected= item;
+        System.out.println("item " + item);
+        selected = item;
         SessionUtil.setAttribute("anaResto", selected);
-        System.out.println(selected);
-        
+        System.out.println("hahwa resto selectionne" + selected);
+//        itemsPlat = platController.getItems();
         itemsPlat = ejbPlatMenuFacade.findPlatByResto(selected);
-         cuisines =  cuisineFacade.cuisineByMenu(selected.getMenu());
+        cuisines = cuisineFacade.cuisineByMenu(selected.getMenu());
 
         System.out.println(itemsPlat);
     }
-    public void findCmdByRestaurant(Restaurant restaurant){
+
+    public void findCmdByRestaurant(Restaurant restaurant) {
         cmdFacade.findCmdByResto(restaurant);
     }
 
     public List<Cuisine> getCuisines() {
+        if (cuisines == null) {
+            cuisines = new ArrayList<>();
+        }
         return cuisines;
     }
 
     public void setCuisines(List<Cuisine> cuisines) {
         this.cuisines = cuisines;
     }
-    
-    
+
     public RestaurantFacade getEjbFacade() {
         return ejbFacade;
     }
@@ -95,13 +162,13 @@ public class RestaurantController implements Serializable {
     public PlatMenuFacade getEjbPlatMenuFacade() {
         return ejbPlatMenuFacade;
     }
-  
+
     public void setEjbPlatMenuFacade(PlatMenuFacade ejbPlatMenuFacade) {
         this.ejbPlatMenuFacade = ejbPlatMenuFacade;
     }
 
     public List<Plat> getItemsPlat() {
-        if(itemsPlat == null){
+        if (itemsPlat == null) {
             itemsPlat = new ArrayList<>();
         }
         return itemsPlat;
@@ -144,14 +211,12 @@ public class RestaurantController implements Serializable {
         this.cuisine = cuisine;
     }
 
- 
-
     public RestaurantController() {
     }
 
     public Restaurant getSelected() {
-        if(selected ==null){
-            selected= new Restaurant();
+        if (selected == null) {
+            selected = new Restaurant();
         }
         return selected;
     }

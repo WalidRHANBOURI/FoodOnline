@@ -14,38 +14,223 @@
         </ui:define>
 
         <ui:define name="body">
-            <h:form id="VilleListForm">
-                <p:panel header="#{bundle.ListVilleTitle}">
-                    <p:dataTable id="datalist" value="#{villeController.items}" var="item"
-                                 selectionMode="single" selection="#{villeController.selected}"
-                                 paginator="true"
-                                 rowKey="#{item.id}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
+            <br/><br/><br/>
+            <p:tabView id="tab"  >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                <p:tab title="Villes" >         
+                    <div class="row" >  
+                        <br/><br/>
+                        <div class="col-sm-1"> </div>
+                        <div class="col-sm-2">
+                            <h:form id="VilleCreateForm">
+                                <p:panel>
+                                    <p:outputLabel value="Ville : " for="idVille" />
+                                    <p:inputText id="idVille" value="#{villeController.selected.id}" title="#{bundle.CreateVilleTitle_idVille}" />
+                                    <p:commandButton actionListener="#{villeController.create}" value="#{bundle.Save}" update=":tab:VilleListForm:datalist"/>
+                                </p:panel>
+                            </h:form>    
+                        </div>
+                        <div class="col-sm-1"> </div>
+                        <div class="col-sm-6">
+                            <h:form id="VilleListForm">
+                                <p:dataTable id="datalist" value="#{villeController.items}" var="item"
+                                             selectionMode="single" selection="#{villeController.selected}"
+                                             rowKey="#{item.id}" 
+                                             >
 
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListVilleTitle_idVille}"/>
+                                    <p:ajax event="rowSelect"   update="viewButton editButton deleteButton"/>
+                                    <p:ajax event="rowUnselect" update="viewButton editButton deleteButton"/>
+
+                                    <p:column >
+                                        <f:facet name="header">
+                                            <h:outputText value="Villes" style="color:red; font-family:monotype corsiva; font-size:40px; "/>
+                                        </f:facet>
+                                        <h3><center><h:outputText value="#{item.id}"/></center></h3>
+                                    </p:column>
+                                    <f:facet name="footer">
+                                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":VilleViewForm" oncomplete="PF('VilleViewDialog').show()" />
+                                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":VilleEditForm" oncomplete="PF('VilleEditDialog').show()" />
+                                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{villeController.destroy}" update=":growl,datalist" />
+                                    </f:facet>
+                                </p:dataTable>
+                                <br/><br/><br/><br/>
+                            </h:form>
+                        </div>
+                    </div>
+                </p:tab> 
+
+                <p:tab title="Quartiers">
+                    <div class="row" >
+                        <br/><br/>
+                        <div class="col-sm-1"> </div>
+                        <div class="col-sm-3">   
+                            <h:form id="QuartierCreateForm">
+                                <p:panel rendered="#{quartierController.selected != null}">
+                                    <p:outputLabel value="#{bundle.CreateQuartierLabel_ville}" for="ville" />
+                                    <h:selectOneMenu id="ville" value="#{quartierController.selected.ville}" class="form-control" >
+                                        <f:selectItem itemLabel="--SELECT--" itemValue="#{null}"/>
+                                        <f:selectItems value="#{villeController.itemsAvailableSelectOne}"
+                                                       var="villeItem"
+                                                       itemValue="#{villeItem}"/>
+                                    </h:selectOneMenu><br/>
+                                    <p:outputLabel value="Entrer un Quartier :" for="idQuartier" />
+                                    <p:inputText id="idQuartier" value="#{quartierController.selected.id}" title="#{bundle.CreateQuartierTitle_idQuartier}" class="form-control" /><br/> 
+
+                                    <center><p:commandButton actionListener="#{quartierController.create}" value="#{bundle.Save}" update=":tab:QuartierListForm:datalist"/></center>
+                                </p:panel>
+                            </h:form>
+                        </div>
+                        <div class="col-sm-1"> </div>
+                        <div class="col-sm-5">
+                            <h:form id="QuartierListForm">
+                                <p:dataTable id="datalist" value="#{quartierController.items}" var="item"
+                                             selectionMode="single" selection="#{quartierController.selected}"
+                                             rowKey="#{item.id}"
+                                             >
+
+                                    <p:ajax event="rowSelect"   update="viewButton editButton deleteButton"/>
+                                    <p:ajax event="rowUnselect" update="viewButton editButton deleteButton"/>
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Villes" style="color:red; font-family:monotype corsiva; font-size:40px;"/>
+                                        </f:facet>
+                                        <h3><center><h:outputText value="#{item.ville}"/></center></h3>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Quartier" style="color:red; font-family:monotype corsiva; font-size:40px;"/>
+                                        </f:facet>
+                                        <h3><center><h:outputText value="#{item.id}"/></center></h3>
+                                    </p:column>
+                                    <f:facet name="footer">
+                                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":QuartierViewForm" oncomplete="PF('QuartierViewDialog').show()" disabled="#{empty quartierController.selected}"/>
+                                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":QuartierEditForm" oncomplete="PF('QuartierEditDialog').show()" disabled="#{empty quartierController.selected}"/>
+                                        <p:commandButton id="deleteButton" icon="ui-icon-trash" value="#{bundle.Delete}" actionListener="#{quartierController.destroy}" update=":growl,datalist" disabled="#{empty quartierController.selected}"/>
+                                    </f:facet>
+                                </p:dataTable>
+                                <br/><br/><br/><br/>
+                            </h:form>
+                        </div>    
+                    </div>
+                </p:tab> 
+
+                <p:tab title="Restaurants" >
+
+                </p:tab>
+
+            </p:tabView> 
+
+            <div class="row" >
+                <br/><br/>
+                <div class="col-sm-1"> </div>
+                <div class="col-sm-3">
+                    <h:form prependId="false" id="RestaurantCreateForm">
+                         
+                            <p:panel >
+                            <p:outputLabel for="res" value="Restaurant :" />
+                            <p:inputText id="res" value="#{restaurantController.selected.id}" class="form-control"/><br/>
+                            <p:outputLabel value="#{bundle.CreateRestaurantLabel_adresse}" for="adresse" />
+                            <p:inputText id="adresse" value="#{restaurantController.selected.adresse}" title="#{bundle.CreateRestaurantTitle_adresse}" class="form-control"/><br/> 
+                            <p:outputLabel for="lat" value="Lat:" />
+                            <p:inputText id="lat" value="#{restaurantController.selected.lat}" class="form-control"/><br/>
+                            <p:outputLabel for="lng" value="Lng:" />
+                            <p:inputText id="lng" value="#{restaurantController.selected.lng}" class="form-control"/><br/>
+                            <p:outputLabel value="#{bundle.CreateRestaurantLabel_quartier}" for="quartier" />
+                            <h:selectOneMenu id="quartier" value="#{restaurantController.selected.quartier}" converter="quartierControllerConverter" class="form-control" >
+                                <f:selectItem itemLabel="--SELECT--" itemValue="#{null}"/>
+                                <f:selectItems value="#{quartierController.itemsAvailableSelectOne}"
+                                               var="quartierItem"
+                                               itemValue="#{quartierItem}"/>
+                            </h:selectOneMenu><br/>                            
+                            <p:outputLabel value="#{bundle.CreateRestaurantLabel_num}" for="num" />
+                            <p:inputText id="num" value="#{restaurantController.selected.num}" title="#{bundle.CreateRestaurantTitle_num}" class="form-control"/><br/>                                   
+                            <p:outputLabel value="#{bundle.CreateRestaurantLabel_nbrEtoile}" for="nbrEtoile" />
+                            <p:inputText id="nbrEtoile" value="#{restaurantController.selected.nbrEtoile}" title="#{bundle.CreateRestaurantTitle_nbrEtoile}" class="form-control" />
+                                   <center> <p:commandButton  icon="ui-icon-search" onclick="reverseGeocode()" /> 
+                                <p:commandButton value="Save" actionListener="#{restaurantController.create()}" update=":RestaurantListForm:datalist"/></center>
+                                </p:panel>
+                         
+                    </h:form>
+                </div>
+                <div class="col-sm-7">
+                    <h:form id="RestaurantListForm">
+                        <p:dataTable  id="datalist" value="#{restaurantController.items}" var="item" 
+                                      selectionMode="single" selection="#{restaurantController.selected}"
+                                      rowKey="#{item.id}"                             
+                                      >  
+
+                            <p:ajax event="rowSelect"   update="viewButton editButton deleteButton"/>
+                            <p:ajax event="rowUnselect" update="viewButton editButton deleteButton"/>
+
+                            <p:column >
+                                <f:facet name="header">
+                                        <h:outputText value="Nom" style="color:red; font-family:monotype corsiva; font-size:40px;"/>
+                                </f:facet>
+                                <h4><center><h:outputText value="#{item.id}"/></center></h4>
+                            </p:column>
+                            <p:column >
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListRestaurantTitle_adresse}" style="color:red; font-family:monotype corsiva; font-size:40px;"/>
+                                </f:facet>
+                                <h4><center><h:outputText value="#{item.adresse}" /></center></h4>
+                            </p:column>                                
+                            <p:column >
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListRestaurantTitle_quartier}" style="color:red; font-family:monotype corsiva; font-size:40px;"/>
+                                </f:facet>
+                                <h4><center><h:outputText value="#{item.quartier}" /></center></h4>
+                            </p:column>                                
+                            <p:column >
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListRestaurantTitle_num}" style="color:red; font-family:monotype corsiva; font-size:40px;"/>
+                                </f:facet>
+                                <h4><center><h:outputText value="#{item.num}"/></center></h4>
+                            </p:column>
+                            <p:column >
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListRestaurantTitle_nbrEtoile}" style="color:red; font-family:monotype corsiva; font-size:40px;"/>
+                                </f:facet>
+                                <h4><center><h:outputText value="#{item.nbrEtoile}"/></center></h4>
+                            </p:column>
+                            <f:facet name="footer">
+                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":RestaurantViewForm" oncomplete="PF('RestaurantViewDialog').show()" disabled="#{empty restaurantController.selected}"/>
+                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":RestaurantEditForm" oncomplete="PF('RestaurantEditDialog').show()" disabled="#{empty restaurantController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{restaurantController.destroy}" update=":growl,datalist" disabled="#{empty restaurantController.selected}"/>
                             </f:facet>
-                            <h:outputText value="#{item.id}"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{villeController.prepareCreate}" update=":VilleCreateForm" oncomplete="PF('VilleCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":VilleViewForm" oncomplete="PF('VilleViewDialog').show()" disabled="#{empty villeController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":VilleEditForm" oncomplete="PF('VilleEditDialog').show()" disabled="#{empty villeController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{villeController.destroy}" update=":growl,datalist" disabled="#{empty villeController.selected}"/>
-                        </f:facet>
-                    </p:dataTable>
-                </p:panel>
-            </h:form>
+                        </p:dataTable>
+                    </h:form> <br/>
+                </div>    
+            </div>
+            <div class="row">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-11">
+                    <p:growl id="messages" showDetail="true" />
+                        <p:gmap id="revGeoGmap" widgetVar="revGeoMap" center="#{restaurantController.centerRevGeoMap}" zoom="6" type="ROADMAP" model="#{restaurantController.revGeoModel}" style="width:90%;height:430px">
+                                <p:ajax event="reverseGeocode" listener="#{restaurantController.onReverseGeocode}" update="@this" />
+                        <p:ajax event="overlaySelect" listener="#{restaurantController.onMarkerSelect}" update="messages"/>
+                            </p:gmap>
+                </div>
+            </div>  
 
-            <ui:include src="Create.xhtml"/>
+            <script type="text/javascript" >
+                    function reverseGeocode() {
+                            var lat = document.getElementById('lat').value,
+                                        lng = document.getElementById('lng').value;
+             
+                            PF('revGeoMap').reverseGeocode(lat, lng);
+                    }
+            </script>
+
+
+
+
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
+            <ui:include src="../quartier/Edit.xhtml"/>
+            <ui:include src="../quartier/View.xhtml"/> 
+            <ui:include src="../restaurant/Edit.xhtml"/>
+            <ui:include src="../restaurant/View.xhtml"/>             
         </ui:define>
     </ui:composition>
 

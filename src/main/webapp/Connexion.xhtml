@@ -16,12 +16,12 @@
                 </h1>
                 <h:form>
                     <div>
-                        <p:inputText  placeholder="Login" required="true" value="#{userController.selected.login}"/>
+                        <p:inputText  placeholder="Adresse électronique" required="true"/>
                     </div>
                     <div>
                         <p:inputText type="password"  placeholder="Mot de passe" required="true" value="#{userController.selected.motDePasse}"/>
                     </div>
-                    <h:commandButton type="submit"  class="btn-login" value="Connexion" actionListener="#{userController.connect()}" action="/restaurant/Welcome.xhtml" />
+                    <h:commandButton type="submit"  class="btn-login" value="Connexion" actionListener="#{userController.connect()}" action="/restaurant/Welcome.xhtml"/>
                 </h:form>
                 <div>
                     <a href="#" id="linkMdp">Mot de passe oublié&nbsp;?</a>

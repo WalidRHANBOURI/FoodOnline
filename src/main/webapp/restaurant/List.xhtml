@@ -6,86 +6,44 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-
+    <ui:composition template="/template.xhtml" >
 
         <ui:define name="title">
             <h:outputText value="#{bundle.ListRestaurantTitle}"></h:outputText>
         </ui:define>
+        
+        <ui:define name="body" >
+            <div class="row" >
+                <br/><br/><br/><br/>
+                <div class="col-sm-3"></div>
+                <div class="col-sm-5">
+                    <h:form id="RestaurantListForm">
 
-        <ui:define name="body">
+                        <p:dataTable  id="datalist"  value="#{restaurantController.items}" var="item" 
+                                      selection="#{restaurantController.selected}"
+                                      rowKey="#{item.id}"                             
+                                      >
+                            <div class="row">
+                                <p:column >
+                                    <f:facet name="header">
+                                        <h:outputText value="Restaurants" style="color:red; font-family:monotype corsiva; font-size:40px; "/>
+                                    </f:facet>
+                                    <div class="col-sm-4">
+                                        <b><h:outputText value="#{item.id}" style="font-size:18px;"/></b>
+                                    </div><br/>
+                                    <div class="col-sm-3"><h:outputText value="#{item.quartier}" /></div>
+                                    <p:rating value="#{item.nbrEtoile}" readonly="true"/><br/> 
+                                    <div class="col-sm-9"></div>
+                                    <h:commandButton id="listCuisinechoisi" actionListener="#{restaurantController.menuResto(item)}" action="/plat/List.xhtml" value="View Menu" class="btn btn-success" />
+                                </p:column>                       
+                            </div>
+                        </p:dataTable>
 
-          
-            <h:form id="RestaurantListForm">
-                <p:panel header="#{bundle.ListRestaurantTitle}">
-                    <p:dataTable id="datalist" value="#{restaurantController.items}" var="item"
-                                  
-                                 paginator="true"
-                                 rowKey="#{item.id}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
-
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRestaurantTitle_id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                             <h:outputText value="#{bundle.ListRestaurantTitle_num}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.num}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRestaurantTitle_adresse}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.adresse}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRestaurantTitle_nbrEtoile}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.nbrEtoile}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRestaurantTitle_quartier}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.quartier}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="Liste des plats "/>
-                            </f:facet>
-                            <p:commandButton id="listCuisinechoisi"  actionListener="#{restaurantController.menuResto(item)}"  action="/plat/List.xhtml"  icon="ui-icon-search" value="menu"  />
-                        </p:column>
-                            <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="Commandes reçues"/>
-                            </f:facet>
-                                <p:commandButton id="CmdRecu"  actionListener="#{restaurantController.findCmdByRestaurant(item)}"  action="/cmd/List.xhtml"  icon="ui-icon-search" value="Commandes reçues"  />
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{restaurantController.prepareCreate}" update=":RestaurantCreateForm" oncomplete="PF('RestaurantCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":RestaurantViewForm" oncomplete="PF('RestaurantViewDialog').show()" disabled="#{empty restaurantController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":RestaurantEditForm" oncomplete="PF('RestaurantEditDialog').show()" disabled="#{empty restaurantController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{restaurantController.destroy}" update=":growl,datalist" disabled="#{empty restaurantController.selected}"/>
-                        </f:facet>
-                    </p:dataTable>
-                </p:panel>
-            </h:form>
-
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
-           
+                    </h:form> 
+                </div>   
+            </div>
         </ui:define>
+        
     </ui:composition>
 
 </html>

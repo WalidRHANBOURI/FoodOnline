@@ -3,111 +3,250 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
-             <!--Required meta tags always come first--> 
-        <meta charset="utf-8"></meta>
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"></meta>
-        <meta http-equiv="x-ua-compatible" content="ie=edge"></meta>
-            <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous"></link>
+        <!--Required meta tags always come first--> 
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></link>    
-           <!-- Custom Stylesheet -->
+        <!-- Custom Stylesheet -->
         <link rel="stylesheet" href="../resources/css/styleW.css"/>
+        <link rel="icon" type="image/png" href="../resources/images/hamburguer.png"/>
         <style>
             #formdiv {
                 position:absolute;
-                top: 25%;
-                left: 18%;
-                width:40cm;
-                height:10cm;
+                top: 48%;
+                left: 21%;
+            }
+            .badge{
+                background:red;
+                position:relative;
+                top: -10px;
+                right: 0px;
+                size: 15px;
             }
         </style>
     </h:head>
-    <h:body>
-        
+    <h:body >
         <div class="space1">  
-            
-                <ul class="nav1">
-                 <li>FoodOnline</li>
-                </ul>
-                <ul class="nav2">
-                    <h:form id="maert">
-                    <p:commandLink id="openDialogLink" value="envoyer demande pour nous rejoindre"  action="#{demandeController.envoyerDemande()}"/>
-                    <p:commandLink id="deconnect" value="se deconnecter" action="#{userController.deconnect()}"/>
-            </h:form>
-                 <li><a href="../Formulaire.xhtml">S'inscrire</a></li>
-                 <li><a href="../Connexion.xhtml"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a></li>
-                 <li><a href="#"><i class="fa fa-phone" aria-hidden="true"></i> +212 649784109</a></li>
-                 <li><a href="#"><img src="../resources/images/maroc.ico" width="24" height="24" alt="Mar"/> </a></li>
-                 <li><a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
-                </ul>
-            
-        <h:form id="formdiv">
-            <h:panelGrid columns="8" style="margin-bottom:10px" cellpadding="5">
-                
-               <p:selectOneMenu id="villes" value="#{villeController.selected}" effect="fold" required="true" style="width: 200px;">
-                 <f:selectItem itemLabel="Select Your City" itemValue="#{null}" />
-                 <f:selectItems value="#{villeController.items}" />
-                 <p:ajax process="villes" listener="#{villeController.findByVille()}" update="quartier"/>
-               </p:selectOneMenu>
-                
-               <p:selectOneMenu  id="quartier" value="#{restaurantController.quartier}" effect="fold" required="true" style="width: 200px;" converter="quartierControllerConverter">
-                 <f:selectItem itemLabel="Select Your Area" itemValue="#{null}"/>
-                 <f:selectItems value="#{villeController.selected.quartiers}" var="quartierItem" itemValue="#{quartierItem}"/>
-               </p:selectOneMenu>
-                
 
-                <p:selectOneMenu  id="cuisines" value="#{restaurantController.cuisine}" effect="fold" converter="cuisineControllerConverter"  style="width: 200px;">
-                <f:selectItem itemLabel="Choose Cuisine" itemValue="#{null}"/>
-                <f:selectItems value="#{cuisineController.items}" var="cuisineItem" itemValue="#{cuisineItem}" />
-                </p:selectOneMenu>
-                
-                <p:commandButton class="btn btn-primary btn-sm active" actionListener="#{restaurantController.search()}" action="List.xhtml" value="Find Restaurants" update="formdiv" />
-            
-            </h:panelGrid>
-            
-        </h:form>  
+            <div id="my-slider" class="carousel slide" data-ride="carousel">
+                <div class="navbar navbar-transparent navbar-fixed-top animated fadeIn">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a href="Welcome.xhtml" class="navbar-brand">FoodOnline</a>
+                        </div>
+
+                        <div class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav">                                                           
+                                <li><a href="../Formulaire.xhtml">S'inscrire</a></li>
+                                <li><a href="../Connexion.xhtml"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a></li> 
+                                <li><a href="#"><i class="fa fa-phone" aria-hidden="true"></i> +212 649784109</a></li>
+                                <li><a href="#"><img src="../resources/images/maroc.ico" width="24" height="24" alt="Mar"/> </a></li> 
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-shopping-cart" aria-hidden="true"><span class="badge"><h:outputText value=""/></span></i><b class="caret"></b></a>
+                                    <ul class="dropdown-menu" >
+                                        <h:form id="panier" style="width: 400px;">
+                                            <h2 style="color: #f68b2d;"><b>&emsp;<i class="fa fa-shopping-cart" aria-hidden="true"></i> Your Cart</b></h2>
+                                            <p:dataTable id="cmdItemPanier" value="#{platController.panier}" var="cmdItem" 
+                                                         selection="#{platController.selectedCmdItem}"
+                                                         rowKey="#{cmdItem.id}"
+                                                         >
+                                                <p:column>                                                             
+                                                    <div class="row">
+                                                        <div class="col-sm-4">  
+                                                            <p:commandButton id="moins" value="-" actionListener="#{platController.mince(cmdItem)}" update="cmdItemPanier" />
+                                                            <p:commandButton  id="qteChange" value="#{cmdItem.quantite}" />
+                                                            <p:commandButton id="plus" value="+" actionListener="#{platController.plus(cmdItem)}"  update="cmdItemPanier"/>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <h:outputText value="#{cmdItem.plat}"/>
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <h:outputText id="prix" value="#{cmdItem.prix}"/>
+                                                        </div>
+                                                        <p:commandButton id="removePlat"  icon="ui-icon-trash"  actionListener="#{platController.removeCmdItem(cmdItem)}" update="cmdItemPanier"  />                                        
+                                                    </div>
+                                                </p:column>
+                                                <f:facet name="footer">
+                                                    <h:outputText value="total : "/>
+                                                    <h:outputText value="#{platController.prixTotal}"/>DH <br/>
+                                                    <p:commandButton id="btn" actionListener="#{platController.prepareCmd()}" action="/cmd/DetailCmd.xhtml" value="Proceed to Checkout"/>
+                                                </f:facet>
+                                            </p:dataTable>
+                                        </h:form>
+                                    </ul> 
+                                </li>
+                            </ul>
+                        </div>  
+
+                    </div>  
+                </div>
+                <!-- indicator dot nov -->
+                <ol class="carousel-indicators">
+                    <li data-target="#my-slider" data-slide-to="0" class="active"></li>
+                    <li data-target="#my-slider" data-slide-to="1"></li>
+                    <li data-target="#my-slider" data-slide-to="2"></li>
+                </ol>
+                <!--wrapper for slides -->
+                <div class="carousel-inner" role="listbox">
+                    <div class="item active">
+                        <img src="../resources/images/f5.jpg" alt="food1"/>
+                        <div class="carousel-caption">
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="../resources/images/f3.jpg" alt="food2"/>
+                        <div class="carousel-caption">
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="../resources/images/f2.jpg" alt="food4"/>
+                        <div class="carousel-caption">
+                        </div>
+                    </div>
+
+                    <!-- controls or next and prev buttons -->
+                    <a class="left carousel-control" href="#my-slider" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#my-slider" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+
+                </div>
+
+            </div>
+            <h:form id="formdiv" class=" form-group form-inline">
+                <h:panelGrid columns="8" style="margin-bottom:10px" cellpadding="5">
+
+                    <h:selectOneMenu id="villes" value="#{villeController.selected}" class="form-control" required="true" >
+                                         <f:selectItem itemLabel="Select Your City" itemValue="#{null}" />
+                                         <f:selectItems value="#{villeController.items}" />
+                        <p:ajax process="villes" listener="#{villeController.findByVille()}" update="quartier"/>
+                    </h:selectOneMenu>
+
+                    <h:selectOneMenu  id="quartier" value="#{restaurantController.quartier}" class="form-control" required="true" converter="quartierControllerConverter">
+                        <f:selectItem itemLabel="Select Your Area" itemValue="#{null}"/>
+                        <f:selectItems value="#{villeController.selected.quartiers}" var="quartierItem" itemValue="#{quartierItem}"/>
+                    </h:selectOneMenu>
+
+
+                    <h:selectOneMenu  id="cuisines" value="#{restaurantController.cuisine}" class="form-control" converter="cuisineControllerConverter">
+                        <f:selectItem itemLabel="Choose Cuisine" itemValue="#{null}"/>
+                        <f:selectItems value="#{cuisineController.items}" var="cuisineItem" itemValue="#{cuisineItem}" />
+                    </h:selectOneMenu>
+
+                    <p:commandButton class="form-control" actionListener="#{restaurantController.search()}" action="List.xhtml" value="Find Restaurants" update="formdiv" />
+
+                </h:panelGrid>
+
+            </h:form>  
         </div>    
-        
-        <div id="middle" style=" color: #777; background-color:white; text-align:center; padding:50px 80px; text-align: justify;">
-      <h3 style="text-align:center;"> About FoodOnline </h3>
-       <p>Food Online est un intermediaire entre les restaurants du maroc et les client. 
-          Selon votre ville, votre quartier, ou meme le type de cuisine desiré , vous trouverez les restaurants 
-          et vous choisissez votre plat, plus encore , vous pouvez meme construire votre plat ! Bon appetit!  </p>
-    </div>
+
+        <div id="middle" style=" color: #777; background-color:white; text-align:center; padding:50px 80px; text-align: justify; ">
+            <h3 style="text-align:center; font-family:monotype corsiva; font-size:40px;"> About FoodOnline </h3>
+            <p>Food Online est un intermediaire entre les restaurants du maroc et les client. 
+                Selon votre ville, votre quartier, ou meme le type de cuisine desiré , vous trouverez les restaurants 
+                et vous choisissez votre plat, plus encore , vous pouvez meme construire votre plat ! Bon appetit!  </p>
+        </div>
 
         <div class="space2">
-     <div class="caption">
-      <span class="style" style="background-color:transparent; font-size:25px; color: #f7f7f7; ">LESS HEIGHT</span>
-     </div>
-   </div>
-        
-        
-        
+            <div class="caption">
+                <span class="style" style="background-color:transparent; font-size:25px; color: #f7f7f7; ">LESS HEIGHT</span>
+            </div>
+        </div>
+
+        <div style="position:relative;">
+            <div id="outil">
+                <h2>My Abilities</h2>
+                <h5>These are my current strongsuits.</h5>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-sm-4">
+                    <img class="img1" src="../resources/images/html.png"/>
+                    <h2> HTML </h2>
+                </div>
+                <div class="col-sm-4">
+                    <img class="img1" src="../resources/images/css.png"/>
+                    <h2> CSS </h2>
+                </div>
+                <div class="col-sm-4">
+                    <img class="img1" src="../resources/images/javascript.png"/>
+                    <h2> JAVASCRIPT </h2>
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <img class="img2" src="../resources/images/php.png"/>
+                    <h2> PHP </h2>
+                </div>
+                <div class="col-md-4">
+                    <img class="img2" src="../resources/images/PS.jpg"/>
+                    <h2> PHOTOSHOP  </h2>
+                </div>
+            </div>
+        </div>
+
         <div>
-    <div id="bottom"></div>
-   </div>
-        
+            <div id="bottom"></div>
+        </div>
+
         <div id="pics">
-      <div id="Code">
-        <div class="over">
-         <h2> View Source <br/> Code </h2>
-         <h6> See my coding style by checking my HTML,CSS and Jquery for this site </h6>
-         <button class="bt" type="button">See Code</button>
+            <div id="Code">
+                <div class="over">
+                    <h2> View Source <br/> Code </h2>
+                    <h6> See my coding style by checking my HTML,CSS and Jquery for this site </h6>
+                    <button class="btn btn-primary btn-sm active" type="button">See Code</button>
+                </div>
+            </div>
+            <div id="Porto">
+                <div class="over">
+                    <h2> See My <br/> Portfolio</h2>
+                    <h6> Check out some  samples of work i have performed </h6>
+                    <a href="#" target="_blank"><button class="btn btn-primary btn-sm active" type="button" >Portfolio</button></a>
+                </div>
+            </div>
         </div>
-      </div>
-      <div id="Porto">
-        <div class="over">
-         <h2> See My <br/> Portfolio</h2>
-         <h6> Check out some  samples of work i have performed </h6>
-         <a href="#" target="_blank"><button class="bt" type="button" >Portfolio</button></a>
-        </div>
-      </div>
-   </div>
-        <ui:include src="/demande/FormulaireDemande.xhtml"/>
-        
+
+        <script type="text/javascript">
+            var $document = $(document),
+                    $element = $('.navbar'),
+                    navbarDefault = 'navbar-default';
+            navbarTransparent = 'navbar-transparent';
+
+            fadeInDown = 'fadeInDown';
+
+            $document.scroll(function () {
+                if ($document.scrollTop() >= 100) {
+                    $element.addClass(navbarDefault);
+                    $element.removeClass(navbarTransparent);
+
+                    $element.addClass(fadeInDown);
+                } else {
+                    $element.addClass(navbarTransparent);
+                    $element.removeClass(navbarDefault);
+
+                    $element.removeClass(fadeInDown);
+                }
+            });
+        </script>
     </h:body>
 </html>

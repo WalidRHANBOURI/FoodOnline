@@ -1,162 +1,96 @@
-<?xml version='1.0' encoding='UTF-8' ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
 
-        <ui:composition template="/template.xhtml">
+    <ui:composition template="/template.xhtml">
 
-     
-            <ui:define name="title">
-                <h:outputText value="#{bundle.ListPlatTitle}"></h:outputText>
-            </ui:define>
 
-            <ui:define name="body">
-               
-                <div class="ui-g">
-                <h:form id="PlatListForm">
-                    <div class="row"> 
-                         <div class="col-sm-6">
-                    <p:panel header="#{bundle.ListPlatTitle}">
-                        <p:dataTable id="datalist" value="#{platController.items}" var="item"
-                                     selectionMode="single" selection="#{platController.selected}"
-                                     paginator="true"
-                                     rowKey="#{item.id}"
-                                     rows="10"
-                                     rowsPerPageTemplate="10,20,30,40,50"
-                                     >
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListPlatTitle}"></h:outputText>
+        </ui:define>
 
-                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+        <ui:define name="body">  
+            <br/><br/><br/><br/>
+                <div class="row"> 
+                    <h:form id="PlatListForm">
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-2">
+                            <p:fieldset>
+                                <input type="text" class="form-control" placeholder="Search item"/>
+                            </p:fieldset>
+                            <p:fieldset>
+                                <h4>Categories</h4>
+                                <p:selectOneListbox id="advanced" value="#{platController.cuisine}" converter="cuisineControllerConverter"> 
+                                    <f:selectItem  itemLabel="All" />
+                                    <f:selectItems value="#{restaurantController.cuisines}"  var="cuisItem" itemLabel="#{cuisItem}"/>
+                                    <p:ajax  process="advanced" listener="#{platController.findPlatByCuisine()}" update="datalist" />
+                                </p:selectOneListbox>  <br/><br/><br/> 
+                            </p:fieldset>  
+                        </div> 
+                        <div class="col-sm-5"> 
+                            <fieldset style="background-color: #f2f2f2; border-top-left-radius: 3px;border-top-right-radius: 3px;">
+                                <h4 style="color: black;"><b>&emsp;<i class="fa fa-cutlery" aria-hidden="true"></i>  Vos Plats</b></h4>
+                            </fieldset>
+                            <p:dataTable  id="datalist" value="#{platController.items}" var="item"
+                                          selection="#{platController.selected}"
+                                          rowKey="#{item.id}"
+                                          >
+                                <p:column>
+                                    <h3><b><h:outputText value="#{item.id}"/></b></h3>
+                                    <div class="row">
+                                        <div class="col-sm-3"><img src="../resources/images/hamburguer.png" /></div>
+                                        <div class="col-sm-5"> <h4><h:outputText value="#{item.type}"/></h4> </div>    
+                                        <div class="col-sm-2"> <h4><h:outputText value="#{item.prix}"/>DH</h4> </div>                                
+                                        <div class="col-sm-1"> <h:commandButton  id="platPerso" value="Add" class="btn btn-success" actionListener="#{platController.findIngredientByPlat(item)}" /> </div>
+                                    </div>
+                                </p:column>
+                            </p:dataTable>
+                        </div>  
+                    </h:form>
 
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListPlatTitle_idPlat}"/>
+                    <h:form id="panier">
+                        <div class="col-sm-3"> 
+                            <fieldset style="background-color: #f68b2d; border-top-left-radius: 3px; border-top-right-radius: 3px;">
+                                <h4 style="color: #ffffff;"><b>&emsp;<i class="fa fa-shopping-cart" aria-hidden="true"></i> Your Cart</b></h4>
+                            </fieldset>
+                            <p:dataTable id="cmdItemPanier" value="#{platController.panier}" var="cmdItem" 
+                                         selection="#{platController.selectedCmdItem}"
+                                         rowKey="#{cmdItem.id}"
+                                         >
+                                <p:column>                                                             
+                                    <div class="row">
+                                        <div class="col-sm-5">  
+                                            <p:commandButton id="moins" value="-" actionListener="#{platController.mince(cmdItem)}" update="cmdItemPanier" />
+                                            <p:commandButton  id="qteChange" value="#{cmdItem.quantite}" />
+                                            <p:commandButton id="plus" value="+" actionListener="#{platController.plus(cmdItem)}"  update="cmdItemPanier"/>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <h:outputText value="#{cmdItem.plat}"/>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <h:outputText id="prix" value="#{cmdItem.prix}"/>
+                                        </div>
+                                        <p:commandButton id="removePlat"  icon="ui-icon-trash"  actionListener="#{platController.removeCmdItem(cmdItem)}" update="cmdItemPanier"  />                                        
+                                    </div>
+                                </p:column>
+                                <f:facet name="footer">
+                                    <h:outputText value="total : "/>
+                                    <h:outputText value="#{platController.prixTotal}"/>DH <br/>
+                                    <h:commandButton value="Proceed to Checkout"  actionListener="#{platController.prepareCmd()}" action="/cmd/DetailCmd.xhtml" class="btn btn-success btn-lg btn-block"/>
                                 </f:facet>
-                                <h:outputText value="#{item.id}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListPlatTitle_type}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.type}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListPlatTitle_prix}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.prix}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListPlatTitle_cuisine}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.cuisine}"/>
-                            </p:column>
-                            <p:column>
-
-                                <p:commandButton id="platPerso" icon="ui-icon-plus"  actionListener="#{platController.findIngredientByPlat(item)}"   />
-                            </p:column>
-
-
-                            <f:facet name="footer">
-                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{platController.prepareCreate}" update=":PlatCreateForm" oncomplete="PF('PlatCreateDialog').show()"/>
-                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":PlatViewForm" oncomplete="PF('PlatViewDialog').show()" disabled="#{empty platController.selected}"/>
-                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":PlatEditForm" oncomplete="PF('PlatEditDialog').show()" disabled="#{empty platController.selected}"/>
-                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{platController.destroy}" update=":growl,datalist" disabled="#{empty platController.selected}"/>
-                                
-                                <p:selectOneRadio id="listCuisine" value="#{platController.cuisine}" converter="cuisineControllerConverter">
-                                    <f:selectItems value="#{restaurantController.cuisines}"  var="cuisItem" 
-                                                   itemValue="#{cuisItem}" />  
-                                    <f:selectItem  itemLabel="all"/>
-
-                                    <p:ajax  process="listCuisine" listener="#{platController.findPlatByCuisine()}" update="datalist" />
-                                </p:selectOneRadio> 
-                                
-                            </f:facet>
-                         
-                            
-                        </p:dataTable>
-                    </p:panel>
-                                </div>
-                         </div>
-                </h:form>
-                         
-                   
-               
-                <div class="ui-g-4">
-                     <div class="col-sm-4"> 
-                <h:form id="panier">
-                    <p:dataTable id="cmdItemPanier" value="#{platController.panier}" var="cmdItem"
-                                 selectionMode="single" selection="#{platController.selectedCmdItem}"
-                                 rowKey="#{cmdItem.id}">
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="plat"/>
-                            </f:facet>
-                            <h:outputText value="#{cmdItem.plat}"/>
-                        </p:column>
-                            <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="restaurant"/>
-                            </f:facet>
-                                <h:outputText value="#{cmdItem.restaurant}"/>
-                        </p:column>
-                        <p:column>
-
-                            <f:facet name="header">
-                                <h:outputText value="Supplements"/>
-                            </f:facet>
-                            <h:outputText  value="#{cmdItem.ingredientChoisits}" /> <br/>
-                        </p:column>
-                          <p:column>
-
-                            <f:facet name="header">
-                                <h:outputText value="quantite"/>
-                            </f:facet>
-                              <p:commandButton id="moins" value="-" actionListener="#{platController.mince(cmdItem)}" update="cmdItemPanier" />
-                              <h:outputText id="qteChange" value="#{cmdItem.quantite}"/>
-                                 <p:commandButton id="plus" actionListener="#{platController.plus(cmdItem)}" icon="ui-icon-plus" update="cmdItemPanier"/>
-                   
-                                  <br/>
-                        </p:column>
-                          
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText id="total" value="total"/>
-                            </f:facet>
-                            <h:outputText id="prix" value="#{cmdItem.prix}"/>
-                        </p:column>
-                               <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Remove"/>
-                                </f:facet>
-                                   <p:commandButton id="removePlat"  icon="ui-icon-trash"  actionListener="#{platController.removeCmdItem(cmdItem)}" update="cmdItemPanier"  />
-                            </p:column>
-                         <f:facet name="footer">
-                        <h:outputText value="total"/>
-                        <h:outputText value="#{platController.prixTotal}"/> <br/>
-                            <p:commandButton value="envoyer la commande"  actionListener="#{platController.prepareCmd()}" action="/cmd/InfoCmd.xhtml"/>
-                        </f:facet>
-                     
-                    </p:dataTable>
-                   
-                </h:form>
-                     </div>
+                            </p:dataTable>
+                        </div>
+                    </h:form>
+                    <br/><br/><br/><br/><br/>
                 </div>
-                </div>
-                <ui:include src="Create.xhtml"/>
-                <ui:include src="Edit.xhtml"/>
-                <ui:include src="View.xhtml"/>
-                <ui:include src="ChoixSupplements.xhtml"/>
-            </ui:define>
-        </ui:composition>
-    </h:body>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+            <ui:include src="ChoixSupplements.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
 </html>
-

@@ -1,0 +1,25 @@
+/* Custom Stylesheet */
+body,html {
+  height: 100%;
+  margin: 0;
+  font : 400 15px/1.8 "lato", sans-serif;
+  color: #777;
+}
+.navbar-brand{
+  padding-left: 70px;
+  margin-right: 470px;
+  font: 35px "monotype corsiva";
+}
+.navbar{
+    background-color: #000;
+}
+.container > .navbar-header > a {
+	color: #ffffff;
+}
+.container > .navbar-collapse > .nav > li > a {
+	color: #ffffff;
+}
+
+
+
+

@@ -22,7 +22,7 @@
                                            itemValue="#{villeItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{quartierController.update}" value="#{bundle.Save}" update="display,:QuartierListForm:datalist,:growl" oncomplete="handleSubmit(args, 'QuartierEditDialog');"/>
+                    <p:commandButton actionListener="#{quartierController.update}" value="#{bundle.Save}" update="display,:tab:QuartierListForm:datalist,:growl" oncomplete="handleSubmit(args, 'QuartierEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="QuartierEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

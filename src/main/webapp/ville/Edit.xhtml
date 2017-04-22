@@ -15,7 +15,7 @@
                         <p:outputLabel value="#{bundle.EditVilleLabel_idVille}" for="idVille" />
                         <p:inputText id="idVille" value="#{villeController.selected.id}" title="#{bundle.EditVilleTitle_idVille}" />
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{villeController.update}" value="#{bundle.Save}" update="display,:VilleListForm:datalist,:growl" oncomplete="handleSubmit(args, 'VilleEditDialog');"/>
+                    <p:commandButton actionListener="#{villeController.update}" value="#{bundle.Save}" update="display,:tab:VilleListForm:datalist,:growl" oncomplete="handleSubmit(args, 'VilleEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="VilleEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

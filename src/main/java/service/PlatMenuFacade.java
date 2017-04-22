@@ -27,16 +27,18 @@ public class PlatMenuFacade extends AbstractFacade<PlatMenu> {
     protected EntityManager getEntityManager() {
         return em;
     }
-    public List<Plat> findPlatByResto(Restaurant restaurant){
-        String requette="";
-        if(restaurant !=null){
-           requette += "select p.plat from PlatMenu p where p.menu.id='"+restaurant.getMenu().getId()+"'";
+
+    public List<Plat> findPlatByResto(Restaurant restaurant) {
+        String requette = "";
+        if (restaurant != null) {
+            requette += "select p.plat from PlatMenu p where p.menu.id='" + restaurant.getMenu().getId() + "'";
         }
-        System.out.println(em.createQuery(requette).getResultList());
-       return em.createQuery(requette).getResultList();
+        System.out.println("plat menu " + em.createQuery(requette).getResultList());
+        return em.createQuery(requette).getResultList();
     }
-    public void createPlatMenu(PlatMenu platMenu, List<Plat> plats){
-      platMenu.setId(generateId("PlatMenu","id"));
+
+    public void createPlatMenu(PlatMenu platMenu, List<Plat> plats) {
+        platMenu.setId(generateId("PlatMenu", "id"));
 
         for (Plat plat : plats) {
             PlatMenu newPlatMenu = new PlatMenu();
@@ -46,10 +48,9 @@ public class PlatMenuFacade extends AbstractFacade<PlatMenu> {
             create(newPlatMenu);
         }
     }
-    
 
     public PlatMenuFacade() {
         super(PlatMenu.class);
     }
-    
+
 }
