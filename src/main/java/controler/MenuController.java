@@ -106,6 +106,9 @@ public class MenuController implements Serializable {
     }
     
     public Menu getSelected() {
+        if(selected == null){
+            selected = new Menu();
+        }
         return selected;
     }
 

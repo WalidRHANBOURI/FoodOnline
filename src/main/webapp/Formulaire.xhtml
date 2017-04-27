@@ -11,41 +11,49 @@
         <script type="text/javascript" language="javascript" src="resources/js/script.js"></script>
     </h:head>
     <h:body>
-
+        
         <div id="workarea">
 
             <div id="head"><H1><a href="restaurant/Welcome.xhtml" id="Welcome">Food Online</a></H1></div>
 
-            <div id="col_img"> <img id="img" src="resources/images/food2.jpg"/> </div>
+  <div id="col_img"> <img id="img" src="resources/images/food2.jpg"/> </div>
 
-            <div id="col_form">
-                <form id="refistration_form">
-                    <br/>
-                    <table>
-                        <th><td><label id="lb1">Vous avez déja un compte ?</label><a href="Connexion.xhtml" id="lb2"> Connexion </a></td><td></td>
-                        </th>
-                        <tr><td></td><td><input type="text" id="txt"/></td>
-                        </tr>
-                        <tr><td>&emsp;&emsp;&emsp;&emsp;<label id="lb">Créer un compte</label></td><td></td>
-                        </tr>
-                        <tr><td>&emsp;&emsp;&emsp;&emsp;<label class="cl">ID de connexion</label></td><td> <p:inputText type="text" class="form_text" id="form_username" placeholder="Adresse électronique" required="true"/></td><td><span class="error_form" id="username_error_message"></span></td>
-                        </tr>
-                        <tr><td>&emsp;&emsp;&emsp;&emsp;<label class="cl">Date de naissance</label>  </td><td> <p:inputText type="date" class="form_text" id="form_date"/></td><td><span class="error_form" id="date_error_message"></span></td>
-                        </tr>
-                        <tr><td>&emsp;&emsp;&emsp;&emsp;<label class="cl">Sexe </label> </td><td>&emsp; <input type="radio" name="gender" checked="true"/> Femme &emsp;<input type="radio" name="gender"/>Homme </td><td><span class="error_form" id="gender_error_message"></span></td>
-                        </tr>
-                        <tr><td>&emsp;&emsp;&emsp;&emsp;<label class="cl">Créer un mot de passe</label>  </td><td><p:inputText type="password" class="form_text" id="form_password" required="true"/></td><td><span class="error_form" id="password_error_message"></span></td>
-                        </tr>
-                        <tr><td>&emsp;&emsp;&emsp;&emsp;<label class="cl">Confirmer le mot de passe</label>  </td><td><p:inputText type="password" class="form_text" id="form_retype_password" required="true"/></td><td><span class="error_form" id="retype_password_error_message"></span></td>
-                        </tr>
-                        <tr><td></td><td>&emsp;&emsp;<h:commandButton class="sbmit_btn" type="submit" actionListener="#{userController.create()}" value="Créer mon compte." /></td><td></td>
-                        </tr>
-                    </table>
-
-                </form>
-            </div>
-        </div>
-
+  <div id="col_form">
+    <h:form id="refistration_form">
+        <br/>
+       <table>
+         <th><td><label id="lb1">Vous avez déja un compte ?</label><a href="Connexion.xhtml" id="lb2"> Connexion </a></td><td></td>
+         </th>
+         <tr><td></td><td><input type="text" id="txt"/></td>
+         </tr>
+         <tr><td>&emsp;&emsp;&emsp;&emsp;<label id="lb">Créer un compte</label></td><td></td>
+         </tr>
+           <tr><td>&emsp;&emsp;&emsp;&emsp;<label class="cl">Nom</label></td><td> <p:inputText type="text" class="form_text" id="form_name" placeholder="Nom" value="#{userController.selected.nom}" required="true"/></td><td><span class="error_form" id="username_error_message"></span></td>
+           </tr>
+           <tr><td>&emsp;&emsp;&emsp;&emsp;<label class="cl">Prenom</label></td><td> <p:inputText type="text" class="form_text" id="form_prenom" placeholder="Prenom" value="#{userController.selected.prenom}" required="true"/></td><td><span class="error_form" id="username_error_message"></span></td>
+           </tr>
+           <tr><td>&emsp;&emsp;&emsp;&emsp;<label class="cl">Email</label></td><td> <p:inputText type="text" class="form_text" id="form_mail" placeholder="Email" value="#{userController.selected.email}" required="true"/></td><td><span class="error_form" id="username_error_message"></span></td>
+           </tr>
+           <tr><td>&emsp;&emsp;&emsp;&emsp;<label class="cl">Tel</label></td><td> <p:inputText type="text" class="form_text" id="form_tel" placeholder="Numero de telephone" value="#{userController.selected.numTelephone}" required="true"/></td><td><span class="error_form" id="username_error_message"></span></td>
+           </tr>
+           <tr><td>&emsp;&emsp;&emsp;&emsp;<label class="cl">ID de connexion</label></td><td> <p:inputText type="text" class="form_text" id="form_username" placeholder="Login" value="#{userController.selected.login}" required="true"/></td><td><span class="error_form" id="username_error_message"></span></td>
+        </tr>
+           <tr><td>&emsp;&emsp;&emsp;&emsp;<label class="cl">Date de naissance</label>  </td><td><p:inputText type="date"/></td><td><span class="error_form" id="date_error_message"/></td>
+         </tr>
+        <tr><td>&emsp;&emsp;&emsp;&emsp;<label class="cl">Sexe </label> </td><td>&emsp; <input type="radio" name="gender" checked="true"/> Femme &emsp;<input type="radio" name="gender"/>Homme </td><td><span class="error_form" id="gender_error_message"></span></td>
+         </tr>
+           <tr><td>&emsp;&emsp;&emsp;&emsp;<label class="cl">Créer un mot de passe</label>  </td><td><p:inputText type="password" class="form_text" id="form_password" value="#{userController.selected.motDePasse}" required="true"/></td><td><span class="error_form" id="password_error_message"></span></td>
+         </tr>
+        <tr><td>&emsp;&emsp;&emsp;&emsp;<label class="cl">Confirmer le mot de passe</label>  </td><td><p:inputText type="password" class="form_text" id="form_retype_password" required="true"/></td><td><span class="error_form" id="retype_password_error_message"></span></td>
+         </tr>
+           <tr><td></td><td>&emsp;&emsp;<p:commandButton class="sbmit_btn" type="submit" actionListener="#{userController.create()}"  action="/restaurant/Welcome.xhtml" value="Créer mon compte."></p:commandButton> </td><td></td>
+         </tr>
+       </table>
+        
+     </h:form>
+  </div>
+</div>
+        
     </h:body>
 </html>
 

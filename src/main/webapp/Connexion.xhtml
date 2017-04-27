@@ -15,13 +15,14 @@
                     <span class="service"> Continuer vers Food Online </span>
                 </h1>
                 <h:form>
+                    <p:messages autoUpdate="true" globalOnly="true"  />
                     <div>
-                        <p:inputText  placeholder="Adresse électronique" required="true"/>
+                        <p:inputText  placeholder="Login" required="true" value="#{userController.selected.login}"/>
                     </div>
                     <div>
                         <p:inputText type="password"  placeholder="Mot de passe" required="true" value="#{userController.selected.motDePasse}"/>
                     </div>
-                    <h:commandButton type="submit"  class="btn-login" value="Connexion" actionListener="#{userController.connect()}" action="/restaurant/Welcome.xhtml"/>
+                    <p:commandButton id="cnx" type="submit"  class="btn-login" value="Connexion" actionListener="#{userController.connect()}"  />
                 </h:form>
                 <div>
                     <a href="#" id="linkMdp">Mot de passe oublié&nbsp;?</a>

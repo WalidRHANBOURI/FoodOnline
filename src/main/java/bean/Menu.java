@@ -6,6 +6,7 @@
 package bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -39,6 +40,9 @@ public class Menu implements Serializable {
     }
 
     public List<Cuisine> getCuisines() {
+        if(cuisines ==null){
+            cuisines = new ArrayList<>();
+        }
         return cuisines;
     }
 

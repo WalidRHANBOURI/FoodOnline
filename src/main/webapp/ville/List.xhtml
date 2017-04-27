@@ -17,212 +17,442 @@
             <br/><br/><br/>
             <p:tabView id="tab"  >
 
-                <p:tab title="Villes" >         
-                    <div class="row" >  
-                        <br/><br/>
-                        <div class="col-sm-1"> </div>
-                        <div class="col-sm-2">
-                            <h:form id="VilleCreateForm">
-                                <p:panel>
-                                    <p:outputLabel value="Ville : " for="idVille" />
-                                    <p:inputText id="idVille" value="#{villeController.selected.id}" title="#{bundle.CreateVilleTitle_idVille}" />
-                                    <p:commandButton actionListener="#{villeController.create}" value="#{bundle.Save}" update=":tab:VilleListForm:datalist"/>
-                                </p:panel>
-                            </h:form>    
-                        </div>
-                        <div class="col-sm-1"> </div>
-                        <div class="col-sm-6">
-                            <h:form id="VilleListForm">
-                                <p:dataTable id="datalist" value="#{villeController.items}" var="item"
-                                             selectionMode="single" selection="#{villeController.selected}"
-                                             rowKey="#{item.id}" 
-                                             >
+                <p:tab title="Villes"> 
+                    <center>
+                        <p:fieldset class="space1">
+                            <div class="row" >  
+                                <br/><br/>
+                                <div class="col-sm-1"> </div>
+                                <div class="col-sm-3">
+                                    <h:form id="VilleCreateForm">
+                                        <p:panel>
+                                            <p:outputLabel value="Ville : " for="idVille" /><br/>
+                                            <p:inputText id="idVille" value="#{villeController.selected.id}" title="#{bundle.CreateVilleTitle_idVille}" /><br/>
+                                            <p:commandButton id="save" actionListener="#{villeController.create}" value="#{bundle.Save}" update=":tab:VilleListForm:datalist,:tab:QuartierCreateForm:ville"/>
+                                        </p:panel>
+                                    </h:form>    
+                                </div>
+                                <div class="col-sm-1"> </div>
+                                <div class="col-sm-6">
+                                    <h:form id="VilleListForm">
+                                        <p:dataTable id="datalist" value="#{villeController.items}" var="item"
+                                                     selectionMode="single" selection="#{villeController.selected}"
+                                                     rowKey="#{item.id}" 
+                                                     >
 
-                                    <p:ajax event="rowSelect"   update="viewButton editButton deleteButton"/>
-                                    <p:ajax event="rowUnselect" update="viewButton editButton deleteButton"/>
+                                            <p:ajax event="rowSelect"   update="viewButton editButton deleteButton"/>
+                                            <p:ajax event="rowUnselect" update="viewButton editButton deleteButton"/>
 
-                                    <p:column >
-                                        <f:facet name="header">
-                                            <h:outputText value="Villes" style="color:red; font-family:monotype corsiva; font-size:40px; "/>
-                                        </f:facet>
-                                        <h3><center><h:outputText value="#{item.id}"/></center></h3>
-                                    </p:column>
-                                    <f:facet name="footer">
-                                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":VilleViewForm" oncomplete="PF('VilleViewDialog').show()" />
-                                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":VilleEditForm" oncomplete="PF('VilleEditDialog').show()" />
-                                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{villeController.destroy}" update=":growl,datalist" />
-                                    </f:facet>
-                                </p:dataTable>
-                                <br/><br/><br/><br/>
-                            </h:form>
-                        </div>
-                    </div>
+                                            <p:column >
+                                                <f:facet name="header">
+                                                    <h:outputText value="Villes" style="color:red; font-family:monotype corsiva; font-size:40px; "/>
+                                                </f:facet>
+                                                <h3><center><h:outputText value="#{item.id}"/></center></h3>
+                                            </p:column>
+                                            <f:facet name="footer">
+                                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":VilleViewForm" oncomplete="PF('VilleViewDialog').show()" />
+                                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":VilleEditForm" oncomplete="PF('VilleEditDialog').show()" />
+                                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{villeController.destroy}" update=":growl,datalist" />
+                                            </f:facet>
+                                        </p:dataTable>
+                                        <br/><br/><br/><br/>
+                                    </h:form>
+                                </div>
+                            </div>
+                        </p:fieldset>
+                    </center>   
                 </p:tab> 
 
                 <p:tab title="Quartiers">
-                    <div class="row" >
-                        <br/><br/>
-                        <div class="col-sm-1"> </div>
-                        <div class="col-sm-3">   
-                            <h:form id="QuartierCreateForm">
-                                <p:panel rendered="#{quartierController.selected != null}">
-                                    <p:outputLabel value="#{bundle.CreateQuartierLabel_ville}" for="ville" />
-                                    <h:selectOneMenu id="ville" value="#{quartierController.selected.ville}" class="form-control" >
-                                        <f:selectItem itemLabel="--SELECT--" itemValue="#{null}"/>
-                                        <f:selectItems value="#{villeController.itemsAvailableSelectOne}"
-                                                       var="villeItem"
-                                                       itemValue="#{villeItem}"/>
-                                    </h:selectOneMenu><br/>
-                                    <p:outputLabel value="Entrer un Quartier :" for="idQuartier" />
-                                    <p:inputText id="idQuartier" value="#{quartierController.selected.id}" title="#{bundle.CreateQuartierTitle_idQuartier}" class="form-control" /><br/> 
+                    <center>
+                        <p:fieldset class="space1">
+                            <div class="row" >
+                                <br/><br/>
+                                <div class="col-sm-1"> </div>
+                                <div class="col-sm-3">   
+                                    <h:form id="QuartierCreateForm">
+                                        <p:panel rendered="#{quartierController.selected != null}">
+                                            <p:outputLabel value="#{bundle.CreateQuartierLabel_ville}" for="ville" />
+                                            <h:selectOneMenu id="ville" value="#{quartierController.selected.ville}" class="form-control" >
+                                                <f:selectItem itemLabel="--SELECT--" itemValue="#{null}"/>
+                                                <f:selectItems value="#{villeController.itemsAvailableSelectOne}"
+                                                               var="villeItem"
+                                                               itemValue="#{villeItem}"/>
+                                            </h:selectOneMenu><br/>
+                                            <p:outputLabel value="Entrer un Quartier :" for="idQuartier" />
+                                            <p:inputText id="idQuartier" value="#{quartierController.selected.id}" title="#{bundle.CreateQuartierTitle_idQuartier}" class="form-control" /><br/> 
+                                            <center><p:commandButton actionListener="#{quartierController.create}" value="#{bundle.Save}" update=":tab:QuartierListForm:datalist"/></center>
+                                        </p:panel>
+                                    </h:form>
+                                </div>
+                                <div class="col-sm-1"> </div>
+                                <div class="col-sm-6">
+                                    <h:form id="QuartierListForm">
+                                        <p:dataTable id="datalist" value="#{quartierController.items}" var="item"
+                                                     selectionMode="single" selection="#{quartierController.selected}"
+                                                     rowKey="#{item.id}"
+                                                     >
 
-                                    <center><p:commandButton actionListener="#{quartierController.create}" value="#{bundle.Save}" update=":tab:QuartierListForm:datalist"/></center>
-                                </p:panel>
-                            </h:form>
-                        </div>
-                        <div class="col-sm-1"> </div>
-                        <div class="col-sm-5">
-                            <h:form id="QuartierListForm">
-                                <p:dataTable id="datalist" value="#{quartierController.items}" var="item"
-                                             selectionMode="single" selection="#{quartierController.selected}"
-                                             rowKey="#{item.id}"
-                                             >
+                                            <p:ajax event="rowSelect"   update="viewButton editButton deleteButton"/>
+                                            <p:ajax event="rowUnselect" update="viewButton editButton deleteButton"/>
 
-                                    <p:ajax event="rowSelect"   update="viewButton editButton deleteButton"/>
-                                    <p:ajax event="rowUnselect" update="viewButton editButton deleteButton"/>
-
-                                    <p:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Villes" style="color:red; font-family:monotype corsiva; font-size:40px;"/>
-                                        </f:facet>
-                                        <h3><center><h:outputText value="#{item.ville}"/></center></h3>
-                                    </p:column>
-                                    <p:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Quartier" style="color:red; font-family:monotype corsiva; font-size:40px;"/>
-                                        </f:facet>
-                                        <h3><center><h:outputText value="#{item.id}"/></center></h3>
-                                    </p:column>
-                                    <f:facet name="footer">
-                                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":QuartierViewForm" oncomplete="PF('QuartierViewDialog').show()" disabled="#{empty quartierController.selected}"/>
-                                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":QuartierEditForm" oncomplete="PF('QuartierEditDialog').show()" disabled="#{empty quartierController.selected}"/>
-                                        <p:commandButton id="deleteButton" icon="ui-icon-trash" value="#{bundle.Delete}" actionListener="#{quartierController.destroy}" update=":growl,datalist" disabled="#{empty quartierController.selected}"/>
-                                    </f:facet>
-                                </p:dataTable>
-                                <br/><br/><br/><br/>
-                            </h:form>
-                        </div>    
-                    </div>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Villes" style="color:red; font-family:monotype corsiva; font-size:40px;"/>
+                                                </f:facet>
+                                                <h3><center><h:outputText value="#{item.ville}"/></center></h3>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Quartier" style="color:red; font-family:monotype corsiva; font-size:40px;"/>
+                                                </f:facet>
+                                                <h3><center><h:outputText value="#{item.id}"/></center></h3>
+                                            </p:column>
+                                            <f:facet name="footer">
+                                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":QuartierViewForm" oncomplete="PF('QuartierViewDialog').show()" disabled="#{empty quartierController.selected}"/>
+                                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":QuartierEditForm" oncomplete="PF('QuartierEditDialog').show()" disabled="#{empty quartierController.selected}"/>
+                                                <p:commandButton id="deleteButton" icon="ui-icon-trash" value="#{bundle.Delete}" actionListener="#{quartierController.destroy}" update=":growl,datalist" disabled="#{empty quartierController.selected}"/>
+                                            </f:facet>
+                                        </p:dataTable>
+                                        <br/><br/><br/><br/>
+                                    </h:form>
+                                </div>    
+                            </div>
+                        </p:fieldset>
+                    </center>
                 </p:tab> 
 
                 <p:tab title="Restaurants" >
+                    <center>
+                        <p:fieldset class="space1">
+                            <div class="row" >
+                                <br/><br/>
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-10">
+                                    <h:form id="RestaurantListForm">
+                                        <p:dataTable  id="datalist" value="#{restaurantController.items}" var="item" 
+                                                      selectionMode="single" selection="#{restaurantController.selected}"
+                                                      rowKey="#{item.id}"                             
+                                                      >  
 
+                                            <p:ajax event="rowSelect"   update="viewButton editButton deleteButton"/>
+                                            <p:ajax event="rowUnselect" update="viewButton editButton deleteButton"/>
+
+                                            <p:column >
+                                                <f:facet name="header">
+                                                    <h:outputText value="Nom" style="color:red; font-family:monotype corsiva; font-size:40px;"/>
+                                                </f:facet>
+                                                <h4><center><h:outputText value="#{item.id}"/></center></h4>
+                                            </p:column>
+                                            <p:column >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{bundle.ListRestaurantTitle_adresse}" style="color:red; font-family:monotype corsiva; font-size:40px;"/>
+                                                </f:facet>
+                                                <h4><center><h:outputText value="#{item.adresse}" /></center></h4>
+                                            </p:column>                                
+                                            <p:column >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{bundle.ListRestaurantTitle_quartier}" style="color:red; font-family:monotype corsiva; font-size:40px;"/>
+                                                </f:facet>
+                                                <h4><center><h:outputText value="#{item.quartier}" /></center></h4>
+                                            </p:column>                                
+                                            <p:column >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{bundle.ListRestaurantTitle_num}" style="color:red; font-family:monotype corsiva; font-size:40px;"/>
+                                                </f:facet>
+                                                <h4><center><h:outputText value="#{item.num}"/></center></h4>
+                                            </p:column>
+                                            <p:column >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{bundle.ListRestaurantTitle_nbrEtoile}" style="color:red; font-family:monotype corsiva; font-size:40px;"/>
+                                                </f:facet>
+                                                <h4><center><h:outputText value="#{item.nbrEtoile}"/></center></h4>
+                                            </p:column>
+                                            <f:facet name="footer">
+                                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":RestaurantViewForm" oncomplete="PF('RestaurantViewDialog').show()" disabled="#{empty restaurantController.selected}"/>
+                                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":RestaurantEditForm" oncomplete="PF('RestaurantEditDialog').show()" disabled="#{empty restaurantController.selected}"/>
+                                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{restaurantController.destroy}" update=":growl,datalist" disabled="#{empty restaurantController.selected}"/>
+                                            </f:facet>
+                                        </p:dataTable>
+                                    </h:form> <br/>
+                                </div>    
+                            </div>
+                            <h:form>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <p:growl id="messages" showDetail="true" />
+                                        <p:gmap id="revGeoGmap" widgetVar="revGeoMap" center="#{restaurantController.centerRevGeoMap}" zoom="6" type="ROADMAP" model="#{restaurantController.revGeoModel}" style="width:90%;height:430px">
+                                         <p:ajax event="overlaySelect" listener="#{restaurantController.onMarkerSelect}" update="messages"/>
+                                        </p:gmap>
+                                </div>
+                            </div> 
+                            </h:form> 
+                        </p:fieldset>
+                    </center>   
+                </p:tab>
+
+                <p:tab title="Cuisines" >
+                    <center>
+                        <p:fieldset class="space1">
+                            <div class="row" >  
+                                <br/><br/>
+                                <div class="col-sm-1"> </div>
+                                <div class="col-sm-3">
+                                    <h:form id="CuisineCreateForm">
+                                        <p:panel>
+                                            <p:outputLabel value="Cuisine : " for="idCuisine" /><br/>
+                                            <p:inputText id="idCuisine" value="#{cuisineController.selected.id}" title="#{bundle.CreateCuisineTitle_idCuisine}" class="form-control" />
+                                            <p:commandButton actionListener="#{cuisineController.create}" value="#{bundle.Save}" update=":tab:CuisineListForm:datalist,:tab:PlatCreateForm:cuisine" />
+                                        </p:panel>
+                                    </h:form>
+                                </div>
+                                <div class="col-sm-1"> </div>
+                                <div class="col-sm-6">
+                                    <h:form id="CuisineListForm">
+                                        <p:dataTable id="datalist" value="#{cuisineController.items}" var="item"
+                                                     selectionMode="single" selection="#{cuisineController.selected}"
+                                                     rowKey="#{item.id}"
+                                                     >
+
+                                            <p:ajax event="rowSelect"   update="viewButton editButton deleteButton"/>
+                                            <p:ajax event="rowUnselect" update="viewButton editButton deleteButton"/>
+
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Cuisines" style="color:red; font-family:monotype corsiva; font-size:40px;"/>
+                                                </f:facet>
+                                                <h3><center><h:outputText value="#{item.id}"/></center></h3>
+                                            </p:column>
+                                            <f:facet name="footer">
+                                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":CuisineViewForm" oncomplete="PF('CuisineViewDialog').show()" disabled="#{empty cuisineController.selected}"/>
+                                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":CuisineEditForm" oncomplete="PF('CuisineEditDialog').show()" disabled="#{empty cuisineController.selected}"/>
+                                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{cuisineController.destroy}" update=":growl,datalist" disabled="#{empty cuisineController.selected}"/>
+                                            </f:facet>
+                                        </p:dataTable>
+                                    </h:form>
+                                </div>
+                            </div>
+                        </p:fieldset>
+                    </center>
+                    <br/><br/><br/><br/><br/><br/>
+                </p:tab>
+
+                <p:tab title="Plats" >
+                    <center>
+                        <p:fieldset class="space1">
+                            <div class="row" >  
+                                <br/><br/>
+                                <div class="col-sm-3">
+                                    <h:form id="PlatCreateForm">
+                                        <p:panel>
+                                            <p:outputLabel value="Plat : " for="idPlat" />
+                                            <p:inputText id="idPlat" value="#{platController.selected.id}" title="#{bundle.CreatePlatTitle_idPlat}" class="form-control"/><br/>
+                                            <p:outputLabel value="#{bundle.CreatePlatLabel_type}" for="type" />
+                                            <h:selectOneMenu id="type" value="#{platController.selected.type}" class="form-control">
+                                                <f:selectItem itemLabel="--SELECT--" itemValue="#{null}"/>
+                                                <f:selectItem itemLabel="normal" itemValue="normal"/>
+                                                <f:selectItem itemLabel="personnalise" itemValue="personnalise" />
+                                            </h:selectOneMenu><br/>
+                                            <p:outputLabel value="#{bundle.CreatePlatLabel_prix}" for="prix" />
+                                            <p:inputText id="prix" value="#{platController.selected.prix}" title="#{bundle.CreatePlatTitle_prix}" class="form-control" /><br/>
+                                            <p:outputLabel value="#{bundle.CreatePlatLabel_cuisine}" for="cuisine" />
+                                            <h:selectOneMenu id="cuisine" value="#{platController.selected.cuisine}" converter='cuisineControllerConverter' class="form-control">
+                                                <f:selectItem itemLabel="--SELECT--" itemValue="#{null}"/>
+                                                <f:selectItems value="#{cuisineController.itemsAvailableSelectOne}"
+                                                               var="cuisineItem"
+                                                               itemValue="#{cuisineItem}"/>
+                                            </h:selectOneMenu><br/>
+                                            <center><p:commandButton actionListener="#{platController.create}" value="#{bundle.Save}" update=":tab:PlatListForm:datalist,:tab:IngredientPlatCreateForm:plat" /></center>
+                                        </p:panel>
+
+                                    </h:form>
+                                </div>
+                                <div class="col-sm-9">
+                                    <h:form id="PlatListForm">
+                                        <p:dataTable id="datalist" value="#{platController.items}" var="item"
+                                                     selectionMode="single" selection="#{platController.selected}"
+                                                     rowKey="#{item.id}"
+                                                     >
+
+                                            <p:ajax event="rowSelect"   update="viewButton editButton deleteButton"/>
+                                            <p:ajax event="rowUnselect" update="viewButton editButton deleteButton"/>
+
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Nom " style="color:red; font-family:monotype corsiva; font-size:40px;"/>
+                                                </f:facet>
+                                                <h3><center><h:outputText value="#{item.id}"/></center></h3>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{bundle.ListPlatTitle_type}" style="color:red; font-family:monotype corsiva; font-size:40px;"/>
+                                                </f:facet>
+                                                <h3><center><h:outputText value="#{item.type}"/></center></h3>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{bundle.ListPlatTitle_prix}" style="color:red; font-family:monotype corsiva; font-size:40px;"/>
+                                                </f:facet>
+                                                <h3><center><h:outputText value="#{item.prix}"/></center></h3>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{bundle.ListPlatTitle_cuisine}" style="color:red; font-family:monotype corsiva; font-size:40px;"/>
+                                                </f:facet>
+                                                <h3><center><h:outputText value="#{item.cuisine}"/></center></h3>
+                                            </p:column>
+
+                                            <f:facet name="footer">
+                                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":PlatViewForm" oncomplete="PF('PlatViewDialog').show()" disabled="#{empty platController.selected}"/>
+                                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":PlatEditForm" oncomplete="PF('PlatEditDialog').show()" disabled="#{empty platController.selected}"/>
+                                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{platController.destroy}" update=":growl,datalist" disabled="#{empty platController.selected}"/>
+                                            </f:facet>
+
+
+                                        </p:dataTable>
+                                    </h:form>
+                                </div>    
+                            </div> 
+                        </p:fieldset>
+                    </center>
+                    <br/><br/><br/><br/><br/><br/><br/>
+                </p:tab>
+
+                <p:tab title="Ingredients" >
+                    <center>
+                        <p:fieldset class="space1">
+                            <div class="row" >  
+                                <br/><br/>
+                                <div class="col-sm-1"> </div>
+                                <div class="col-sm-3">
+                                    <h:form id="IngredientCreateForm">
+                                        <p:panel>
+                                            <p:outputLabel value="Ingredient : " for="id" /><br/>
+                                            <p:inputText id="id" value="#{ingredientController.selected.id}" title="#{bundle.CreateIngredientTitle_id}" class="form-control" /><br/>
+                                            <p:outputLabel value="#{bundle.CreateIngredientLabel_prix}" for="prix" /><br/>
+                                            <p:inputText id="prix" value="#{ingredientController.selected.prix}" title="#{bundle.CreateIngredientTitle_prix}" class="form-control" />
+                                            <p:commandButton actionListener="#{ingredientController.create}" value="#{bundle.Save}" update=":tab:IngredientListForm:datalist,:tab:IngredientPlatCreateForm:ingredient"/>                                    
+                                        </p:panel>                                    
+                                    </h:form>
+                                </div>
+                                <div class="col-sm-1"> </div>
+                                <div class="col-sm-6">
+                                    <h:form id="IngredientListForm">
+                                        <p:dataTable id="datalist" value="#{ingredientController.items}" var="item"
+                                                     selectionMode="single" selection="#{ingredientController.selected}"
+                                                     rowKey="#{item.id}"
+                                                     >
+
+                                            <p:ajax event="rowSelect"   update="viewButton editButton deleteButton"/>
+                                            <p:ajax event="rowUnselect" update="viewButton editButton deleteButton"/>
+
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{bundle.ListIngredientTitle_id}" style="color:red; font-family:monotype corsiva; font-size:40px;"/>
+                                                </f:facet>
+                                                <h3><center><h:outputText value="#{item.id}"/></center></h3>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{bundle.ListIngredientTitle_prix}" style="color:red; font-family:monotype corsiva; font-size:40px;"/>
+                                                </f:facet>
+                                                <h3><center><h:outputText value="#{item.prix}"/></center></h3>
+                                            </p:column>
+                                            <f:facet name="footer">
+                                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":IngredientViewForm" oncomplete="PF('IngredientViewDialog').show()" disabled="#{empty ingredientController.selected}"/>
+                                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":IngredientEditForm" oncomplete="PF('IngredientEditDialog').show()" disabled="#{empty ingredientController.selected}"/>
+                                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{ingredientController.destroy}" update=":growl,datalist" disabled="#{empty ingredientController.selected}"/>
+                                            </f:facet>
+                                        </p:dataTable>
+                                    </h:form>
+                                </div>    
+                            </div>
+                        </p:fieldset>
+                    </center>
+                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                </p:tab>
+
+                <p:tab title="IngredientsPlat" >
+                    <center>
+                        <p:fieldset class="space1">
+                            <div class="row">
+                                <br/><br/>
+                                <div class="col-sm-1"> </div>
+                                <div class="col-sm-3">
+                                    <h:form id="IngredientPlatCreateForm">
+                                        <p:panel>                                   
+                                            <p:outputLabel value="#{bundle.CreateIngredientPlatLabel_plat}" for="plat" />
+                                            <h:selectOneMenu id="plat" value="#{ingredientPlatController.selected.plat}" converter="platControllerConverter" class="form-control">
+                                                <f:selectItems value="#{platController.itemsAvailableSelectOne}"
+                                                               var="platItem"
+                                                               itemValue="#{platItem}"/>
+                                            </h:selectOneMenu><br/>
+                                            <p:outputLabel value="#{bundle.CreateIngredientPlatLabel_ingredient}" for="ingredient" />
+                                            <h:selectOneMenu id="ingredient" value="#{ingredientPlatController.selected.ingredient}" class="form-control" >
+                                                <f:selectItems value="#{ingredientController.itemsAvailableSelectOne}"
+                                                               var="ingredientItem"
+                                                               itemValue="#{ingredientItem}"/>
+                                            </h:selectOneMenu><br/>
+                                            <p:outputLabel value="#{bundle.CreateIngredientPlatLabel_prix}" for="prix" />
+                                            <p:inputText id="prix" value="#{ingredientPlatController.selected.prix}" title="#{bundle.CreateIngredientPlatTitle_prix}" class="form-control"/><br/>
+                                            <center><p:commandButton actionListener="#{ingredientPlatController.create}" value="#{bundle.Save}" update=":tab:IngredientPlatListForm:datalist"/></center>
+                                        </p:panel>
+                                    </h:form> 
+                                </div>
+                                <div class="col-sm-7">
+                                    <h:form id="IngredientPlatListForm">
+                                        <p:dataTable id="datalist" value="#{ingredientPlatController.items}" var="item"
+                                                     selectionMode="single" selection="#{ingredientPlatController.selected}"
+                                                     rowKey="#{item.prix}"
+                                                     >
+
+                                            <p:ajax event="rowSelect"   update="viewButton editButton deleteButton"/>
+                                            <p:ajax event="rowUnselect" update="viewButton editButton deleteButton"/>
+
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{bundle.ListIngredientPlatTitle_plat}" style="color:red; font-family:monotype corsiva; font-size:40px;"/>
+                                                </f:facet>
+                                                <h3><center><h:outputText value="#{item.plat}"/></center></h3>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{bundle.ListIngredientPlatTitle_ingredient}" style="color:red; font-family:monotype corsiva; font-size:40px;"/>
+                                                </f:facet>
+                                                <h3><center><h:outputText value="#{item.ingredient}"/></center></h3>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{bundle.ListIngredientPlatTitle_prix}" style="color:red; font-family:monotype corsiva; font-size:40px;"/>
+                                                </f:facet>
+                                                <h3><center><h:outputText value="#{item.prix}"/></center></h3>
+                                            </p:column>
+                                            <f:facet name="footer">
+                                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":IngredientPlatViewForm" oncomplete="PF('IngredientPlatViewDialog').show()" disabled="#{empty ingredientPlatController.selected}"/>
+                                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":IngredientPlatEditForm" oncomplete="PF('IngredientPlatEditDialog').show()" disabled="#{empty ingredientPlatController.selected}"/>
+                                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{ingredientPlatController.destroy}" update=":growl,datalist" disabled="#{empty ingredientPlatController.selected}"/>
+                                            </f:facet>
+                                        </p:dataTable>
+                                    </h:form>
+                                </div>
+                            </div>
+                        </p:fieldset>
+                    </center>
+                    <br/><br/><br/><br/><br/><br/><br/><br/><br/>
                 </p:tab>
 
             </p:tabView> 
 
-            <div class="row" >
-                <br/><br/>
-                <div class="col-sm-1"> </div>
-                <div class="col-sm-3">
-                    <h:form prependId="false" id="RestaurantCreateForm">
+
+
+            <!--            <script type="text/javascript" >
+                                function reverseGeocode() {
+                                        var lat = document.getElementById('lat').value,
+                                                    lng = document.getElementById('lng').value;
                          
-                            <p:panel >
-                            <p:outputLabel for="res" value="Restaurant :" />
-                            <p:inputText id="res" value="#{restaurantController.selected.id}" class="form-control"/><br/>
-                            <p:outputLabel value="#{bundle.CreateRestaurantLabel_adresse}" for="adresse" />
-                            <p:inputText id="adresse" value="#{restaurantController.selected.adresse}" title="#{bundle.CreateRestaurantTitle_adresse}" class="form-control"/><br/> 
-                            <p:outputLabel for="lat" value="Lat:" />
-                            <p:inputText id="lat" value="#{restaurantController.selected.lat}" class="form-control"/><br/>
-                            <p:outputLabel for="lng" value="Lng:" />
-                            <p:inputText id="lng" value="#{restaurantController.selected.lng}" class="form-control"/><br/>
-                            <p:outputLabel value="#{bundle.CreateRestaurantLabel_quartier}" for="quartier" />
-                            <h:selectOneMenu id="quartier" value="#{restaurantController.selected.quartier}" converter="quartierControllerConverter" class="form-control" >
-                                <f:selectItem itemLabel="--SELECT--" itemValue="#{null}"/>
-                                <f:selectItems value="#{quartierController.itemsAvailableSelectOne}"
-                                               var="quartierItem"
-                                               itemValue="#{quartierItem}"/>
-                            </h:selectOneMenu><br/>                            
-                            <p:outputLabel value="#{bundle.CreateRestaurantLabel_num}" for="num" />
-                            <p:inputText id="num" value="#{restaurantController.selected.num}" title="#{bundle.CreateRestaurantTitle_num}" class="form-control"/><br/>                                   
-                            <p:outputLabel value="#{bundle.CreateRestaurantLabel_nbrEtoile}" for="nbrEtoile" />
-                            <p:inputText id="nbrEtoile" value="#{restaurantController.selected.nbrEtoile}" title="#{bundle.CreateRestaurantTitle_nbrEtoile}" class="form-control" />
-                                   <center> <p:commandButton  icon="ui-icon-search" onclick="reverseGeocode()" /> 
-                                <p:commandButton value="Save" actionListener="#{restaurantController.create()}" update=":RestaurantListForm:datalist"/></center>
-                                </p:panel>
-                         
-                    </h:form>
-                </div>
-                <div class="col-sm-7">
-                    <h:form id="RestaurantListForm">
-                        <p:dataTable  id="datalist" value="#{restaurantController.items}" var="item" 
-                                      selectionMode="single" selection="#{restaurantController.selected}"
-                                      rowKey="#{item.id}"                             
-                                      >  
-
-                            <p:ajax event="rowSelect"   update="viewButton editButton deleteButton"/>
-                            <p:ajax event="rowUnselect" update="viewButton editButton deleteButton"/>
-
-                            <p:column >
-                                <f:facet name="header">
-                                        <h:outputText value="Nom" style="color:red; font-family:monotype corsiva; font-size:40px;"/>
-                                </f:facet>
-                                <h4><center><h:outputText value="#{item.id}"/></center></h4>
-                            </p:column>
-                            <p:column >
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListRestaurantTitle_adresse}" style="color:red; font-family:monotype corsiva; font-size:40px;"/>
-                                </f:facet>
-                                <h4><center><h:outputText value="#{item.adresse}" /></center></h4>
-                            </p:column>                                
-                            <p:column >
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListRestaurantTitle_quartier}" style="color:red; font-family:monotype corsiva; font-size:40px;"/>
-                                </f:facet>
-                                <h4><center><h:outputText value="#{item.quartier}" /></center></h4>
-                            </p:column>                                
-                            <p:column >
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListRestaurantTitle_num}" style="color:red; font-family:monotype corsiva; font-size:40px;"/>
-                                </f:facet>
-                                <h4><center><h:outputText value="#{item.num}"/></center></h4>
-                            </p:column>
-                            <p:column >
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundle.ListRestaurantTitle_nbrEtoile}" style="color:red; font-family:monotype corsiva; font-size:40px;"/>
-                                </f:facet>
-                                <h4><center><h:outputText value="#{item.nbrEtoile}"/></center></h4>
-                            </p:column>
-                            <f:facet name="footer">
-                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":RestaurantViewForm" oncomplete="PF('RestaurantViewDialog').show()" disabled="#{empty restaurantController.selected}"/>
-                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":RestaurantEditForm" oncomplete="PF('RestaurantEditDialog').show()" disabled="#{empty restaurantController.selected}"/>
-                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{restaurantController.destroy}" update=":growl,datalist" disabled="#{empty restaurantController.selected}"/>
-                            </f:facet>
-                        </p:dataTable>
-                    </h:form> <br/>
-                </div>    
-            </div>
-            <div class="row">
-                <div class="col-sm-1"></div>
-                <div class="col-sm-11">
-                    <p:growl id="messages" showDetail="true" />
-                        <p:gmap id="revGeoGmap" widgetVar="revGeoMap" center="#{restaurantController.centerRevGeoMap}" zoom="6" type="ROADMAP" model="#{restaurantController.revGeoModel}" style="width:90%;height:430px">
-                                <p:ajax event="reverseGeocode" listener="#{restaurantController.onReverseGeocode}" update="@this" />
-                        <p:ajax event="overlaySelect" listener="#{restaurantController.onMarkerSelect}" update="messages"/>
-                            </p:gmap>
-                </div>
-            </div>  
-
-            <script type="text/javascript" >
-                    function reverseGeocode() {
-                            var lat = document.getElementById('lat').value,
-                                        lng = document.getElementById('lng').value;
-             
-                            PF('revGeoMap').reverseGeocode(lat, lng);
-                    }
-            </script>
-
-
+                                        PF('revGeoMap').reverseGeocode(lat, lng);
+                                }
+                        </script>-->
 
 
             <ui:include src="Edit.xhtml"/>
@@ -230,7 +460,16 @@
             <ui:include src="../quartier/Edit.xhtml"/>
             <ui:include src="../quartier/View.xhtml"/> 
             <ui:include src="../restaurant/Edit.xhtml"/>
-            <ui:include src="../restaurant/View.xhtml"/>             
+            <ui:include src="../restaurant/View.xhtml"/>
+            <ui:include src="../plat/Edit.xhtml"/>
+            <ui:include src="../plat/View.xhtml"/>
+            <ui:include src="../cuisine/Edit.xhtml"/>
+            <ui:include src="../cuisine/View.xhtml"/>
+            <ui:include src="../ingredient/Edit.xhtml"/>
+            <ui:include src="../ingredient/View.xhtml"/>
+            <ui:include src="../ingredientPlat/Edit.xhtml"/>
+            <ui:include src="../ingredientPlat/View.xhtml"/>
+
         </ui:define>
     </ui:composition>
 

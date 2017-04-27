@@ -34,6 +34,8 @@ public class Demande implements Serializable {
     @ManyToOne
     private Quartier quartierResto;
     private String adresseResto;
+    private String lat;
+    private String lng;
     @OneToOne
     private User responsable ;
     
@@ -54,6 +56,22 @@ public class Demande implements Serializable {
         this.nomResto = nomResto;
     }
 
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public String getLng() {
+        return lng;
+    }
+
+    public void setLng(String lng) {
+        this.lng = lng;
+    }
+    
 
     public String getTelResto() {
         return telResto;

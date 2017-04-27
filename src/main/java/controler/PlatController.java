@@ -49,6 +49,8 @@ public class PlatController implements Serializable {
     private service.CmdFacade cmdFacade;
     @EJB
     private service.QuartierFacade quartierFacade;
+    @EJB
+    private service.UserFacade userFacade;
     private controler.RestaurantController restaurantController;
     private List<Plat> items = null;
     private Plat selected;
@@ -67,10 +69,14 @@ public class PlatController implements Serializable {
     private List<Quartier> quartiers;
     private Restaurant restaurant =(Restaurant) SessionUtil.getAttribute("anaResto");
 //    private User client = SessionUtil.getConnectedUser();
-    private User client = (User)SessionUtil.getAttribute("clt");
+//    private User client = (User)SessionUtil.getAttribute("clt");
+    private User client = SessionUtil.getConnectedUser();
     
 
-    
+    public void showClt(){
+        System.out.println("hahwa client  "+client);
+    }
+       
     
     public void findPlatByCuisine(){
         if(cuisine == null){

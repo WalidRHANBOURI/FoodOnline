@@ -7,7 +7,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
         <ui:composition >
     
-             <p:dialog id="DemandeDlg" widgetVar="DemandeDialog" modal="true" resizable="false" appendTo="@(body)" header="Demande de  rejoindre foodOnline">
+             <p:dialog id="DemandeDlg" widgetVar="DemandeDialog" modal="true" resizable="false"  appendTo="@(body)" header="Demande de  rejoindre foodOnline">
   
       <h:form id="DemandeCreateForm">
           <h:panelGroup id="display" >
@@ -15,36 +15,42 @@
               <p:panelGrid columns="2" rendered="#{demandeController.selected!=null}">
                        
                         <p:outputLabel value="Nom du restaurant :" for="nomResto" />
-                        <p:inputText id="nomResto" value="#{demandeController.selected.nomResto}" title="#{bundle.CreateDemandeTitle_nomResto}" />
+                        <p:inputText  id="nomResto" value="#{demandeController.selected.nomResto}" title="#{bundle.CreateDemandeTitle_nomResto}" />
                         <p:outputLabel value="Nombre des etoiles de votre restaurant :" for="nbrEtoile" />
-                        <p:inputText id="nbrEtoile" value="#{demandeController.selected.nbrEtoile}" title="#{bundle.CreateDemandeTitle_nbrEtoile}" />
-   
+                        <p:inputText  id="nbrEtoile" value="#{demandeController.selected.nbrEtoile}" title="#{bundle.CreateDemandeTitle_nbrEtoile}" />
+                        <p:outputLabel value="Numero de telephone de votre restaurant :" for="telResto" />
+                        <p:inputText  id="telResto" value="#{demandeController.selected.telResto}" title="#{bundle.CreateDemandeTitle_nbrEtoile}" />
                         <p:outputLabel value="Ville :" for="villeResto" />
-                        <p:selectOneMenu id="villeResto" value="#{demandeController.selected.villeResto}" >
+                        <p:selectOneMenu  id="villeResto" value="#{demandeController.selected.villeResto}"  >
                             <f:selectItems value="#{villeController.itemsAvailableSelectOne}"
                                            var="villeRestoItem"
                                            itemValue="#{villeRestoItem}"/>
                              <p:ajax process="villeResto" listener="#{villeController.findByVille()}" update="quartierResto"/>
                         </p:selectOneMenu> 
                         <p:outputLabel value="Quartier :" for="quartierResto" />
-                        <p:selectOneMenu id="quartierResto" value="#{demandeController.selected.quartierResto}" >
+                        <p:selectOneMenu  id="quartierResto" value="#{demandeController.selected.quartierResto}" converter="quartierControllerConverter" >
                             <f:selectItems value="#{quartierController.itemsAvailableSelectOne}"
                                            var="quartierRestoItem"
                                            itemValue="#{quartierRestoItem}"/>
                         </p:selectOneMenu> 
                         <p:outputLabel value="Adresse du restaurant : " for="adresseResto" />
-                        <p:inputText id="adresseResto" value="#{demandeController.selected.adresseResto}" title="#{bundle.CreateDemandeTitle_description}" />
+                        <p:inputText id="adresseResto" value="#{demandeController.selected.adresseResto}"  />
+                         <p:outputLabel value="Latitude : " for="lat" />
+                         <p:inputText id="lat" value="#{demandeController.selected.lat}"  />
+                        <p:outputLabel value="Longitude : " for="lng" />
+                        <p:inputText id="lng" value="#{demandeController.selected.lng}"  />
                                            
                         <p:outputLabel value="veuillez decrire votre restaurant : " for="description" />
-                        <p:inputText id="description" value="#{demandeController.selected.description}" title="#{bundle.CreateDemandeTitle_description}" />
+                        <p:inputText  id="description" value="#{demandeController.selected.description}" title="#{bundle.CreateDemandeTitle_description}" />
                     
                         
               </p:panelGrid>
-              <p:commandButton  value="Envoyer votre demande" actionListener="#{demandeController.create}" onclick="DemandeDialog.hide()"/>
+              <p:commandButton  value="Envoyer votre demande" actionListener="#{demandeController.create}"  />
           </h:panelGroup>
             </h:form>
      
              </p:dialog>
+         
         </ui:composition>
 </html>
 

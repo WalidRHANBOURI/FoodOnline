@@ -30,7 +30,7 @@
                                            itemValue="#{ingredientItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{ingredientPlatController.update}" value="#{bundle.Save}" update="display,:IngredientPlatListForm:datalist,:growl" oncomplete="handleSubmit(args, 'IngredientPlatEditDialog');"/>
+                    <p:commandButton actionListener="#{ingredientPlatController.update}" value="#{bundle.Save}" update="display,:tab:IngredientPlatListForm:datalist,:growl" oncomplete="handleSubmit(args, 'IngredientPlatEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="IngredientPlatEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

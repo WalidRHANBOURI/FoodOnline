@@ -1,119 +1,35 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-
-
-
-    <ui:composition template="/template.xhtml">
-
-
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ListCmdTitle}"></h:outputText>
-        </ui:define>
-
-        <ui:define name="body">
-       
-                <h:panelGroup>
-            <p:fieldset legend='ma commande'>
-                <h:form>
-                      <p:dataTable id="cmdItemPanier" value="#{platController.panier}" var="cmdItem"
-                                 selectionMode="single" selection="#{platController.selectedCmdItem}"
-                                 rowKey="#{cmdItem.id}">
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="plat"/>
-                            </f:facet>
-                            <h:outputText value="#{cmdItem.plat}"/>
-                        </p:column>
-                            <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="restaurant"/>
-                            </f:facet>
-                                <h:outputText value="#{cmdItem.restaurant}"/>
-                        </p:column>
-                          <p:column rendered="#{cmdItem.ingredientChoisits.equals(null)}">
-
-                            <f:facet name="header">
-                                <h:outputText value="Supplements"/>
-                            </f:facet>
-                            <h:outputText value="#{cmdItem.ingredientChoisits}"/> <br/>
-                        </p:column>
-                          <p:column>
-
-                            <f:facet name="header">
-                                <h:outputText value="quantite"/>
-                            </f:facet>
-                              <p:commandButton id="moins" value="-" actionListener="#{platController.mince(cmdItem)}" update="cmdItemPanier" />
-                              <b>    <h:outputText id="qteChange" value="#{cmdItem.quantite}" /> </b>
-                                 <p:commandButton id="plus" actionListener="#{platController.plus(cmdItem)}" icon="ui-icon-plus" update="cmdItemPanier"/>
-                   
-                                  <br/>
-                        </p:column>
-                          
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText id="total" value="prix"/>
-                            </f:facet>
-                            <h:outputText id="prix" value="#{cmdItem.prix}"/>
-                        </p:column>
-                               <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Remove"/>
-                                </f:facet>
-                                   <p:commandButton id="removePlat"  icon="ui-icon-trash"  actionListener="#{platController.removeCmdItem(item)}" update="cmdItemPanier"  />
-                            </p:column>
-                       
-                            <f:facet name="footer">
-                        <h:outputText value="total"/>
-                         <h:outputText value="#{platController.prixTotal}"/>
-                            </f:facet>
-                       
-                        
-                    </p:dataTable>
-                </h:form>
-            </p:fieldset>
-                    <p:fieldset legend='Se connecter'  rendered="#{platController.client == null?true:false}" >
-                <p> vous avez deja un compte ? </p>
-                <p:commandButton value='Se connecter' oncomplete="PF('ConnexDialog').show()"/>
-                <p> Ou vous pouvez créer votre compte afin de passer une commande </p>
-                <p:commandButton value="s'inscrire" />
-            </p:fieldset>
-                    <p:fieldset legend='mes coordonnées'  rendered="#{platController.client != null?true:false}" >
-                        <h:outputText value="bla"/>
-                          <h:outputText value="#{platController.client.login}"/><br/>
-                         <h:outputText value="#{platController.client.nom}"/><br/>
-                         <h:outputText value="#{platController.client.prenom}"/><br/>
-                         <h:outputText value="#{platController.client.email}"/>
-                       
-            </p:fieldset>
-                     <h:form>
-            <p:fieldset legend="mon adresse de livraison" style="margin-bottom:20px">
-               
-                    <h:outputText value="quartier"/>
-                    <p:selectOneMenu id="quartier" converter="quartierControllerConverter">
-                        <f:selectItem itemLabel="--SELECT--" itemValue="#{null}"/>
-                        <f:selectItems value="#{platController.quartiers}" var="quartierItem" itemValue="#{quartierItem}"/>
-                    </p:selectOneMenu>
-                    <p> veuillez entrer votre Adresse de livraison : </p>
-                    <p:inputTextarea id="adr" rows='10' cols='50' value="#{platController.adresseLivraison}" />
-
-             
-            </p:fieldset>
-       
-                <p:commandButton value='confirmer' actionListener="#{platController.saveCmd()}" action="/restaurant/Welcome.xhtml" process="@form" ajax="true" />
-                <p:commandButton value='retour au restaurant' action="/plat/List.xhtml"/>
-     
-               </h:form>
-                </h:panelGroup>
-            <ui:include src="/user/ConnexAdmin.xhtml"/>
-        </ui:define>
-        
-    </ui:composition>
-
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition>
+             <p:dialog widgetVar="detailCmd" showEffect="fade" hideEffect="fade" modal="true" resizable="false" appendTo="@(body)" header="Details de la commande">
+                 <p:dataTable var="cmdItem" id="cmdDetail" style="text-align:center;" value="#{cmdController.cmdItems}">
+                     <p:column headerText="Restaurant">
+                         <h:outputText value="#{cmdItem.restaurant}" />
+                     </p:column>
+                     <p:column headerText="plat">
+                         <h:outputText value="#{cmdItem.plat}" />
+                     </p:column>
+                       <p:column headerText="Quantite">
+                           <h:outputText value="#{cmdItem.quantite}" />
+                     </p:column>
+                     <p:column headerText="Prix">
+                         <h:outputText value="#{cmdItem.prix}" />
+                     </p:column>
+   
+          
+                 </p:dataTable>
+    </p:dialog>
+ 
+        </ui:composition>
+    </h:body>
 </html>
 

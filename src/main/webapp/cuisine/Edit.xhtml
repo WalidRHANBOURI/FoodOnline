@@ -15,7 +15,7 @@
                         <p:outputLabel value="#{bundle.EditCuisineLabel_idCuisine}" for="idCuisine" />
                         <p:inputText id="idCuisine" value="#{cuisineController.selected.id}" title="#{bundle.EditCuisineTitle_idCuisine}" />
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{cuisineController.update}" value="#{bundle.Save}" update="display,:CuisineListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CuisineEditDialog');"/>
+                    <p:commandButton actionListener="#{cuisineController.update}" value="#{bundle.Save}" update="display,:tab:CuisineListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CuisineEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="CuisineEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

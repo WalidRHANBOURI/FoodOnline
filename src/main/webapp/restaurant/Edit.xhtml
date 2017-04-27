@@ -29,7 +29,7 @@
                         </p:selectOneMenu>
                        
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{restaurantController.update}" value="#{bundle.Save}" update="display,:RestaurantListForm:datalist,:growl" oncomplete="handleSubmit(args, 'RestaurantEditDialog');"/>
+                    <p:commandButton actionListener="#{restaurantController.update}" value="#{bundle.Save}" update="display,:tab:RestaurantListForm:datalist,:growl" oncomplete="handleSubmit(args, 'RestaurantEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="RestaurantEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

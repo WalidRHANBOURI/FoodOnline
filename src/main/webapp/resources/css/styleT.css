@@ -1,24 +1,50 @@
 /* Custom Stylesheet */
 body,html {
-  height: 100%;
-  margin: 0;
-  font : 400 15px/1.8 "lato", sans-serif;
-  color: #777;
+    height: 100%;
+    margin: 0;
+    font : 400 15px/1.8 "lato", sans-serif;
+    color: #777;
 }
 .navbar-brand{
-  padding-left: 70px;
-  margin-right: 470px;
-  font: 35px "monotype corsiva";
+    padding-left: 70px;
+    margin-right: 470px;
+    font: 35px "monotype corsiva";
 }
 .navbar{
     background-color: #000;
 }
 .container > .navbar-header > a {
-	color: #ffffff;
+    color: #ffffff;
 }
 .container > .navbar-collapse > .nav > li > a {
-	color: #ffffff;
+    color: #ffffff;
 }
+.space{
+    background-image: url("../images/spa.png");
+}
+.space1{
+    height:1500px;
+    width:1050px;
+}
+#path{
+    margin-left: -750px;
+    margin-top: 8px;
+    font-size:17px;
+}
+#path2{
+    margin-left: -700px;
+    margin-top: 8px;
+    font-size:17px;
+}
+a:focus, a:hover{
+    color: #f68b2d;
+    outline: none;
+}
+.path1{
+    margin-left: -620px;
+    margin-top: -5px;
+}
+
 
 
 

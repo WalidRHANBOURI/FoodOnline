@@ -26,7 +26,7 @@
                                            itemValue="#{cuisineItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{platController.update}" value="#{bundle.Save}" update="display,:PlatListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PlatEditDialog');"/>
+                    <p:commandButton actionListener="#{platController.update}" value="#{bundle.Save}" update="display,:tab:PlatListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PlatEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PlatEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

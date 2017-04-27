@@ -26,6 +26,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
+import org.primefaces.context.RequestContext;
 
 @Named("userController")
 @SessionScoped
@@ -45,22 +46,64 @@ public class UserController implements Serializable {
         int resEnt = (int) res[0];
         if (resEnt == -1) {
             System.out.println("hanii f resEnt " + resEnt);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "login incorrect"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login incorrect!", "login incorrect"));
 
         } else if (resEnt == -2) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "password incorrect"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "password incorrect!", "password incorrect"));
 
         } else {
             SessionUtil.registerUser(selected);
-//            SessionUtil.redirect("/FoodOnline/faces/restaurant/Welcome.xhtml");
+            SessionUtil.redirect("/FoodOnline/faces/restaurant/Welcome.xhtml");
             System.out.println(SessionUtil.getConnectedUser());
             SessionUtil.setAttribute("clt", selected);
-
+            System.out.println("hahwa client  "+SessionUtil.getConnectedUser());
         }
 
     }
+    public void connectDialog() throws IOException {
+        Object[] res = getFacade().connect(selected);
+        System.out.println("haanii");
+        int resEnt = (int) res[0];
+        if (resEnt == -1) {
+            System.out.println("hanii f resEnt " + resEnt);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login incorrect!", "login incorrect"));
+
+        } else if (resEnt == -2) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "password incorrect!", "password incorrect"));
+
+        } else {
+            SessionUtil.registerUser(selected);
+            RequestContext.getCurrentInstance().execute("PF('ConnexDialog').hide()");
+            System.out.println(SessionUtil.getConnectedUser());
+            SessionUtil.setAttribute("clt", selected);
+            System.out.println("hahwa client  "+SessionUtil.getConnectedUser());
+        }
+
+    }
+     public void connectRespo() throws IOException {
+        Object[] res = getFacade().connect(selected);
+        System.out.println("haanii");
+        int resEnt = (int) res[0];
+        if (resEnt == -1) {
+            System.out.println("hanii f resEnt " + resEnt);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login incorrect!", "login incorrect"));
+
+        } else if (resEnt == -2) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "password incorrect!", "password incorrect"));
+
+        } else {
+            SessionUtil.registerUser(selected);
+             SessionUtil.redirect("/FoodOnline/faces/menu/Wizard.xhtml");
+            System.out.println(SessionUtil.getConnectedUser());
+            SessionUtil.setAttribute("clt", selected);
+            System.out.println("hahwa respo  "+SessionUtil.getConnectedUser());
+        }
+
+    }
+    
     public void deconnect(){
         ejbFacade.seDeConnnecter();
+        
       
     }
 

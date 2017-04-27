@@ -58,16 +58,16 @@ public class RestaurantController implements Serializable {
     private Marker marker;
     private String centerRevGeoMap = "33.53333, -7.58333";
 
-    @PostConstruct
-    public void init() {
-        emptyModel = new DefaultMapModel();
-        revGeoModel = new DefaultMapModel();
-        for (int i = 0; i < getItems().size(); i++) {
-            Restaurant restaurant = getItems().get(i);
-            LatLng coord = new LatLng(restaurant.getLat(), restaurant.getLng());
-            revGeoModel.addOverlay(new Marker(coord, restaurant.getId()));
-        }
-    }
+//    @PostConstruct
+//    public void init() {
+//        emptyModel = new DefaultMapModel();
+//        revGeoModel = new DefaultMapModel();
+//        for (int i = 0; i < getItems().size(); i++) {
+//            Restaurant restaurant = getItems().get(i);
+//            LatLng coord = new LatLng(restaurant.getLat(), restaurant.getLng());
+//            revGeoModel.addOverlay(new Marker(coord, restaurant.getId()));
+//        }
+//    }
 
     public MapModel getEmptyModel() {
         return emptyModel;
@@ -85,6 +85,7 @@ public class RestaurantController implements Serializable {
     }
 
     public Marker getMarker() {
+    
         return marker;
     }
 

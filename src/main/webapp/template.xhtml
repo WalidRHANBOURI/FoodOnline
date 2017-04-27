@@ -38,30 +38,27 @@
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
                             <li><a href="../Formulaire.xhtml">S'inscrire</a></li>
-                            <li><a href="../Connexion.xhtml"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a></li>
                             <li><a href="#"><i class="fa fa-phone" aria-hidden="true"></i> +212 649784109</a></li>
                             <li><a href="#"><img src="../resources/images/maroc.ico" width="24" height="24" alt="Mar"/> </a></li>
-                            <!--                            <li class="dropdown">
-                                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-shopping-cart" aria-hidden="true"></i><b class="caret"></b></a>
-                                                            <ul class="dropdown-menu">
-                            
-                                                            </ul>
-                                                        </li>-->
+                            <li><a href="#"><p:commandButton class="fa fa-sign-out"  actionListener="#{userController.deconnect()}"/></i></a></li>
                         </ul>
                     </div>  
 
                 </div>  
             </div>
-           <br/><br/>  
+            <br/><br/>  
         </p:layoutUnit>
-        
-        
+
+
         <p:layoutUnit position="south" size="60">
             <ui:insert name="footer"/>
         </p:layoutUnit>
 
         <p:layoutUnit position="center">
+            <div class="space">
             <ui:insert name="body"/>
+            </div>
+            <img src="../resources/images/spa.png" />
             <br/><br/><br/><br/>
         </p:layoutUnit>
 

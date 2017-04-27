@@ -17,94 +17,134 @@
         </ui:define>
 
         <ui:define name="body">
-            <br/><br/><br/><br/>
-            <h:panelGroup>
-                <div class="row">
-                    <div class="col-sm-1"></div>
-                    <div class="col-sm-6"> 
-                        <fieldset style="background-color: silver;">
-                            <h4 style="color: #ffffff;"><b>&emsp;<i class="fa fa-user" aria-hidden="true"></i> Mes coordonées</b></h4>
-                        </fieldset>
-                        <p:fieldset >
-                            <p> vous avez deja un compte ? </p>
-                            <p:commandButton value='Se connecter'/>
-                            <p> Ou vous pouvez créer votre compte afin de passer une commande </p>
-                            <p:commandButton value="s'inscrire"/>
-                        </p:fieldset>
-                    </div>
-                    <div class="col-sm-4">
-                        <h:form id="cmd">
-                            <fieldset style="background-color: silver;">
-                                <h4 style="color: #ffffff;"><b>&emsp;<i class="fa fa-user" aria-hidden="true"></i> Informations sur la commande</b></h4>
-                            </fieldset>
-                            <fieldset>
+            <center>
+                <p:fieldset class="space1">
+                    <h4 id="path2"><a href="../restaurant/Welcome.xhtml"> Home </a> > <a href="../restaurant/List.xhtml"> <h:outputText value="#{villeController.selected.id}"/> </a> > <a href="../plat/List.xhtml" ><h:outputText value="#{platController.restaurant.id}"/></a> > <span style="color: #999;"> Checkout </span> </h4>
+                    <hr/>
+                    <div class="row">
+                        <div class="col-sm-7">
 
-                            </fieldset>
-                        </h:form>
-                    </div>
-                </div><br/>
-                <div class="row">
-                    <div class="col-sm-1"></div>
-                    <div class="col-sm-6">  
-                        <h:form>
-                            <fieldset style="background-color: silver;">
-                                <h4 style="color: #ffffff;"><b>&emsp;<i class="fa fa-map-marker" aria-hidden="true"></i> Mon addresse de livraison</b></h4>
-                            </fieldset>    
-                            <p:fieldset  style="margin-bottom:20px">
-
-                                <h:outputText value="quartier"/>
-                                <p:selectOneMenu id="quartier" converter="quartierControllerConverter">
-                                    <f:selectItem itemLabel="--SELECT--" itemValue="#{null}"/>
-                                    <f:selectItems value="#{platController.quartiers}" var="quartierItem" itemValue="#{quartierItem}"/>
-                                </p:selectOneMenu>
-                                <p> veuillez entrer votre Adresse de livraison : </p>
-                                <p:inputTextarea id="adr" rows='10' cols='50' value="#{platController.adresseLivraison}" />
-
-
-                            </p:fieldset>
-
-
-
-                            <p:commandButton value='confirmer' actionListener="#{platController.saveCmd()}" process="@form" ajax="true" />
-                            <p:commandButton value='retour au restaurant'/>
-                        </h:form>
-                    </div>
-                    <div class="col-sm-4">
-                        <h:form id="panier">
-                            <fieldset style="background-color: #f68b2d;">
-                                <h4 style="color: #ffffff;"><b>&emsp;<i class="fa fa-shopping-cart" aria-hidden="true"></i> Your Cart</b></h4>
-                            </fieldset>
-                            <p:dataTable id="cmdItemPanier" value="#{platController.panier}" var="cmdItem" 
-                                         selection="#{platController.selectedCmdItem}"
-                                         rowKey="#{cmdItem.id}"
-                                         >
-                                <p:column>                                                             
+                            <h:form>  
+                                <fieldset style="background-color: #f8f8f8; border-top-left-radius: 3px; border-top-right-radius: 3px;">
+                                    <h4 style="color: black;"><b>&emsp;<i class="fa fa-user" aria-hidden="true"></i> Mes coordonées</b></h4>
+                                </fieldset>
+<!--								<p:fieldset id="coordonne" rendered="# {platController.client==null?true:false}" >
+ <fieldset style="background-color: silver;">
+<h4 style="color: #ffffff;"><b>&emsp;<i class="fa fa-user" aria-hidden="true"></i> Mes coordonées</b></h4>
+</fieldset>
+ <p:fieldset  style="margin-bottom:20px">
+     <h:form>
+<p> Votre nom : </p><br/>
+<p:commandButton value="show client" actionListener="# {platController.showClt()}"/>
+<h:outputText value="# {platController.client.login}"/><br/>
+<h:outputText value="# {platController.client.nom}"/><br/>
+<h:outputText value="# {platController.client.prenom}"/><br/>
+<h:outputText value="# {platController.client.email}"/>
+     </h:form>
+</p:fieldset>
+</p:fieldset>-->
+                                <p:fieldset ><br/>
                                     <div class="row">
-                                        <div class="col-sm-5">  
-                                            <p:commandButton id="moins" value="-" actionListener="#{platController.mince(cmdItem)}" update="cmdItemPanier" />
-                                            <p:commandButton  id="qteChange" value="#{cmdItem.quantite}" />
-                                            <p:commandButton id="plus" value="+" actionListener="#{platController.plus(cmdItem)}"  update="cmdItemPanier"/>
+                                        <div class="col-sm-12">
+                                            <p:outputLabel value="Vous avez deja un compte?" for="btn"/>  Connectez-vous pour une expérience encore plus rapide ! 
+                                            <h:commandButton id="btn" value='Se connecter' action="/help/Connexion.xhtml" class="btn btn-info btn-lg "/>
                                         </div>
-                                        <div class="col-sm-3">
-                                            <h:outputText value="#{cmdItem.plat}"/>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <h:outputText id="prix" value="#{cmdItem.prix}"/>
-                                        </div>
-                                        <p:commandButton id="removePlat"  icon="ui-icon-trash"  actionListener="#{platController.removeCmdItem(cmdItem)}" update="cmdItemPanier"  />                                        
-                                    </div>
-                                </p:column>
-                                <f:facet name="footer">
-                                    <h:outputText value="total : "/>
-                                    <h:outputText value="#{platController.prixTotal}"/>DH <br/>
-                                    <h:commandButton value="Proceed to Checkout"  actionListener="#{platController.prepareCmd()}" action="/cmd/DetailCmd.xhtml" class="btn btn-success btn-lg btn-block"/>
-                                </f:facet>
-                            </p:dataTable>
-                        </h:form>
-                    </div>
-                </div>
-            </h:panelGroup>
+                                    </div><br/>
+                                    <p:outputLabel value="Ou vous pouvez créer votre compte!" for="cmd"/> Afin de passer une commande <br/>
+                                    <h:commandButton id="cmd" value="S'inscrire" action="/help/Formulaire.xhtml" class="btn btn-success btn-lg"/>
 
+                                </p:fieldset>            
+                            </h:form>
+
+                        </div>
+                        <div class="col-sm-5">
+                            <h:form id="cmd">
+                                <fieldset style="background-color: #f8f8f8; border-top-left-radius: 3px; border-top-right-radius: 3px;">
+                                    <h4 style="color: black;"><b>&emsp;<i class="fa fa-user" aria-hidden="true"></i> Informations sur la commande</b></h4>
+                                </fieldset>
+                                <fieldset ><br/>
+                                    <span style="font-size: 25px;">Livraison</span><br/>
+                                    <span style="font-size: 13px; color: #777;">Votre commande sera livrée à votre adresse</span>
+                                    <hr/>
+                                    <span style="font-size: 25px;">Dès que possible</span><br/>
+                                    <span style="font-size: 13px; color: #777;">Récuperation de la commande dans : <b>20min</b> </span>
+
+                                </fieldset>
+                            </h:form>
+                        </div>
+                    </div><br/>
+                    <div class="row">
+                        <div class="col-sm-7">  
+                            <h:form>
+                                <fieldset style="background-color: #f8f8f8; border-top-left-radius: 3px; border-top-right-radius: 3px;">
+                                    <h4 style="color: black;"><b>&emsp;<i class="fa fa-map-marker" aria-hidden="true"></i> Mon addresse de livraison</b></h4>
+                                </fieldset>    
+                                <p:fieldset  style="margin-bottom:20px">
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <p:outputLabel value=" Adresse(N° et Rue)" for="adr"/>
+                                            <h:inputText id="adr" value="#{platController.adresseLivraison}" class="form-control" style="width: 360px;"/>
+                                        </div>
+                                        <div class="col-sm-4"></div>
+                                        <div class="col-sm-4">
+                                            <h:outputLabel value="Mon quartier" for="quartier"/><br/>
+                                            <h:selectOneMenu id="quartier" converter="quartierControllerConverter" class="form-control">
+                                                <f:selectItem itemLabel="-- SELECT --" itemValue="#{null}"/>
+                                                <f:selectItems value="#{platController.quartiers}" var="quartierItem" itemValue="#{quartierItem}"/>
+                                            </h:selectOneMenu>
+                                        </div>
+                                    </div><br/>
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <p:outputLabel value="Note spécifique à l'attention du restaurant (optionnel)" for="spe"/>
+                                            <h:inputTextarea id="spe" rows="4" cols="50" class="form-control" />
+                                        </div>
+                                    </div>
+                                </p:fieldset>
+
+                            </h:form>
+
+                        </div>
+                        <div class="col-sm-5">
+
+                            <h:form id="panier">
+                                <fieldset style="background-color: #f68b2d; border-top-left-radius: 3px; border-top-right-radius: 3px;">
+                                    <h4 style="color: #ffffff;"><b>&emsp;<i class="fa fa-shopping-cart" aria-hidden="true"></i> Your Cart</b></h4>
+                                </fieldset>
+                                <p:dataTable id="cmdItemPanier" value="#{platController.panier}" var="cmdItem" 
+                                             selection="#{platController.selectedCmdItem}"
+                                             rowKey="#{cmdItem.id}"
+                                             >
+                                    <p:column>                                                             
+                                        <div class="row">
+                                            <div class="col-sm-5">  
+                                                <p:commandButton id="moins" value="-" actionListener="#{platController.mince(cmdItem)}" update="cmdItemPanier" />
+                                                <p:commandButton  id="qteChange" value="#{cmdItem.quantite}" />
+                                                <p:commandButton id="plus" value="+" actionListener="#{platController.plus(cmdItem)}"  update="cmdItemPanier"/>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <h:outputText value="#{cmdItem.plat}"/>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <h:outputText id="prix" value="#{cmdItem.prix}"/>
+                                            </div>
+                                            <p:commandButton id="removePlat"  icon="ui-icon-trash"  actionListener="#{platController.removeCmdItem(cmdItem)}" update="cmdItemPanier"  />                                        
+                                        </div>
+                                    </p:column>
+                                    <f:facet name="footer">
+                                        <h:outputText value="total : "/>
+                                        <h:outputText value="#{platController.prixTotal}"/>DH <br/>
+                                        <p:commandButton value="PASSER LA COMMANDE" actionListener="#{platController.saveCmd()}" process="@form" ajax="true" class="btn btn-success btn-lg btn-block"/>
+                                        <h:commandButton value="Retour au restaurant" class="btn btn-success btn-lg btn-block" action="/restaurant/List.xhtml"/>
+                                    </f:facet>
+                                </p:dataTable>
+                            </h:form>
+
+                        </div>
+                    </div>
+                </p:fieldset>
+            </center>
         </ui:define>
     </ui:composition>
 

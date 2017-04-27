@@ -11,17 +11,18 @@
     <p:dialog id="connexDlg" widgetVar="ConnexDialog" modal="true" resizable="false" appendTo="@(body)" >
     <h:body>
        <div class="container">
-            <img src="resources/images/icon.png"/>
+            <img src="/resources/images/icon.png"/>
                 <h1> Connexion <br/>
                 </h1>
                 <h:form>
+                    <p:messages autoUpdate="true" globalOnly="true"  />
                     <div>
                         <p:inputText  placeholder="Login" required="true" value="#{userController.selected.login}"/>
                     </div>
                     <div>
                         <p:inputText type="password"  placeholder="Mot de passe" required="true" value="#{userController.selected.motDePasse}"/>
                     </div>
-                    <p:commandButton type="submit"  class="btn-login" value="Connexion" actionListener="#{userController.connect()}" oncomplete="handleSubmit(args,'ConnexDialog');" />
+                    <p:commandButton type="submit"  class="btn-login" value="Connexion" actionListener="#{userController.connectDialog()}" />
                 </h:form>
 
         </div>

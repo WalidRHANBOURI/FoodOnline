@@ -16,7 +16,7 @@
         <ui:define name="body">
             <h:form id="DemandeListForm">
                 <p:panel header="#{bundle.ListDemandeTitle}">
-                    <p:dataTable id="datalist" value="#{demandeController.items}" var="item"
+                    <p:dataTable id="datalist" value="#{demandeController.items}" var="item" selectionMode="single"
                                  selection="#{demandeController.selected}"
                                  paginator="true"
                                  rowKey="#{item.id}"

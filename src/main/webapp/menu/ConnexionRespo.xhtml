@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+        <link rel="stylesheet" type="text/css" href="../resources/css/styleC.css"></link>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></link>
+    </h:head>
+    <h:body>  
+        <div class="container">
+            <img src="../resources/images/icon.png"/>
+            <h1> Connexion <br/>
+            </h1>
+            <h:form>
+                <p:messages autoUpdate="true" globalOnly="true"  />
+                <div>
+                    <p:inputText  placeholder="Login" required="true" value="#{userController.selected.login}"/>
+                </div>
+                <div>
+                    <p:inputText type="password"  placeholder="Mot de passe" required="true" value="#{userController.selected.motDePasse}"/>
+                </div>
+                <div>
+                    <p:inputText type="text"  placeholder="Restaurant" required="true" />
+                </div>
+                <p:commandButton id="cnx" type="submit"  class="btn-login" value="Connexion" actionListener="#{userController.connectRespo()}"  />
+            </h:form>
+            <div class="extra">
+                En continuant, vous acceptez les conditions <br/> d'utilisation et la politique de confidentialité des <br/> services en ligne de FoodOnline.
+            </div>
+        </div>
+    </h:body>
+</html>
+

@@ -49,7 +49,7 @@ public class MenuFacade extends AbstractFacade<Menu> {
         }
     }
         public int creeMenu(User user, Menu menu, List<Plat> plats) {
-        List<Restaurant> restos = em.createQuery("select r from Restaurant r where r.user.login='" + user.getLogin() + "'").getResultList();
+        List<Restaurant> restos = em.createQuery("select r from Restaurant r where r.responsableResto.login='" + user.getLogin() + "'").getResultList();
         Restaurant restaurant = restos.get(0);
         if (restaurant != null) {
             menu.setId(menuFacade.generateId("Menu", "id"));

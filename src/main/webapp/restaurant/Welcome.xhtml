@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Facelet Title</title>
         <!--Required meta tags always come first--> 
@@ -11,7 +12,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
         <meta http-equiv="x-ua-compatible" content="ie=edge"/>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></link>    
         <!-- Custom Stylesheet -->
@@ -33,6 +33,7 @@
         </style>
     </h:head>
     <h:body >
+
         <div class="space1">  
 
             <div id="my-slider" class="carousel slide" data-ride="carousel">
@@ -180,29 +181,12 @@
 
         <div class="container">
             <div class="row text-center">
-                <div class="col-sm-4">
-                    <img class="img1" src="../resources/images/html.png"/>
-                    <h2> HTML </h2>
-                </div>
-                <div class="col-sm-4">
-                    <img class="img1" src="../resources/images/css.png"/>
-                    <h2> CSS </h2>
-                </div>
-                <div class="col-sm-4">
-                    <img class="img1" src="../resources/images/javascript.png"/>
-                    <h2> JAVASCRIPT </h2>
-                </div>
+                <h:form id="maert">
+                    <p:commandLink id="openDialogLink" value="envoyer demande pour nous rejoindre"  action="#{demandeController.envoyerDemande()}"/>
+                    <!--<p:commandLink id="deconnect" value="se deconnecter" action="# {userController.deconnect()}"/>-->
+                </h:form>
             </div>
-            <div class="row text-center">
-                <div class="col-md-4">
-                    <img class="img2" src="../resources/images/php.png"/>
-                    <h2> PHP </h2>
-                </div>
-                <div class="col-md-4">
-                    <img class="img2" src="../resources/images/PS.jpg"/>
-                    <h2> PHOTOSHOP  </h2>
-                </div>
-            </div>
+
         </div>
 
         <div>
@@ -248,5 +232,7 @@
                 }
             });
         </script>
+
+        <ui:include src="/demande/FormulaireDemande.xhtml"/>
     </h:body>
 </html>

@@ -2,6 +2,7 @@ package controler;
 
 import bean.Demande;
 import bean.User;
+import controler.util.EmailUtil;
 import controler.util.JsfUtil;
 import controler.util.JsfUtil.PersistAction;
 import controler.util.SessionUtil;
@@ -21,6 +22,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.mail.MessagingException;
 import org.primefaces.context.RequestContext;
 
 @Named("demandeController")
@@ -29,6 +31,7 @@ public class DemandeController implements Serializable {
 
     @EJB
     private service.DemandeFacade ejbFacade;
+    private service.UserFacade userFacade;  
     private List<Demande> items = null;
     private Demande selected;
    
@@ -39,15 +42,20 @@ public class DemandeController implements Serializable {
             System.out.println("hani dkhelt");
            SessionUtil.redirect("/FoodOnline/faces/Connexion.xhtml");
         }
+        System.out.println("hahwa moul demande "+SessionUtil.getConnectedUser());
         RequestContext.getCurrentInstance().execute("PF('DemandeDialog').show()");
     }
 
-    public void acceptDemande(Demande item){
+    public void acceptDemande(Demande item) throws MessagingException{
         selected = item;
         System.out.println(item);
-       
         
         ejbFacade.acceptDemande(selected);
+        User respo = selected.getResponsable();
+        System.out.println(respo.getEmail());
+        String msg = "Bonjour " + respo.getLogin() + " Votre demande pour rejoindre foodOnline a été accepté </br>" ;
+         msg += "<br/> <a href=\"http://localhost:8080/FoodOnline/faces/menu/ConnexionRespo.xhtml\">clic sur ce lien pour remplir les infos de ton resto </a>";
+         EmailUtil.senMail("wijdane.boukaid@gmail.com", "wiji123.", msg, respo.getEmail(), "[foodOnLigne] demande acceptée");
         items.remove(item);
     }
 
@@ -83,6 +91,7 @@ public class DemandeController implements Serializable {
 
     public void create() {
         persist(PersistAction.CREATE, "votre demande a été envoyé, attendez un email de notre part ");
+            
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
@@ -112,9 +121,10 @@ public class DemandeController implements Serializable {
             setEmbeddableKeys();
             try {
                 if (persistAction != PersistAction.DELETE) {
-                    User responsable = SessionUtil.getConnectedUser();
-                    System.out.println("hahwa respo t resto"+responsable);
-                    selected.setResponsable(responsable);
+                     User responsable = SessionUtil.getConnectedUser();
+                     System.out.println("hahwa respo t resto"+responsable);
+                     selected.setResponsable(responsable);
+               
                     getFacade().edit(selected);
                   
                       JsfUtil.addSuccessMessage("votre demande a été envoyé . Attendez un email de notre part le plutot possible");
